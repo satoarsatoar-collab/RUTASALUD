@@ -92,9 +92,10 @@ textarea.relato:focus-visible{border-color:var(--azul)}
 .subir input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
 .subir:focus-within{outline:3px solid var(--azul);outline-offset:2px}
 .archivos{list-style:none;padding:0;margin:.8em 0 0}
-.archivos li{display:flex;align-items:center;gap:12px;background:var(--hoja);border:1.5px solid var(--linea);border-radius:var(--r);padding:8px 12px;margin:0 0 8px}
+.archivos li{display:flex;flex-wrap:wrap;align-items:center;gap:12px;background:var(--hoja);border:1.5px solid var(--linea);border-radius:var(--r);padding:8px 12px;margin:0 0 8px}
 .archivos img,.archivos .pdf{width:48px;height:48px;object-fit:cover;border-radius:4px;flex:none;background:#E7ECF3;display:grid;place-items:center;font-weight:700;font-size:.8rem;color:var(--tinta)}
 .archivos .nom{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.95rem}
+.tipo-doc{flex:1 1 100%;font:inherit;padding:8px 10px;border:1.5px solid var(--linea);border-radius:var(--r);background:#fff;color:var(--texto);min-height:44px}
 .archivos button{background:none;border:0;color:var(--rojo);font:inherit;text-decoration:underline;cursor:pointer;min-height:40px}
 .cargando{text-align:center;padding:40px 0}
 .rueda{display:inline-block;width:46px;height:46px;border:5px solid var(--linea);border-top-color:var(--azul);border-radius:50%;animation:gira 1s linear infinite;margin-bottom:16px}
@@ -507,7 +508,7 @@ function vIntro(){
     </ol>
     <div class="aviso">
       <p><strong>Con ayuda de IA.</strong> Tu relato y tus archivos se envían por internet a un servicio de inteligencia artificial para leerlos y ordenarlos. Este sitio no los guarda. Adjunta solo lo que necesites, porque las órdenes médicas contienen datos de salud, que son datos sensibles.${CONFIG.politicaUrl ? ` <a href="${esc(CONFIG.politicaUrl)}" target="_blank" rel="noopener">Política de datos</a>.` : ""}</p>
-      <p style="margin:0"><strong>Sin IA.</strong> Puedes usar solo las preguntas y el corrector básico. Todo se queda en tu navegador.</p>
+      <p style="margin:0"><strong>Sin IA.</strong> Puedes usar las preguntas, el corrector básico y adjuntar tus documentos como anexos. Todo se queda en tu navegador y los archivos no se leen ni se envían.</p>
     </div>
     <label class="consent"><input type="checkbox" id="consent" ${S.consentimiento ? "checked" : ""}>
       <span>Autorizo el envío de mi relato y de mis archivos al servicio de IA para que los procese, solo para este análisis.</span></label>
@@ -533,9 +534,10 @@ function vCuenta(){
     </div>
     ${hayVoz ? `<p class="ayuda" style="margin-top:.5em">El dictado lo procesa el servicio de voz de tu navegador.</p>` : ""}
 
-    ${S.usaIA ? `
     <h3 class="sub">Adjunta tus documentos (opcional)</h3>
-    <p class="ayuda">Orden médica, fórmula, respuesta o negativa de la EPS. Foto o PDF, hasta ${CONFIG.maxArchivos} archivos. Las fotos se reducen automáticamente.</p>
+    <p class="ayuda">Orden médica, fórmula, respuesta o negativa de la EPS. Foto o PDF, hasta ${CONFIG.maxArchivos} archivos.${S.usaIA
+      ? " Las fotos se reducen automáticamente y la IA las leerá."
+      : " En el modo sin IA los archivos no se leen ni se envían: se quedan en tu dispositivo y solo se listan como anexos en tus escritos."}</p>
     <div class="fila no-print">
       <span class="btn sec subir">📎 Elegir archivos<input type="file" id="f-arch" accept="image/*,application/pdf" multiple ${sinCupo ? "disabled" : ""} aria-label="Elegir archivos"></span>
       <span class="btn sec subir">📷 Tomar foto<input type="file" id="f-cam" accept="image/*" capture="environment" ${sinCupo ? "disabled" : ""} aria-label="Tomar foto"></span>
@@ -543,8 +545,9 @@ function vCuenta(){
     <ul class="archivos">${S.archivos.map((f, i) => `
       <li>${f.url ? `<img src="${f.url}" alt="">` : `<span class="pdf">PDF</span>`}
         <span class="nom">${esc(f.nombre)}</span>
-        <button type="button" data-act="quitar" data-i="${i}" aria-label="Quitar ${esc(f.nombre)}">Quitar</button></li>`).join("")}
-    </ul>` : ""}
+        <button type="button" data-act="quitar" data-i="${i}" aria-label="Quitar ${esc(f.nombre)}">Quitar</button>
+        ${!S.usaIA ? `<select class="tipo-doc" data-tipo-i="${i}" aria-label="Tipo de documento de ${esc(f.nombre)}">${Object.keys(TIPO_ARCHIVO).filter(k => k !== "ilegible").map(k => `<option value="${k}"${(f.tipoDoc || "otro") === k ? " selected" : ""}>${TIPO_ARCHIVO[k]}</option>`).join("")}</select>` : ""}</li>`).join("")}
+    </ul>
 
     <div class="acciones">
       <button type="button" class="btn" data-act="analizar">${S.usaIA ? "Analizar mi caso" : "Corregir mi texto"}</button>
@@ -717,7 +720,7 @@ function vBorrador(){
    ================================================================== */
 function anexosLista(){
   const info = (S.analisis && S.analisis.datos_archivos) || [];
-  const l = S.archivos.map((f, i) => { const x = info.find(d => d.indice === i); return `[${TIPO_ARCHIVO[x ? x.tipo : "otro"] || "Documento"}: ${f.nombre}]`; });
+  const l = S.archivos.map((f, i) => { const x = info.find(d => d.indice === i); return `[${TIPO_ARCHIVO[f.tipoDoc || (x ? x.tipo : "otro")] || "Documento"}: ${f.nombre}]`; });
   if (!S.archivos.length) l.push("[Copia de la orden médica o fórmula]");
   l.push("[Otros documentos que respalden lo dicho]");
   if (S.a.quien === "otro") l.push("[Autorización escrita de la persona afectada, o documento que acredite tu representación]");
@@ -1002,6 +1005,7 @@ document.addEventListener("input", e => {
 document.addEventListener("change", e => {
   const t = e.target;
   if (t.id === "consent") { S.consentimiento = t.checked; render(); const c = document.getElementById("consent"); if (c) c.focus(); }
+  else if (t.dataset && t.dataset.tipoI !== undefined) { const f = S.archivos[Number(t.dataset.tipoI)]; if (f) f.tipoDoc = t.value; }
   else if (t.id === "f-arch" || t.id === "f-cam") { if (t.files && t.files.length) agregarArchivos(t.files); }
 });
 
