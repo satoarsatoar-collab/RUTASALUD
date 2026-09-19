@@ -1,0 +1,1049 @@
+<!doctype html>
+<html lang="es-CO">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ruta Salud: qué hacer cuando tu EPS no responde</title>
+<meta name="description" content="Cuenta tu problema, adjunta tus documentos y recibe la ruta para reclamar: petición, queja o tutela.">
+<meta name="theme-color" content="#0E2747">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230E2747'/%3E%3Cpath d='M18 46V30m14 16V18m14 28V34' stroke='%23FFD23F' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>
+:root{
+  --tinta:#0E2747; --texto:#1B2B40; --suave:#4C5C72;
+  --papel:#F1F4F8; --hoja:#FFFFFF; --linea:#CBD5E1;
+  --azul:#0B3D91; --azul-osc:#082B66;
+  --amarillo:#FFD23F; --amarillo-fondo:#FFF6D6;
+  --rojo:#B3132B; --rojo-fondo:#FDECEE;
+  --verde:#1D7A52; --verde-fondo:#E6F4EC;
+  --r:6px; --escala:1;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{color-scheme:light;font-size:calc(100% * var(--escala))}
+body{margin:0;background:var(--papel);color:var(--texto);font:1.0625rem/1.55 var(--sans);-webkit-text-size-adjust:100%}
+h1,h2,h3{font-family:var(--serif);color:var(--tinta);line-height:1.2;font-weight:700;margin:0 0 .5em}
+h1{font-size:clamp(1.7rem,5.5vw,2.2rem)}
+h2{font-size:clamp(1.4rem,4.5vw,1.75rem)}
+h3{font-size:1.15rem;margin:0}
+p{margin:0 0 1em}
+a{color:var(--azul)}
+:focus-visible{outline:3px solid var(--azul);outline-offset:2px}
+[tabindex="-1"]:focus{outline:none}
+
+.cab{background:var(--tinta);color:#fff}
+.cab .in{max-width:680px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.marca{font-family:var(--serif);font-weight:700;font-size:1.15rem}
+.cab .herr{display:flex;gap:8px;align-items:center}
+.cab button{background:none;border:1.5px solid rgba(255,255,255,.55);color:#fff;border-radius:var(--r);padding:6px 12px;font:inherit;font-size:.9rem;cursor:pointer;min-height:40px}
+.cab button:hover{background:rgba(255,255,255,.12)}
+.cab button:focus-visible{outline-color:var(--amarillo)}
+
+.wrap{max-width:680px;margin:0 auto;padding:28px 20px 40px}
+.pie{max-width:680px;margin:0 auto;padding:0 20px 56px;color:var(--suave);font-size:.9rem}
+.pie p{margin:0 0 .6em}
+
+.aviso{background:var(--hoja);border-left:6px solid var(--azul);border-radius:var(--r);padding:14px 16px;margin:0 0 1.2em;font-size:.97rem}
+.aviso strong{color:var(--tinta)}
+.emerg{font-size:.95rem;color:var(--suave)}
+.emerg strong{color:var(--rojo)}
+.pasos-intro{list-style:none;padding:0;margin:0 0 1.4em;counter-reset:p}
+.pasos-intro li{counter-increment:p;position:relative;padding:0 0 10px 40px}
+.pasos-intro li::before{content:counter(p);position:absolute;left:0;top:0;width:28px;height:28px;border-radius:50%;background:var(--tinta);color:#fff;display:grid;place-items:center;font:700 .95rem var(--serif)}
+.consent{display:flex;gap:12px;align-items:flex-start;background:var(--hoja);border:1.5px solid var(--linea);border-radius:var(--r);padding:14px 16px;margin:0 0 1em;font-size:.97rem}
+.consent input{width:26px;height:26px;flex:none;margin-top:2px;accent-color:var(--azul)}
+
+.progreso{font-size:.9rem;color:var(--suave);margin:0 0 6px}
+.barra{height:6px;background:var(--linea);border-radius:99px;margin:0 0 24px;overflow:hidden}
+.barra span{display:block;height:100%;background:var(--azul);border-radius:99px}
+.ayuda{color:var(--suave);font-size:.97rem}
+
+.op{display:block;width:100%;text-align:left;background:var(--hoja);color:inherit;font:inherit;border:1.5px solid var(--linea);border-left:6px solid var(--linea);border-radius:var(--r);padding:14px 16px;margin:0 0 10px;cursor:pointer;min-height:56px}
+.op:hover{border-color:var(--azul)}
+.op.sel{border-color:var(--azul);background:#EEF3FB}
+.op strong{display:block;color:var(--tinta);font-weight:600}
+.op span{display:block;color:var(--suave);font-size:.93rem;margin-top:2px}
+.det{display:inline-block;font-size:.8rem;font-weight:600;background:var(--amarillo);color:var(--tinta);border-radius:99px;padding:1px 9px;margin:0 0 .8em}
+
+.btn{display:inline-block;background:var(--azul);color:#fff;border:2px solid var(--azul);border-radius:var(--r);padding:12px 20px;font:inherit;font-weight:600;cursor:pointer;text-decoration:none;text-align:center;min-height:48px}
+.btn:hover:not(:disabled){background:var(--azul-osc);border-color:var(--azul-osc)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn.sec{background:var(--hoja);color:var(--azul)}
+.btn.sec:hover:not(:disabled){background:#EEF3FB}
+.btn.rojo{background:var(--rojo);border-color:var(--rojo)}
+.btn.rojo:hover{background:#8F0F22;border-color:#8F0F22}
+.link{background:none;border:0;color:var(--azul);font:inherit;text-decoration:underline;cursor:pointer;padding:8px 0}
+.acciones{display:flex;flex-wrap:wrap;gap:10px;margin:1.4em 0 0}
+
+.urg{border:2px solid var(--rojo);background:var(--rojo-fondo);border-radius:var(--r);padding:20px;margin:0 0 1.2em}
+.urg h2{color:var(--rojo)}
+.duda{border:2px solid #B7860B;background:var(--amarillo-fondo);border-radius:var(--r);padding:16px 20px;margin:0 0 1.2em}
+.duda h2{margin-bottom:.3em}
+
+.titular{font-family:var(--serif);font-size:1.25rem;line-height:1.35;color:var(--tinta);margin:0 0 1em}
+.sub{margin:1.8em 0 .6em}
+.nota{background:var(--hoja);border-left:6px solid var(--amarillo);border-radius:var(--r);padding:12px 16px;margin:0 0 1em;font-size:.97rem}
+
+/* Relato y archivos */
+textarea.relato{width:100%;min-height:210px;font:inherit;line-height:1.5;padding:14px;border:2px solid var(--linea);border-radius:var(--r);background:#fff;color:var(--texto);resize:vertical}
+textarea.relato:focus-visible{border-color:var(--azul)}
+.fila{display:flex;flex-wrap:wrap;gap:10px;margin:.6em 0 0}
+.subir{position:relative}
+.subir input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.subir:focus-within{outline:3px solid var(--azul);outline-offset:2px}
+.archivos{list-style:none;padding:0;margin:.8em 0 0}
+.archivos li{display:flex;align-items:center;gap:12px;background:var(--hoja);border:1.5px solid var(--linea);border-radius:var(--r);padding:8px 12px;margin:0 0 8px}
+.archivos img,.archivos .pdf{width:48px;height:48px;object-fit:cover;border-radius:4px;flex:none;background:#E7ECF3;display:grid;place-items:center;font-weight:700;font-size:.8rem;color:var(--tinta)}
+.archivos .nom{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.95rem}
+.archivos button{background:none;border:0;color:var(--rojo);font:inherit;text-decoration:underline;cursor:pointer;min-height:40px}
+.cargando{text-align:center;padding:40px 0}
+.rueda{display:inline-block;width:46px;height:46px;border:5px solid var(--linea);border-top-color:var(--azul);border-radius:50%;animation:gira 1s linear infinite;margin-bottom:16px}
+@keyframes gira{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.rueda{animation:none;border-top-color:var(--linea);border-left-color:var(--azul)}}
+.orig{white-space:pre-wrap;background:#F7F9FC;border:1px solid var(--linea);border-radius:var(--r);padding:12px;font-size:.95rem;margin:.6em 0 0}
+.lista-ia{list-style:none;padding:0;margin:0 0 1em}
+.lista-ia li{border-top:1px solid var(--linea);padding:10px 0}
+.lista-ia li:last-child{border-bottom:1px solid var(--linea)}
+.lista-ia b{color:var(--tinta)}
+
+/* La ruta */
+.ruta{list-style:none;margin:0;padding:0}
+.ruta>li{position:relative;padding:0 0 20px 56px}
+.ruta>li::before{content:"";position:absolute;left:19px;top:42px;bottom:2px;width:3px;background:var(--linea)}
+.ruta>li:last-child::before{display:none}
+.nodo{position:absolute;left:0;top:0;width:42px;height:42px;border-radius:50%;background:var(--hoja);border:3px solid var(--linea);display:grid;place-items:center;font:700 1.15rem var(--serif);color:var(--suave)}
+li.ahora .nodo{background:var(--amarillo);border-color:var(--tinta);color:var(--tinta);box-shadow:0 0 0 6px rgba(255,210,63,.4);animation:latido 1.4s ease-out 2}
+li.hecho .nodo{background:var(--verde);border-color:var(--verde);color:#fff}
+li.aplica .nodo{border-color:var(--azul);color:var(--azul)}
+@keyframes latido{0%{box-shadow:0 0 0 0 rgba(255,210,63,.9)}100%{box-shadow:0 0 0 14px rgba(255,210,63,0)}}
+@media (prefers-reduced-motion:reduce){li.ahora .nodo{animation:none}}
+details.paso{background:var(--hoja);border:1.5px solid var(--linea);border-radius:var(--r)}
+li.ahora details.paso{border-color:var(--tinta);border-width:2px}
+details.paso summary{list-style:none;cursor:pointer;padding:12px 16px;display:block}
+details.paso summary::-webkit-details-marker{display:none}
+details.paso summary::after{content:"Ver pasos";float:right;font-size:.85rem;color:var(--azul);text-decoration:underline;margin-top:2px}
+details.paso[open] summary::after{content:"Ocultar"}
+.etiqueta{display:inline-block;font-size:.8rem;font-weight:600;padding:2px 9px;border-radius:99px;background:#E7ECF3;color:var(--tinta);margin-top:6px}
+li.ahora .etiqueta{background:var(--amarillo)}
+li.hecho .etiqueta{background:var(--verde-fondo);color:var(--verde)}
+.cuerpo{padding:0 16px 14px;border-top:1px solid var(--linea)}
+.cuerpo p,.cuerpo ol,.cuerpo ul{margin:.8em 0 0}
+.cuerpo ol,.cuerpo ul,.lista{padding-left:1.3em}
+.cuerpo li,.lista li{margin:0 0 .35em}
+.lista{margin:0 0 1em}
+.verif{display:inline-block;font-size:.75rem;font-weight:600;background:#FFF1BF;border:1px solid #D9B72E;color:#5C4700;border-radius:4px;padding:0 6px;margin-left:6px;vertical-align:middle}
+.normas{list-style:none;padding:0;margin:0}
+.normas li{border-top:1px solid var(--linea);padding:10px 0;font-size:.95rem}
+.normas li:last-child{border-bottom:1px solid var(--linea)}
+.normas b{color:var(--tinta)}
+
+/* Borrador */
+.campos{display:grid;gap:14px;margin:0 0 1.2em}
+.campo label{display:block;font-weight:600;color:var(--tinta);margin:0 0 4px;font-size:.97rem}
+.campo small{display:block;color:var(--suave);margin:0 0 4px;font-size:.87rem}
+.campo input{width:100%;font:inherit;padding:10px 12px;border:1.5px solid var(--linea);border-radius:var(--r);background:#fff;color:var(--texto);min-height:46px}
+.campo input:focus-visible{border-color:var(--azul)}
+.tabs{display:flex;gap:8px;margin:0 0 1em;flex-wrap:wrap}
+.tabs button{flex:1 1 150px;font:inherit;padding:10px 12px;border:1.5px solid var(--linea);background:var(--hoja);border-radius:var(--r);cursor:pointer;color:var(--tinta);min-height:48px}
+.tabs button[aria-pressed="true"]{background:var(--tinta);color:#fff;border-color:var(--tinta)}
+textarea.borr{width:100%;min-height:460px;font:.94rem/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;padding:14px;border:1.5px solid var(--linea);border-radius:var(--r);background:#fff;color:var(--texto);resize:vertical}
+.ok{color:var(--verde);font-weight:600;min-height:1.5em;margin:.6em 0 0}
+#print-area{display:none}
+noscript p{padding:20px;font-size:1.1rem}
+@media (min-width:700px){
+  .campos.dos{grid-template-columns:1fr 1fr}
+  .campos .ancho{grid-column:1/-1}
+}
+@media print{
+  body{background:#fff;font-size:12pt}
+  .cab,.pie,.no-print{display:none!important}
+  .wrap{padding:0}
+  details.paso{border:1px solid #999}
+  body.imprimir-borrador>*:not(#print-area){display:none!important}
+  body.imprimir-borrador #print-area{display:block;white-space:pre-wrap;font:12pt/1.5 Georgia,serif}
+}
+</style>
+</head>
+<body>
+
+<header class="cab"><div class="in">
+  <span class="marca" id="nombre-herramienta">Ruta Salud</span>
+  <div class="herr no-print">
+    <button type="button" data-act="letraMenos" aria-label="Letra más pequeña">A−</button>
+    <button type="button" data-act="letraMas" aria-label="Letra más grande">A+</button>
+    <button type="button" data-act="reiniciar">Empezar de nuevo</button>
+  </div>
+</div></header>
+
+<main class="wrap" id="app" aria-live="polite">
+  <noscript><p>Esta herramienta necesita JavaScript. Actívalo en tu navegador y recarga la página.</p></noscript>
+</main>
+
+<footer class="pie">
+  <p><strong>Emergencia:</strong> llama al 123 o ve al servicio de urgencias más cercano.</p>
+  <p>Herramienta informativa. No es asesoría jurídica ni médica y no reemplaza a un abogado o a un profesional de la salud. Los borradores deben revisarse antes de usarse.</p>
+  <p id="pie-version"></p>
+  <p id="pie-extra"></p>
+</footer>
+<pre id="print-area" aria-hidden="true"></pre>
+
+<script>
+/* ==================================================================
+   CONFIGURACIÓN
+   ================================================================== */
+const CONFIG = {
+  nombre: "Ruta Salud",
+  version: "Prototipo académico v0.2",
+  revisionNormas: "",               // ej. "septiembre de 2026"; vacío = "en revisión"
+  apiUrl: "/api/analizar",          // función de servidor (ver README)
+  aliado: { nombre: "", detalle: "" }, // ej. consultorio jurídico de tu universidad
+  politicaUrl: "",                  // enlace a tu política de tratamiento de datos
+  encuestaUrl: "",                  // formulario para la prueba con usuarios
+  maxArchivos: 4,
+  maxPdfBytes: 2500000,             // 2,5 MB por PDF
+  maxTotalBase64: 4000000           // tope conjunto para no superar el límite del hosting
+};
+
+/* ==================================================================
+   NORMAS (fuente única de citas). verificar:true = mostrar aviso.
+   ================================================================== */
+const NORMAS = {
+  cp13:   { nombre:"Constitución Política, art. 13", que:"Igualdad y protección especial de las personas en situación de debilidad manifiesta." },
+  cp23:   { nombre:"Constitución Política, art. 23", que:"Derecho de petición: toda persona puede presentar peticiones respetuosas y obtener respuesta." },
+  cp43:   { nombre:"Constitución Política, art. 43", que:"Protección y asistencia especial del Estado a la mujer durante el embarazo y después del parto." },
+  cp44:   { nombre:"Constitución Política, art. 44", que:"Derechos fundamentales de los niños, entre ellos la salud y la seguridad social." },
+  cp46:   { nombre:"Constitución Política, art. 46", que:"Protección y asistencia a las personas de la tercera edad." },
+  cp47:   { nombre:"Constitución Política, art. 47", que:"Atención especializada a las personas con discapacidad." },
+  cp49:   { nombre:"Constitución Política, art. 49", que:"La atención de la salud es un servicio público a cargo del Estado." },
+  cp86:   { nombre:"Constitución Política, art. 86", que:"Acción de tutela para proteger derechos fundamentales cuando no hay otro medio eficaz o hay riesgo de perjuicio irremediable." },
+  ley1751:{ nombre:"Ley Estatutaria 1751 de 2015", que:"Reconoce la salud como derecho fundamental autónomo (art. 2) y fija sus elementos y principios (art. 6): accesibilidad, oportunidad, continuidad, entre otros." },
+  ley1755:{ nombre:"Ley 1755 de 2015", que:"Regula el derecho de petición. Regla general: respuesta en 15 días hábiles (art. 14)." },
+  dec2591:{ nombre:"Decreto 2591 de 1991", que:"Reglamenta la tutela: se puede presentar sin abogado (art. 10), permite pedir medida provisional (art. 7) y el juez debe decidir en un plazo máximo de 10 días." },
+  ley100: { nombre:"Ley 100 de 1993, art. 168", que:"La atención inicial de urgencias es obligatoria para todas las entidades de salud, sin importar la capacidad de pago." },
+  ley1122:{ nombre:"Ley 1122 de 2007, art. 41 (modificado por la Ley 1949 de 2019)", que:"En ciertos casos la Superintendencia Nacional de Salud puede resolver como juez conflictos entre usuarios y EPS.", verificar:true },
+  res1552:{ nombre:"Resolución 1552 de 2013 del Ministerio de Salud (y normas que la modifican)", que:"Fija plazos máximos para asignar ciertas citas. Los plazos han cambiado: consulta el vigente.", verificar:true },
+  res1604:{ nombre:"Resolución 1604 de 2013 del Ministerio de Salud", que:"Regula la entrega de medicamentos pendientes en un plazo corto (48 horas).", verificar:true },
+  juris:  { nombre:"Jurisprudencia de la Corte Constitucional sobre sujetos de especial protección", que:"La Corte ha sido más flexible para admitir la tutela sin exigir agotar otros pasos cuando la persona afectada es un sujeto de especial protección.", verificar:true }
+};
+const ESPECIAL_NORMA = { menor_edad:"cp44", adulto_mayor:"cp46", discapacidad:"cp47", embarazo:"cp43", enfermedad_grave:"cp13" };
+const ESPECIAL_LABEL = {
+  menor_edad:"Menor de 18 años", adulto_mayor:"60 años o más", discapacidad:"Persona con discapacidad",
+  embarazo:"Mujer embarazada", enfermedad_grave:"Enfermedad grave (cáncer, insuficiencia renal, VIH, enfermedad huérfana u otra)",
+  ninguna:"Ninguna de las anteriores"
+};
+const TIPO_ARCHIVO = {
+  orden_medica:"Orden médica", formula:"Fórmula de medicamentos", negativa:"Respuesta o negativa de la EPS",
+  autorizacion:"Autorización", historia_clinica:"Historia clínica o resumen", radicado:"Constancia de radicado",
+  otro:"Otro documento", ilegible:"Archivo que no pude leer"
+};
+
+/* ==================================================================
+   BARRERAS
+   ================================================================== */
+const BARRERAS = {
+  cita: {
+    label:"No me asignan una cita, o me la dieron para dentro de mucho tiempo",
+    campoServicio:"¿Qué cita o especialidad necesitas?", ejemplo:"Ej.: cardiología, medicina general",
+    placeholder:"[CITA O ESPECIALIDAD]",
+    asunto: s => `la asignación de ${s}`,
+    accion: s => `asigne y garantice ${s}`,
+    situacion:"Tu EPS no te ha asignado una cita, o la programó para una fecha muy lejana. Esto afecta la oportunidad de la atención: debe darse en un plazo razonable según tu necesidad clínica, no según los trámites de la entidad (Ley 1751 de 2015, art. 6). Además, esperar demasiado puede agravar los síntomas o retrasar un diagnóstico.",
+    docs:["Orden médica o remisión que pide la cita","Constancias de tus intentos de pedirla (capturas, llamadas, fechas)","Cualquier respuesta de la EPS, escrita o por chat","Copia de las peticiones o quejas que ya presentaste"],
+    normas:[["ley1751","art. 6"],["res1552",""]],
+    notaP1:`<p>Además de la regla general, el Ministerio de Salud fijó plazos máximos para asignar citas (Resolución 1552 de 2013 y normas posteriores). <span class="verif">Confirmar en fuente oficial</span> Verifica el plazo vigente para tu tipo de cita.</p>`,
+    hechos:(e,s,d)=>[`Estoy afiliado(a) a ${e}.`,`Mi médico tratante ordenó ${s}.`,`Desde ${d} he intentado obtener la cita, pero no me ha sido asignada [o: me fue asignada para una fecha muy lejana: ____].`,`Esta demora afecta la oportunidad de mi atención en salud y puede agravar mi condición.`],
+    peticiones:(e,s)=>[`Que se asigne ${s} en el menor tiempo posible y se informe fecha, hora y lugar.`,`Que se informe por escrito el motivo de la demora.`,`Que, si ${e} no tiene agenda disponible, se remita a otra institución de su red que pueda atender.`]
+  },
+  medicamento: {
+    label:"No me entregan un medicamento, o me lo entregan incompleto",
+    campoServicio:"¿Qué medicamento?", ejemplo:"Nombre como aparece en la fórmula",
+    placeholder:"[NOMBRE DEL MEDICAMENTO]",
+    asunto: s => `la entrega de ${s}`,
+    accion: s => `entregue de forma completa e ininterrumpida ${s}`,
+    situacion:"Tu EPS o la farmacia no te ha entregado el medicamento formulado, o solo te dieron una parte. Esto compromete la accesibilidad y la continuidad de tu tratamiento (Ley 1751 de 2015, art. 6). Interrumpir un tratamiento puede tener consecuencias en tu salud.",
+    docs:["Fórmula médica vigente","Constancia de \"pendiente\" o de no entrega (pídela por escrito en la farmacia)","Copia de las peticiones o quejas que ya presentaste","Resumen o epicrisis si tu médico te la puede dar"],
+    normas:[["ley1751","art. 6"],["res1604",""]],
+    notaP1:`<p>Los medicamentos pendientes tienen una regla especial: deben entregarse en un plazo corto (48 horas según la Resolución 1604 de 2013). <span class="verif">Confirmar en fuente oficial</span> Pide siempre la constancia de pendiente.</p>`,
+    hechos:(e,s,d)=>[`Estoy afiliado(a) a ${e}.`,`Mi médico tratante me formuló ${s}.`,`Desde ${d} no me ha sido entregado [o: me fue entregado de forma incompleta: ____].`,`La falta del medicamento interrumpe mi tratamiento y afecta mi salud.`],
+    peticiones:(e,s)=>[`Que se entregue ${s} de forma inmediata y completa.`,`Que, si hay faltante, se entregue constancia escrita del pendiente y la fecha exacta de entrega.`,`Que se informe por escrito el motivo de la demora.`]
+  },
+  autorizacion: {
+    label:"Me negaron o no me han autorizado un examen, procedimiento o cirugía",
+    campoServicio:"¿Qué examen, procedimiento o cirugía?", ejemplo:"Como aparece en la orden médica",
+    placeholder:"[EXAMEN, PROCEDIMIENTO O CIRUGÍA]",
+    asunto: s => `la autorización de ${s}`,
+    accion: s => `autorice y garantice la realización de ${s}`,
+    situacion:"Tu EPS no ha autorizado, o negó, un servicio que ordenó tu médico. Esto compromete la accesibilidad. Si la negativa se basa en que el servicio \"no está cubierto\", ten en cuenta que la Ley 1751 de 2015 (art. 15) parte de que, en principio, lo que no está expresamente excluido está cubierto.",
+    docs:["Orden médica completa y legible","Respuesta escrita de la negativa (si fue verbal, pide que te la den por escrito)","Resumen o historia clínica que respalde la necesidad, si tu médico te la puede dar","Copia de las peticiones o quejas que ya presentaste"],
+    normas:[["ley1751","arts. 6 y 15"]],
+    notaP1:`<p>Si te negaron el servicio, pide que la EPS te explique por escrito la razón. Esa respuesta será útil en los pasos siguientes.</p>`,
+    hechos:(e,s,d)=>[`Estoy afiliado(a) a ${e}.`,`Mi médico tratante ordenó ${s}.`,`Desde ${d} solicité la autorización y esta no ha sido concedida [o: fue negada con la siguiente razón: ____].`,`La falta de autorización me impide acceder al servicio que necesito.`],
+    peticiones:(e,s)=>[`Que se autorice ${s} y se informe dónde y cuándo se realizará.`,`Que, si la EPS considera que no procede, responda por escrito, de forma motivada y con el fundamento normativo.`,`Que se informe por escrito el motivo de la demora.`]
+  },
+  programacion: {
+    label:"Ya está autorizado, pero no me dan fecha",
+    campoServicio:"¿Qué servicio está autorizado?", ejemplo:"Examen, procedimiento, cirugía",
+    placeholder:"[SERVICIO AUTORIZADO]",
+    asunto: s => `la programación de ${s}`,
+    accion: s => `programe y realice ${s}`,
+    situacion:"El servicio ya fue autorizado, pero no tiene fecha. La autorización sin fecha no te da la atención: sigue habiendo una barrera de oportunidad (Ley 1751 de 2015, art. 6). Puede deberse a falta de agenda de la IPS o a trámites entre la EPS y la IPS.",
+    docs:["Autorización con su número","Constancias de tus intentos de agendar","Respuestas de la EPS o de la IPS","Copia de las peticiones o quejas que ya presentaste"],
+    normas:[["ley1751","art. 6"]],
+    notaP1:`<p>Anota con qué IPS tienes la autorización y a quién llamaste. Si la IPS dice que no tiene agenda, pide que lo diga por escrito.</p>`,
+    hechos:(e,s,d)=>[`Estoy afiliado(a) a ${e}.`,`La entidad autorizó ${s} con el número de autorización [NÚMERO].`,`Desde ${d} no me han dado fecha para realizarlo.`,`Esta demora retrasa mi atención y puede agravar mi condición.`],
+    peticiones:(e,s)=>[`Que se programe ${s} y se comunique fecha, hora y lugar.`,`Que, si la institución asignada no tiene agenda, se remita a otra de su red.`,`Que se informe por escrito el motivo de la demora.`]
+  },
+  calidad: {
+    label:"Me atendieron mal, o no me dan información clara",
+    campoServicio:"¿Sobre qué tema es tu reclamo?", ejemplo:"Ej.: trato en urgencias, información sobre mi tratamiento",
+    placeholder:"[TEMA DE LA QUEJA]",
+    asunto: s => `queja sobre ${s}`,
+    accion: s => `cese la conducta descrita y garantice trato digno e información clara sobre ${s}`,
+    situacion:"Recibiste un trato inadecuado o no te han dado información clara sobre tu atención. La calidad de la atención y el derecho a recibir información clara y suficiente hacen parte del derecho a la salud (Ley 1751 de 2015, arts. 6 y 10). Lo más común es reclamar por escrito y, si no hay respuesta, acudir a la Superintendencia.",
+    docs:["Descripción con fechas, lugar y, si puedes, nombre o cargo de las personas","Constancias, mensajes o documentos relacionados","Copia de las peticiones o quejas que ya presentaste"],
+    normas:[["ley1751","arts. 6 y 10"]],
+    notaP1:`<p>Escribe los hechos con fechas y lugares concretos. Una queja específica es más fácil de investigar que una general.</p>`,
+    hechos:(e,s,d)=>[`Estoy afiliado(a) a ${e}.`,`Desde ${d} he tenido el siguiente problema relacionado con ${s}: [DESCRIBE LO OCURRIDO: fecha, lugar, persona o cargo].`,`Esta situación afecta la calidad de mi atención y mi derecho a recibir información clara.`],
+    peticiones:(e,s)=>[`Que se investigue lo ocurrido y se adopten las medidas correspondientes.`,`Que se entregue información clara, suficiente y por escrito sobre ${s}.`,`Que se responda por escrito lo actuado.`]
+  },
+  otro: {
+    label:"Es otro problema con mi EPS o IPS",
+    campoServicio:"¿Sobre qué servicio o tema?", ejemplo:"Descríbelo en pocas palabras",
+    placeholder:"[SERVICIO O TEMA]",
+    asunto: s => `solicitud sobre ${s}`,
+    accion: s => `garantice de manera efectiva ${s}`,
+    situacion:"Tu caso no encaja exactamente en las categorías más comunes. La ruta general sigue siendo la misma: reclamar por escrito, acudir a la Superintendencia y, si es necesario, a la tutela. Un consultorio jurídico puede ayudarte a precisar el mejor camino.",
+    docs:["Cualquier documento que muestre el problema (órdenes, respuestas, capturas)","Constancias con fechas","Copia de las peticiones o quejas que ya presentaste"],
+    normas:[["ley1751","art. 6"]],
+    notaP1:`<p>Explica con tus palabras qué necesitas y qué pides que hagan. Sé concreto con fechas y nombres.</p>`,
+    hechos:(e,s,d)=>[`Estoy afiliado(a) a ${e}.`,`Desde ${d} tengo el siguiente problema relacionado con ${s}: [DESCRIBE LO OCURRIDO].`,`Esta situación afecta mi derecho a la salud.`],
+    peticiones:(e,s)=>[`Que se resuelva mi solicitud sobre ${s}.`,`Que se informe por escrito el motivo de cualquier demora o negativa.`]
+  }
+};
+
+/* ==================================================================
+   PREGUNTAS (más preguntas para afinar el mecanismo)
+   ================================================================== */
+const PREGUNTAS = [
+  { id:"urgencia", titulo:"¿Ahora mismo hay riesgo para la vida o la salud?",
+    ayuda:"Esta herramienta no puede evaluar el estado de salud. Responde con sinceridad para saber qué hacer primero.",
+    opciones:[
+      { v:"si", t:"Sí", d:"Dolor fuerte, dificultad para respirar, sangrado, desmayo, o puede empeorar pronto." },
+      { v:"duda", t:"No estoy seguro(a)" },
+      { v:"no", t:"No", d:"Es una barrera para acceder a la atención, pero no una emergencia en este momento." }
+    ]},
+  { id:"barrera", titulo:"¿Qué está pasando?",
+    opciones:Object.keys(BARRERAS).map(k => ({ v:k, t:BARRERAS[k].label })) },
+  { id:"tiempo", titulo:"¿Desde cuándo ocurre?",
+    opciones:[{ v:"sem", t:"Hace menos de una semana" },{ v:"mes", t:"Entre una semana y un mes" },{ v:"mas", t:"Hace más de un mes" }] },
+  { id:"previa", titulo:"¿Ya reclamaste por escrito ante la EPS o IPS?",
+    ayuda:"Por ejemplo, con una petición, queja o reclamo que tenga número de radicado.",
+    opciones:[
+      { v:"no", t:"No, todavía no" },
+      { v:"sinrespuesta", t:"Sí, y no me han respondido o ya pasó el plazo" },
+      { v:"negativa", t:"Sí, y me respondieron que no" }
+    ]},
+  { id:"orden", titulo:"¿Tienes la orden médica o la fórmula por escrito?",
+    ayuda:"Puede ser en papel, en foto o en el portal de la EPS.",
+    opciones:[
+      { v:"si", t:"Sí, la tengo" },
+      { v:"verbal", t:"Solo me lo dijeron de palabra" },
+      { v:"no", t:"No la tengo" }
+    ]},
+  { id:"afectacion", titulo:"¿Cómo está afectando esta situación a la persona?",
+    opciones:[
+      { v:"dolor", t:"Hay dolor fuerte o la salud está empeorando" },
+      { v:"funcion", t:"Se está perdiendo una función (caminar, ver, oír, respirar…) o hay riesgo de secuelas" },
+      { v:"leve", t:"Molesta, pero se puede esperar un tiempo" },
+      { v:"nose", t:"No estoy seguro(a)" }
+    ]},
+  { id:"especial", titulo:"¿La persona afectada es alguna de estas?", multi:true,
+    ayuda:"Puedes marcar varias. Esto puede cambiar la ruta, porque la ley protege más a ciertas personas.",
+    opciones:Object.keys(ESPECIAL_LABEL).map(k => ({ v:k, t:ESPECIAL_LABEL[k] })) },
+  { id:"quien", titulo:"¿Quién va a presentar el reclamo?",
+    opciones:[
+      { v:"yo", t:"Yo mismo(a), por mi propia atención" },
+      { v:"otro", t:"Otra persona (hijo(a), familiar, adulto mayor a mi cargo…)", d:"Puedes actuar en nombre de quien no pueda hacerlo por sí mismo." }
+    ]}
+];
+
+/* ==================================================================
+   REGLAS DE LA RUTA (deciden las reglas, no la IA)
+   ================================================================== */
+const ETIQUETAS = { ahora:"Tu paso ahora", paralelo:"Puedes hacerlo en paralelo", hecho:"Ya lo hiciste", despues:"Si no se resuelve", valorar:"Vale la pena valorarlo ya", noaplica:"Normalmente no aplica" };
+const TITULOS_PASO = { p1:"Reclamo escrito ante la EPS o la IPS", p2:"Queja ante la Superintendencia Nacional de Salud", p3:"Acción de tutela" };
+const DOC_DE_PASO = { p1:"eps", p2:"super", p3:"tutela" };
+
+function especialesDe(a){ return (a.especial || []).filter(x => x !== "ninguna"); }
+
+function calcularRuta(a){
+  const urg = a.urgencia === "si";
+  const grave = ["dolor","funcion"].includes(a.afectacion);
+  const esp = especialesDe(a);
+  const r = { p1:"despues", p2:"despues", p3:"despues", titular:"", notas:[], principal:"p1" };
+
+  if (urg) {
+    r.p1 = "paralelo"; r.p2 = "paralelo"; r.p3 = "ahora"; r.principal = "p3";
+    r.titular = "Tu paso ahora: atención de urgencias. Por el riesgo, la tutela puede ser el camino más rápido.";
+    r.notas.push("Cuando hay riesgo inminente para la vida o la salud, la tutela puede usarse sin esperar a agotar los pasos anteriores, y se puede pedir una medida provisional para que el juez ordene la atención mientras decide. Puedes presentar el reclamo y la queja en paralelo para dejar constancia.");
+  } else {
+    if (a.previa === "no") {
+      r.p1 = "ahora"; r.principal = "p1";
+      r.titular = "Tu paso ahora: reclamar por escrito ante la EPS.";
+      if (a.tiempo === "sem") r.notas.push("Como el problema es reciente, puede que la EPS aún esté dentro de sus plazos. Aun así, conviene radicar el reclamo ya: deja constancia de la fecha y empieza a contar el plazo de respuesta.");
+    } else if (a.previa === "sinrespuesta") {
+      r.p1 = "hecho"; r.p2 = "ahora"; r.principal = "p2"; r.p3 = a.tiempo === "mas" ? "valorar" : "despues";
+      r.titular = "Tu paso ahora: presentar una queja ante la Superintendencia Nacional de Salud.";
+      r.notas.push("Si la EPS no respondió dentro del plazo, esa falta de respuesta también es un hecho que puedes reportar.");
+    } else {
+      r.p1 = "hecho"; r.p2 = "ahora"; r.principal = "p2"; r.p3 = "valorar";
+      r.titular = "Tu paso ahora: presentar una queja ante la Superintendencia Nacional de Salud.";
+      r.notas.push("Si la EPS te negó por escrito, guarda esa respuesta: te sirve para la queja y, si es necesario, para la tutela.");
+    }
+
+    if (a.barrera === "calidad" && !grave) {
+      r.p3 = "noaplica";
+      r.notas.push("En reclamos por trato o información la tutela normalmente no es necesaria, salvo que la situación esté afectando la atención o la salud.");
+    } else if (grave || (esp.length && a.barrera !== "calidad")) {
+      if (grave && a.previa !== "no") {
+        r.p3 = "ahora"; r.p2 = "paralelo"; r.principal = "p3";
+        r.titular = "Tu paso ahora: acción de tutela, y en paralelo la queja ante la Superintendencia.";
+        r.notas.push("Ya reclamaste ante la EPS y la situación está afectando la salud. En estos casos esperar más puede causar un daño difícil de reparar, y por eso la tutela suele ser el camino más efectivo.");
+      } else if (r.p3 !== "ahora") {
+        r.p3 = "valorar";
+        r.notas.push("Por la afectación descrita, la tutela podría ser procedente sin agotar todos los pasos anteriores. Consúltalo con un consultorio jurídico.");
+      }
+      if (esp.length) r.notas.push("La persona afectada es un sujeto de especial protección. La jurisprudencia constitucional ha sido más flexible con la tutela en estos casos. <span class=\"verif\">Confirmar en fuente oficial</span>");
+    }
+  }
+  if (a.orden && a.orden !== "si" && a.barrera !== "calidad")
+    r.notas.push("<strong>Antes de todo:</strong> pídele a tu médico tratante que escriba la orden o la fórmula y te la entregue. Sin ella por escrito, casi ningún trámite avanza. Si te la niegan, eso también se puede reclamar.");
+  if (a.quien === "otro")
+    r.notas.push("Si la persona afectada es menor de edad, sus padres o representantes pueden actuar. Si es adulta y puede decidir, necesitarás su autorización escrita. Si no puede actuar por sí misma, se puede actuar por ella explicando por qué.");
+  r.notas.push("Esta es una orientación general. Un consultorio jurídico o la Defensoría del Pueblo pueden confirmarla para tu caso.");
+  return r;
+}
+
+/* ==================================================================
+   CONTENIDO DE CADA PASO
+   ================================================================== */
+function contenidoPaso(id, b){
+  if (id === "p1") return `
+    <p><strong>Ante quién:</strong> la EPS, y la IPS si el problema es de ella. Usa su oficina de atención al usuario, su línea telefónica, su página web o su correo de PQRS. Elige el canal que entregue un número de radicado.</p>
+    <ol><li>Escribe el reclamo. Puedes usar el borrador de esta herramienta.</li><li>Radícalo y pide el número de radicado.</li><li>Guarda copia y anota la fecha.</li><li>Espera la respuesta dentro del plazo.</li></ol>
+    <p><strong>Plazo:</strong> por regla general, 15 días hábiles (Ley 1755 de 2015, art. 14). Si la entidad no puede responder a tiempo, debe avisar antes de que venza y decir cuándo responderá.</p>
+    ${b.notaP1}`;
+  if (id === "p2") return `
+    <p><strong>Ante quién:</strong> Superintendencia Nacional de Salud, la entidad que vigila a las EPS. Puedes presentar la queja por su portal web (supersalud.gov.co), por su línea de atención o de forma presencial; consulta sus canales vigentes en su página.</p>
+    <ol><li>Reúne la copia del reclamo radicado y la respuesta, si la hubo.</li><li>Describe los hechos: qué EPS, qué servicio, desde cuándo y qué has hecho.</li><li>Adjunta tus documentos.</li><li>Guarda el número de radicado de la queja.</li></ol>
+    <p>En algunos casos la Superintendencia puede decidir como juez sobre conflictos con la EPS (función jurisdiccional). <span class="verif">Confirmar en fuente oficial</span> Pregunta si tu caso puede tramitarse por esa vía.</p>`;
+  return `
+    <p><strong>Ante quién:</strong> un juez de la República del lugar donde ocurrió la vulneración o donde se sienten sus efectos. No necesitas abogado.</p>
+    <ol><li>Redacta el escrito con el borrador de esta herramienta y pide que lo revise un consultorio jurídico, la Defensoría del Pueblo o tu personería municipal.</li><li>Preséntalo en la oficina de reparto o por el canal digital que habilite la Rama Judicial en tu ciudad.</li><li>Anexa la orden médica, las respuestas de la EPS y tus reclamos radicados.</li><li>Si el riesgo es inminente, pide una medida provisional (Decreto 2591 de 1991, art. 7).</li><li>El juez debe decidir en un plazo máximo de 10 días.</li></ol>
+    <p>${CONFIG.aliado.nombre ? `<strong>${esc(CONFIG.aliado.nombre)}</strong>${CONFIG.aliado.detalle ? ": " + esc(CONFIG.aliado.detalle) : ""}.` : "La orientación en estos lugares es gratuita."}</p>`;
+}
+
+/* ==================================================================
+   CORRECTOR LOCAL (modo sin IA): arreglos básicos y seguros
+   ================================================================== */
+function corregirLocal(t){
+  let x = (t || "").replace(/\r/g, "").replace(/[ \t]+/g, " ").replace(/ *\n */g, "\n").trim();
+  const mapa = { q:"que", ke:"que", xq:"porque", pq:"porque", porq:"porque", tb:"también", tmb:"también", xfa:"por favor",
+    dias:"días", medico:"médico", atencion:"atención", autorizacion:"autorización", tambien:"también", telefono:"teléfono",
+    examenes:"exámenes", cirugia:"cirugía", hospitalizacion:"hospitalización", eps:"EPS", ips:"IPS", supersalud:"Supersalud" };
+  x = x.replace(/[A-Za-zÁÉÍÓÚáéíóúñÑ]+/g, w => Object.prototype.hasOwnProperty.call(mapa, w.toLowerCase()) ? mapa[w.toLowerCase()] : w);
+  x = x.replace(/\s+([,.;:!?])/g, "$1").replace(/([,.;:!?])(?=[A-Za-zÁÉÍÓÚáéíóúñÑ])/g, "$1 ").replace(/([.!?]){2,}/g, "$1").replace(/,{2,}/g, ",");
+  x = x.replace(/(^|[.!?]\s+|\n)([a-záéíóúñ])/g, (m, p, c) => p + c.toUpperCase());
+  if (x && !/[.!?]$/.test(x)) x += ".";
+  return x;
+}
+
+/* ==================================================================
+   ESTADO
+   ================================================================== */
+const app = document.getElementById("app");
+let TOK = 0, CTRL = null, REC = null, IA_DISP = null;
+let S = nuevoEstado();
+
+function nuevoEstado(){
+  return { pantalla:"intro", i:0, a:{}, detectado:{}, relatoOrig:"", relato:"", archivos:[], analisis:null,
+           ia:{ disponible:IA_DISP }, usaIA:false, consentimiento:false, error:"", tipo:null,
+           d:{ entidad:"", servicio:"", desde:"", fechaPeticion:"" } };
+}
+
+function esc(s){ return String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+function fecha(iso){ const p = iso.split("-").map(Number); return new Date(p[0], p[1]-1, p[2]).toLocaleDateString("es-CO", { day:"numeric", month:"long", year:"numeric" }); }
+
+function ir(p){
+  S.pantalla = p; render(); window.scrollTo(0, 0);
+  const h = app.querySelector("h1,h2");
+  if (h) { h.setAttribute("tabindex", "-1"); h.focus({ preventScroll:true }); }
+}
+
+function render(){
+  const v = { intro:vIntro, cuenta:vCuenta, cargando:vCargando, revisar:vRevisar, preg:vPregunta, aviso:vAviso, resultado:vResultado, borrador:vBorrador }[S.pantalla];
+  app.innerHTML = v();
+  postRender();
+}
+
+function postRender(){
+  const o = document.getElementById("relato-o"); if (o) o.value = S.relatoOrig;
+  const c = document.getElementById("relato-c"); if (c) c.value = S.relato;
+  const og = document.getElementById("orig-texto"); if (og) og.textContent = S.relatoOrig;
+  if (S.pantalla === "borrador") actualizarBorrador();
+}
+
+/* ==================================================================
+   PANTALLAS
+   ================================================================== */
+function vIntro(){
+  const disp = S.ia.disponible;
+  return `
+    <h1>Cuenta lo que pasó y te decimos qué hacer y en qué orden</h1>
+    <ol class="pasos-intro">
+      <li>Cuentas tu problema con tus palabras, escribiendo o hablando, y puedes adjuntar fotos de tus documentos.</li>
+      <li>Corregimos tu texto y te hacemos unas preguntas para entender bien tu caso.</li>
+      <li>Te decimos si te conviene una petición, una queja o una tutela, y te dejamos el escrito listo para revisar.</li>
+    </ol>
+    <div class="aviso">
+      <p><strong>Con ayuda de IA.</strong> Tu relato y tus archivos se envían por internet a un servicio de inteligencia artificial para leerlos y ordenarlos. Este sitio no los guarda. Adjunta solo lo que necesites, porque las órdenes médicas contienen datos de salud, que son datos sensibles.${CONFIG.politicaUrl ? ` <a href="${esc(CONFIG.politicaUrl)}" target="_blank" rel="noopener">Política de datos</a>.` : ""}</p>
+      <p style="margin:0"><strong>Sin IA.</strong> Puedes usar solo las preguntas y el corrector básico. Todo se queda en tu navegador.</p>
+    </div>
+    <label class="consent"><input type="checkbox" id="consent" ${S.consentimiento ? "checked" : ""}>
+      <span>Autorizo el envío de mi relato y de mis archivos al servicio de IA para que los procese, solo para este análisis.</span></label>
+    <div class="acciones">
+      <button class="btn" type="button" data-act="empezarIA" ${S.consentimiento && disp ? "" : "disabled"}>Empezar con ayuda de IA</button>
+      <button class="btn sec" type="button" data-act="empezarManual">Empezar sin IA</button>
+    </div>
+    ${disp === false ? `<p class="ayuda" style="margin-top:1em">La ayuda de IA no está disponible en este momento. Puedes usar el modo sin IA.</p>` : disp === null ? `<p class="ayuda" style="margin-top:1em">Comprobando si la ayuda de IA está disponible…</p>` : ""}
+    <p class="emerg" style="margin-top:1.4em"><strong>Si es una emergencia,</strong> llama al 123 o ve ahora al servicio de urgencias más cercano.</p>`;
+}
+
+function vCuenta(){
+  const hayVoz = !!(window.SpeechRecognition || window.webkitSpeechRecognition);
+  const sinCupo = S.archivos.length >= CONFIG.maxArchivos;
+  return `
+    <h2>Cuéntanos qué pasó</h2>
+    <p class="ayuda">Escribe como hablas. No importa si tienes errores: lo corregimos después. Incluye qué necesitabas, desde cuándo, con quién hablaste y qué te respondieron.</p>
+    ${S.error ? `<div class="duda" role="alert"><p style="margin:0">${esc(S.error)}</p></div>` : ""}
+    <label for="relato-o" class="ayuda" style="display:block;margin:0 0 4px">Tu relato</label>
+    <textarea id="relato-o" class="relato" data-rel="orig" placeholder="Ejemplo: mi mamá tiene 70 años y el médico le mandó cita con cardiología hace dos meses y la eps no se la da…"></textarea>
+    <div class="fila no-print">
+      ${hayVoz ? `<button type="button" class="btn sec" data-act="dictar" id="btn-dictar">🎤 Hablar en vez de escribir</button>` : ""}
+    </div>
+    ${hayVoz ? `<p class="ayuda" style="margin-top:.5em">El dictado lo procesa el servicio de voz de tu navegador.</p>` : ""}
+
+    ${S.usaIA ? `
+    <h3 class="sub">Adjunta tus documentos (opcional)</h3>
+    <p class="ayuda">Orden médica, fórmula, respuesta o negativa de la EPS. Foto o PDF, hasta ${CONFIG.maxArchivos} archivos. Las fotos se reducen automáticamente.</p>
+    <div class="fila no-print">
+      <span class="btn sec subir">📎 Elegir archivos<input type="file" id="f-arch" accept="image/*,application/pdf" multiple ${sinCupo ? "disabled" : ""} aria-label="Elegir archivos"></span>
+      <span class="btn sec subir">📷 Tomar foto<input type="file" id="f-cam" accept="image/*" capture="environment" ${sinCupo ? "disabled" : ""} aria-label="Tomar foto"></span>
+    </div>
+    <ul class="archivos">${S.archivos.map((f, i) => `
+      <li>${f.url ? `<img src="${f.url}" alt="">` : `<span class="pdf">PDF</span>`}
+        <span class="nom">${esc(f.nombre)}</span>
+        <button type="button" data-act="quitar" data-i="${i}" aria-label="Quitar ${esc(f.nombre)}">Quitar</button></li>`).join("")}
+    </ul>` : ""}
+
+    <div class="acciones">
+      <button type="button" class="btn" data-act="analizar">${S.usaIA ? "Analizar mi caso" : "Corregir mi texto"}</button>
+      <button type="button" class="btn sec" data-act="saltar">Prefiero solo responder preguntas</button>
+    </div>
+    <p><button type="button" class="link" data-act="irIntro">Volver</button></p>`;
+}
+
+function vCargando(){
+  return `<div class="cargando" role="status">
+    <span class="rueda" aria-hidden="true"></span>
+    <h2>Un momento</h2>
+    <p>Estoy leyendo tu relato${S.archivos.length ? " y tus archivos" : ""}. Puede tardar hasta un minuto.</p>
+    <p><button type="button" class="link" data-act="cancelar">Cancelar</button></p></div>`;
+}
+
+function vRevisar(){
+  const x = S.analisis;
+  return `
+    <h2>Revisa lo que entendí</h2>
+    <p class="ayuda">${x ? "Corregí la ortografía y ordené tu relato sin cambiar los hechos. Léelo con calma y cambia lo que no esté bien." : "Hice una corrección básica de ortografía y puntuación. Léelo y cambia lo que no esté bien."}</p>
+    ${x && x.resumen_simple ? `<div class="nota"><strong>En pocas palabras:</strong> ${esc(x.resumen_simple)}</div>` : ""}
+    <label for="relato-c" style="font-weight:600;color:var(--tinta)">Tu relato corregido (puedes editarlo)</label>
+    <textarea id="relato-c" class="relato" data-rel="corr"></textarea>
+    <details style="margin-top:.6em"><summary style="cursor:pointer;color:var(--azul)">Ver mi texto original</summary><div class="orig" id="orig-texto"></div></details>
+
+    ${x && x.datos_archivos.length ? `<h3 class="sub">Lo que leí en tus archivos</h3>
+      <ul class="lista-ia">${x.datos_archivos.map(f => `<li><b>${esc(TIPO_ARCHIVO[f.tipo] || "Documento")}</b>${S.archivos[f.indice] ? " (" + esc(S.archivos[f.indice].nombre) + ")" : ""}<br>${esc(f.resumen)}</li>`).join("")}</ul>
+      <p class="ayuda">La IA puede equivocarse al leer. Compara con tu documento original.</p>` : ""}
+    ${x && x.datos_faltantes.length ? `<h3 class="sub">Datos que faltan</h3><ul class="lista">${x.datos_faltantes.map(t => `<li>${esc(t)}</li>`).join("")}</ul>` : ""}
+    ${x && x.alertas.length ? `<div class="duda"><strong>Ten en cuenta:</strong><ul class="lista" style="margin:.4em 0 0">${x.alertas.map(t => `<li>${esc(t)}</li>`).join("")}</ul></div>` : ""}
+
+    <div class="acciones">
+      <button type="button" class="btn" data-act="aPreguntas">Continuar a las preguntas</button>
+      <button type="button" class="btn sec" data-act="atras">Volver a mi relato</button>
+    </div>`;
+}
+
+function vPregunta(){
+  const q = PREGUNTAS[S.i], n = PREGUNTAS.length;
+  const sel = S.a[q.id];
+  const marcada = v => q.multi ? (sel || []).includes(v) : sel === v;
+  const hayResp = q.multi ? true : sel !== undefined;
+  return `
+    <p class="progreso">Pregunta ${S.i + 1} de ${n}</p>
+    <div class="barra" aria-hidden="true"><span style="width:${((S.i + 1) / n) * 100}%"></span></div>
+    <h2>${q.titulo}</h2>
+    ${q.ayuda ? `<p class="ayuda">${q.ayuda}</p>` : ""}
+    ${S.detectado[q.id] ? `<p><span class="det">Lo detecté en tu relato</span> Confírmalo o cámbialo.</p>` : ""}
+    <div role="group" aria-label="${esc(q.titulo)}">
+      ${q.opciones.map(o => `
+        <button type="button" class="op${marcada(o.v) ? " sel" : ""}" data-act="${q.multi ? "toggle" : "elegir"}" data-q="${q.id}" data-v="${o.v}" aria-pressed="${marcada(o.v)}">
+          <strong>${o.t}</strong>${o.d ? `<span>${o.d}</span>` : ""}
+        </button>`).join("")}
+    </div>
+    ${hayResp ? `<div class="acciones"><button type="button" class="btn" data-act="seguirP">Continuar</button></div>` : ""}
+    <p><button type="button" class="link" data-act="atras">Volver</button></p>`;
+}
+
+function vAviso(){
+  if (S.a.urgencia === "si") return `
+    <div class="urg" role="alert">
+      <h2>Primero: busca atención de urgencias</h2>
+      <p><strong>Llama al 123 o ve ahora al servicio de urgencias más cercano.</strong> Esta herramienta no puede evaluar el estado de salud.</p>
+      <p>La atención inicial de urgencias es obligatoria para todas las entidades de salud, públicas y privadas, sin importar la capacidad de pago (Ley 100 de 1993, art. 168).</p>
+      <p style="margin:0">Cuando estés atendido(a), o si ya vas en camino, puedes seguir: con riesgo inminente, la tutela puede ser el camino más rápido.</p>
+    </div>
+    <div class="acciones"><button type="button" class="btn rojo" data-act="seguirAviso">Continuar</button><button type="button" class="btn sec" data-act="atras">Cambiar mi respuesta</button></div>`;
+  return `
+    <div class="duda"><h2>Si tienes dudas, consulta a un profesional</h2>
+      <p>Si no estás seguro(a) de si es una emergencia, es mejor llamar a la línea de orientación de la EPS o ir a urgencias. Si hay síntomas graves, llama al 123.</p>
+      <p style="margin:0">Mientras tanto, puedes seguir para conocer tu ruta.</p></div>
+    <div class="acciones"><button type="button" class="btn" data-act="seguirAviso">Continuar</button><button type="button" class="btn sec" data-act="atras">Cambiar mi respuesta</button></div>`;
+}
+
+function normasDeCaso(b){
+  const esp = especialesDe(S.a);
+  const lista = [...b.normas, ["cp49",""], ["ley1755",""], ["cp23",""], ["ley1122",""], ["cp86",""], ["dec2591",""]];
+  esp.forEach(k => lista.push([ESPECIAL_NORMA[k], ""]));
+  if (esp.length) lista.push(["juris", ""]);
+  if (S.a.urgencia === "si") lista.unshift(["ley100", ""]);
+  const vistos = new Set();
+  return lista.filter(([id]) => NORMAS[id] && !vistos.has(id) && vistos.add(id));
+}
+
+function vResultado(){
+  const a = S.a, b = BARRERAS[a.barrera], r = calcularRuta(a);
+  const pasos = ["p1","p2","p3"].map((id, idx) => {
+    const est = r[id];
+    const clase = est === "ahora" ? "ahora" : est === "hecho" ? "hecho" : (est === "paralelo" || est === "valorar") ? "aplica" : "";
+    return `<li class="${clase}"><span class="nodo" aria-hidden="true">${est === "hecho" ? "✓" : idx + 1}</span>
+      <details class="paso"${est === "ahora" || est === "paralelo" ? " open" : ""}>
+        <summary><h3>${TITULOS_PASO[id]}</h3><span class="etiqueta">${ETIQUETAS[est]}</span></summary>
+        <div class="cuerpo">${contenidoPaso(id, b)}</div></details></li>`;
+  }).join("");
+  const normas = normasDeCaso(b).map(([id, art]) => { const n = NORMAS[id];
+    return `<li><b>${n.nombre}</b>${art ? ", " + art : ""}${n.verificar ? `<span class="verif">Confirmar en fuente oficial</span>` : ""}<br>${n.que}</li>`; }).join("");
+  const nombresDoc = { eps:"mi reclamo a la EPS", super:"mi queja a la Supersalud", tutela:"mi tutela" };
+  const docP = DOC_DE_PASO[r.principal];
+  const otros = ["eps","super","tutela"].filter(t => t !== docP);
+  return `
+    ${a.urgencia === "si" ? `<div class="urg" role="alert"><p style="margin:0"><strong>Si estás en riesgo ahora, llama al 123 o ve a urgencias antes de seguir leyendo.</strong></p></div>` : ""}
+    <h2>Tu ruta</h2>
+    <p class="titular">${r.titular}</p>
+    <div class="fila no-print" style="margin:-.4em 0 1em"><button type="button" class="btn sec" data-act="escuchar">🔊 Escuchar mi ruta</button></div>
+    ${r.notas.map(n => `<div class="nota">${n}</div>`).join("")}
+
+    <h3 class="sub">Qué está pasando</h3>
+    ${S.analisis && S.analisis.resumen_simple ? `<p><strong>${esc(S.analisis.resumen_simple)}</strong></p>` : ""}
+    <p id="txt-situacion">${b.situacion}</p>
+    <p>Además de la barrera en sí, muchas personas no saben a dónde reclamar ni en qué orden. Eso también dificulta ejercer el derecho, y para eso existe esta ruta.</p>
+
+    <h3 class="sub">Los tres mecanismos, en orden</h3>
+    <ol class="ruta">${pasos}</ol>
+
+    <h3 class="sub">Documentos que conviene reunir</h3>
+    <ul class="lista">${b.docs.map(x => `<li>${x}</li>`).join("")}</ul>
+    ${S.archivos.length ? `<p class="ayuda">Ya adjuntaste ${S.archivos.length} archivo(s). Se listarán como anexos en tus borradores.</p>` : ""}
+    <p class="ayuda">Guarda todo en copia (fotos o PDF). Los originales no los entregues si no es indispensable.</p>
+
+    <h3 class="sub">Normas que respaldan cada paso</h3>
+    <ul class="normas">${normas}</ul>
+
+    <div class="acciones no-print">
+      ${r.p3 !== "noaplica" || docP !== "p3" ? `<button type="button" class="btn" data-act="borrador" data-t="${docP}">Redactar ${nombresDoc[docP]}</button>` : ""}
+      ${otros.filter(t => !(t === "tutela" && r.p3 === "noaplica")).map(t => `<button type="button" class="btn sec" data-act="borrador" data-t="${t}">Redactar ${nombresDoc[t]}</button>`).join("")}
+      <button type="button" class="btn sec" data-act="imprimirRuta">Imprimir o guardar como PDF</button>
+      <button type="button" class="btn sec" data-act="reiniciar">Empezar de nuevo</button>
+    </div>`;
+}
+
+function vBorrador(){
+  const b = BARRERAS[S.a.barrera], d = S.d;
+  const necesitaFP = S.tipo !== "eps" && S.a.previa && S.a.previa !== "no";
+  const r = calcularRuta(S.a);
+  const tutelaOk = r.p3 !== "noaplica";
+  return `
+    <h2>Borrador de tu escrito</h2>
+    <p>Completa lo que sepas. Los datos personales (nombre, cédula, dirección) no se piden aquí: aparecen entre corchetes para que los escribas tú, después de copiar el texto.</p>
+    ${S.tipo === "tutela" ? `<div class="duda"><strong>Antes de presentar una tutela</strong>, pide que la revise un consultorio jurídico, la Defensoría del Pueblo o tu personería municipal. Este borrador es un punto de partida, no un escrito definitivo.</div>` : ""}
+    <div class="tabs" role="group" aria-label="Tipo de escrito">
+      <button type="button" data-act="tipo" data-t="eps" aria-pressed="${S.tipo === "eps"}">Reclamo a la EPS</button>
+      <button type="button" data-act="tipo" data-t="super" aria-pressed="${S.tipo === "super"}">Queja a la Supersalud</button>
+      ${tutelaOk ? `<button type="button" data-act="tipo" data-t="tutela" aria-pressed="${S.tipo === "tutela"}">Tutela</button>` : ""}
+    </div>
+    <div class="campos dos">
+      <div class="campo ancho"><label for="c-entidad">Nombre de la EPS</label>
+        <input id="c-entidad" data-campo="entidad" autocomplete="off" value="${esc(d.entidad)}" placeholder="Ej.: nombre de la EPS a la que está afiliado(a)"></div>
+      <div class="campo ancho"><label for="c-servicio">${b.campoServicio}</label><small>${b.ejemplo}</small>
+        <input id="c-servicio" data-campo="servicio" autocomplete="off" value="${esc(d.servicio)}"></div>
+      <div class="campo"><label for="c-desde">Fecha aproximada en que empezó</label>
+        <input id="c-desde" type="date" data-campo="desde" value="${esc(d.desde)}"></div>
+      ${necesitaFP ? `<div class="campo"><label for="c-fp">Fecha en que radicaste el reclamo a la EPS</label>
+        <input id="c-fp" type="date" data-campo="fechaPeticion" value="${esc(d.fechaPeticion)}"></div>` : ""}
+    </div>
+    <label for="borrador" style="font-weight:600;color:var(--tinta)">Texto del escrito</label>
+    <p class="ayuda" style="margin:.2em 0 .6em">Los hechos salen de tu relato corregido. Completa primero los campos de arriba y luego edita el texto a tu gusto. Si vuelves a cambiar un campo, el texto se regenera.</p>
+    <textarea id="borrador" class="borr" spellcheck="true"></textarea>
+    <p class="ok" id="estado-copia" role="status"></p>
+    <div class="acciones no-print">
+      <button type="button" class="btn" data-act="copiar">Copiar texto</button>
+      <button type="button" class="btn sec" data-act="descargar">Descargar (.txt)</button>
+      <button type="button" class="btn sec" data-act="imprimirBorrador">Imprimir</button>
+      <button type="button" class="btn sec" data-act="volverRuta">Volver a mi ruta</button>
+    </div>`;
+}
+
+/* ==================================================================
+   GENERADOR DE BORRADORES (plantillas fijas; la IA no redacta derecho)
+   ================================================================== */
+function anexosLista(){
+  const info = (S.analisis && S.analisis.datos_archivos) || [];
+  const l = S.archivos.map((f, i) => { const x = info.find(d => d.indice === i); return `[${TIPO_ARCHIVO[x ? x.tipo : "otro"] || "Documento"}: ${f.nombre}]`; });
+  if (!S.archivos.length) l.push("[Copia de la orden médica o fórmula]");
+  l.push("[Otros documentos que respalden lo dicho]");
+  if (S.a.quien === "otro") l.push("[Autorización escrita de la persona afectada, o documento que acredite tu representación]");
+  return l;
+}
+
+function listaHechos(b, ent, svc, desde){
+  const rel = (S.relato || "").trim();
+  if (!rel) return b.hechos(ent, svc, desde);
+  const fr = rel.replace(/\s*\n+\s*/g, " ").replace(/([.!?])\s+/g, "$1\n").split("\n").map(s => s.trim()).filter(Boolean);
+  const afil = S.a.quien === "otro" ? `El(la) paciente [NOMBRE DEL PACIENTE] está afiliado(a) a ${ent}.` : `Estoy afiliado(a) a ${ent}.`;
+  return [afil, ...fr];
+}
+
+function identificacion(ent){
+  return S.a.quien === "otro"
+    ? `Yo, [NOMBRE COMPLETO], identificado(a) con cédula de ciudadanía n.º [NÚMERO], actuando en nombre de [NOMBRE DEL PACIENTE], identificado(a) con [CÉDULA O REGISTRO CIVIL] n.º [NÚMERO], afiliado(a) a ${ent}`
+    : `Yo, [NOMBRE COMPLETO], identificado(a) con cédula de ciudadanía n.º [NÚMERO], afiliado(a) a ${ent}`;
+}
+
+const FIRMA = ["Atentamente,", "", "[FIRMA]", "[NOMBRE COMPLETO]", "C.C. [NÚMERO]"];
+const NOTIF = ["NOTIFICACIONES", "Dirección: [DIRECCIÓN]", "Correo electrónico: [CORREO]", "Teléfono: [TELÉFONO]", ""];
+const num = l => l.map((t, i) => `${i + 1}. ${t}`);
+
+function generarBorrador(){
+  const a = S.a, b = BARRERAS[a.barrera], d = S.d;
+  const ent = d.entidad.trim() || "[NOMBRE DE LA EPS]";
+  const svc = d.servicio.trim() || b.placeholder;
+  const desde = d.desde ? fecha(d.desde) : "[FECHA APROXIMADA DE INICIO]";
+  const hechos = listaHechos(b, ent, svc, desde);
+  const fp = d.fechaPeticion ? fecha(d.fechaPeticion) : "[FECHA DE RADICACIÓN]";
+  const grave = ["dolor","funcion"].includes(a.afectacion) || a.urgencia === "si";
+  const esp = especialesDe(a);
+
+  if (S.tipo === "eps") {
+    return [
+      "[CIUDAD], [FECHA]", "", "Señores", ent, "Oficina de Atención al Usuario", "",
+      `Asunto: Derecho de petición por ${b.asunto(svc)}`, "",
+      `${identificacion(ent)}, en ejercicio del derecho fundamental de petición (Constitución Política, art. 23, y Ley 1755 de 2015) y en defensa del derecho fundamental a la salud (Ley 1751 de 2015), presento la siguiente petición.`, "",
+      "HECHOS", ...num(hechos), "",
+      "PETICIONES", ...num(b.peticiones(ent, svc)), "",
+      "FUNDAMENTOS",
+      "El derecho a la salud comprende, entre otros elementos y principios, la accesibilidad, la oportunidad y la continuidad de la atención (Ley 1751 de 2015, art. 6). Su garantía no puede depender de trámites administrativos internos.", "",
+      "Solicito una respuesta de fondo, clara y por escrito, dentro del término legal de quince (15) días hábiles (Ley 1755 de 2015, art. 14). Si no es posible responder en ese plazo, solicito que se me informe antes de su vencimiento el motivo y la fecha en que se responderá.", "",
+      "ANEXOS", ...anexosLista(), "", ...NOTIF, ...FIRMA
+    ].join("\n");
+  }
+
+  let previa;
+  if (a.previa === "sinrespuesta") previa = `El ${fp} presenté un reclamo ante ${ent}, radicado con el número [NÚMERO DE RADICADO], y no he recibido respuesta dentro del plazo legal.`;
+  else if (a.previa === "negativa") previa = `El ${fp} presenté un reclamo ante ${ent}, radicado con el número [NÚMERO DE RADICADO], y recibí una respuesta que no resuelve la situación (se adjunta).`;
+  else previa = `[Aún no he presentado reclamo ante ${ent}. Si ya lo hiciste, escribe aquí la fecha y el número de radicado.]`;
+
+  if (S.tipo === "super") {
+    return [
+      "[CIUDAD], [FECHA]", "", "Señores", "Superintendencia Nacional de Salud", "",
+      `Asunto: Queja contra ${ent} por barrera de acceso: ${b.asunto(svc)}`, "",
+      `${identificacion(ent)}, presento queja por la presunta vulneración del derecho fundamental a la salud (Ley 1751 de 2015), con base en los siguientes hechos.`, "",
+      "HECHOS", ...num([...hechos, previa]), "",
+      "PETICIONES",
+      `1. Que se requiera a ${ent} para que garantice de manera efectiva ${b.asunto(svc)}.`,
+      "2. Que se adelanten las actuaciones de inspección, vigilancia y control que correspondan.",
+      "3. Que, si el caso es procedente, se me informe sobre la posibilidad de acudir a la función jurisdiccional de la Superintendencia.",
+      "4. Que se me informe el número de radicado de esta queja y el trámite que se le dará.", "",
+      "ANEXOS", ...anexosLista(), "", ...NOTIF, ...FIRMA
+    ].join("\n");
+  }
+
+  // Tutela
+  const derechos = ["salud", "vida digna", ...(esp.includes("menor_edad") ? ["los derechos fundamentales de los niños"] : []),
+    ...(esp.includes("adulto_mayor") ? ["la protección de las personas de la tercera edad"] : []),
+    ...(esp.includes("discapacidad") ? ["la protección de las personas con discapacidad"] : []),
+    ...(esp.includes("embarazo") ? ["la protección especial de la mujer embarazada"] : [])];
+  const fund = ["Constitución Política, art. 49 (la atención de la salud es un servicio público a cargo del Estado) y art. 86 (acción de tutela).",
+    "Ley Estatutaria 1751 de 2015, arts. 2 y 6: la salud es un derecho fundamental autónomo y su garantía comprende la accesibilidad, la oportunidad y la continuidad.",
+    ...esp.map(k => `${NORMAS[ESPECIAL_NORMA[k]].nombre}: ${NORMAS[ESPECIAL_NORMA[k]].que}`),
+    ...(esp.length ? ["La persona afectada es un sujeto de especial protección constitucional, lo que exige una atención reforzada y una valoración flexible de los requisitos de la tutela."] : [])];
+  const pret = [
+    `Tutelar los derechos fundamentales invocados: ${derechos.join(", ")}.`,
+    `Ordenar a ${ent} que, en un plazo máximo de cuarenta y ocho (48) horas, ${b.accion(svc)}.`,
+    `Ordenar a ${ent} la atención integral en relación con la condición de salud de [PACIENTE], incluyendo lo que ordene el médico tratante [DIAGNÓSTICO, si lo tienes].`
+  ];
+  if (grave) pret.push(`Como medida provisional (Decreto 2591 de 1991, art. 7), ordenar de inmediato a ${ent} garantizar ${svc} mientras se decide la tutela, por el riesgo para la salud descrito en los hechos.`);
+  return [
+    "[CIUDAD], [FECHA]", "", "Señor(a)", "JUEZ DE LA REPÚBLICA (REPARTO)", "E. S. D.", "",
+    "Referencia: ACCIÓN DE TUTELA",
+    `Accionante: ${S.a.quien === "otro" ? "[NOMBRE COMPLETO], en nombre de [NOMBRE DEL PACIENTE]" : "[NOMBRE COMPLETO]"}`,
+    `Accionada: ${ent}`,
+    `Derechos invocados: ${derechos.join(", ")}`, "",
+    `${identificacion(ent)}, interpongo acción de tutela (Constitución Política, art. 86, y Decreto 2591 de 1991) contra ${ent}, por la vulneración de los derechos fundamentales mencionados, con base en los siguientes hechos.`,
+    ...(S.a.quien === "otro" ? ["[Si el(la) paciente es adulto(a), explica aquí por qué no puede presentar la tutela por sí mismo(a). Si es menor de edad, indica que actúas como su representante.]"] : []), "",
+    "HECHOS", ...num([...hechos, previa]), "",
+    "FUNDAMENTOS", ...fund.map(t => `- ${t}`), "",
+    "PRETENSIONES", ...num(pret), "",
+    "JURAMENTO",
+    "Bajo la gravedad de juramento manifiesto que no he presentado otra acción de tutela por los mismos hechos y derechos (Decreto 2591 de 1991, art. 37).", "",
+    "PRUEBAS", ...anexosLista(), "",
+    "NOTIFICACIONES",
+    `Accionada: [DIRECCIÓN Y CORREO DE NOTIFICACIONES JUDICIALES DE ${ent}]`,
+    "Accionante: Dirección: [DIRECCIÓN]  Correo electrónico: [CORREO]  Teléfono: [TELÉFONO]", "",
+    ...FIRMA
+  ].join("\n");
+}
+
+function actualizarBorrador(){ const t = document.getElementById("borrador"); if (t) t.value = generarBorrador(); }
+
+/* ==================================================================
+   ANÁLISIS CON IA
+   ================================================================== */
+function leerBase64(f){
+  return new Promise((ok, mal) => { const r = new FileReader(); r.onload = () => ok(String(r.result).split(",")[1]); r.onerror = () => mal(new Error("lectura")); r.readAsDataURL(f); });
+}
+
+function reducirImagen(f){
+  return new Promise((ok, mal) => {
+    const url = URL.createObjectURL(f), img = new Image();
+    img.onload = () => {
+      const max = 1600, k = Math.min(1, max / Math.max(img.width, img.height));
+      const c = document.createElement("canvas"); c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
+      const g = c.getContext("2d"); g.fillStyle = "#fff"; g.fillRect(0, 0, c.width, c.height); g.drawImage(img, 0, 0, c.width, c.height);
+      const data = c.toDataURL("image/jpeg", 0.8);
+      const m = Math.min(1, 96 / Math.max(img.width, img.height)), t = document.createElement("canvas");
+      t.width = Math.max(1, Math.round(img.width * m)); t.height = Math.max(1, Math.round(img.height * m));
+      t.getContext("2d").drawImage(img, 0, 0, t.width, t.height);
+      URL.revokeObjectURL(url);
+      ok({ nombre:f.name || "foto.jpg", tipo:"image/jpeg", base64:data.split(",")[1], url:t.toDataURL("image/jpeg", 0.7) });
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); mal(new Error("imagen")); };
+    img.src = url;
+  });
+}
+
+async function agregarArchivos(lista){
+  S.error = "";
+  for (const f of Array.from(lista)) {
+    if (S.archivos.length >= CONFIG.maxArchivos) { S.error = "Llegaste al máximo de " + CONFIG.maxArchivos + " archivos."; break; }
+    try {
+      let it;
+      if (f.type === "application/pdf") {
+        if (f.size > CONFIG.maxPdfBytes) { S.error = "El PDF \"" + f.name + "\" pesa demasiado (máximo 2,5 MB). Prueba con una foto o un PDF más liviano."; continue; }
+        it = { nombre:f.name, tipo:"application/pdf", base64:await leerBase64(f), url:"" };
+      } else if ((f.type || "").indexOf("image/") === 0) it = await reducirImagen(f);
+      else { S.error = "\"" + f.name + "\" no es una foto ni un PDF."; continue; }
+      const total = S.archivos.reduce((s, x) => s + x.base64.length, 0) + it.base64.length;
+      if (total > CONFIG.maxTotalBase64) { S.error = "Los archivos pesan demasiado en conjunto. Quita alguno o usa fotos más pequeñas."; continue; }
+      S.archivos.push(it);
+    } catch (e) { S.error = "No pude leer \"" + f.name + "\". Prueba con otra foto o con un PDF."; }
+  }
+  render();
+}
+
+function aplicarAnalisis(x){
+  S.analisis = x; S.detectado = {};
+  const poner = (k, v) => { if (v !== undefined && v !== null && v !== "") { S.a[k] = v; S.detectado[k] = true; } };
+  poner("urgencia", x.urgencia_detectada);
+  poner("barrera", x.barrera);
+  if (x.fecha_inicio_aprox) {
+    const dias = (Date.now() - new Date(x.fecha_inicio_aprox + "T00:00:00").getTime()) / 864e5;
+    if (!isNaN(dias)) poner("tiempo", dias < 7 ? "sem" : dias <= 30 ? "mes" : "mas");
+    if (!S.d.desde) S.d.desde = x.fecha_inicio_aprox;
+  }
+  if (x.previa_detectada && x.previa_detectada !== "desconocido") poner("previa", x.previa_detectada);
+  if (x.especial_proteccion && x.especial_proteccion.length) { S.a.especial = x.especial_proteccion.slice(); S.detectado.especial = true; }
+  if (x.entidad && !S.d.entidad) S.d.entidad = x.entidad;
+  if (x.servicio && !S.d.servicio) S.d.servicio = x.servicio;
+  if (x.datos_archivos.some(f => f.tipo === "orden_medica" || f.tipo === "formula")) poner("orden", "si");
+  S.relato = x.texto_corregido || corregirLocal(S.relatoOrig);
+}
+
+async function analizar(){
+  const texto = (S.relatoOrig || "").trim();
+  if (!S.usaIA) {
+    if (texto.length < 5) { S.error = "Escribe primero lo que pasó, o elige responder solo preguntas."; return render(); }
+    S.error = ""; S.relato = corregirLocal(texto); S.analisis = null; return ir("revisar");
+  }
+  if (texto.length < 15 && S.archivos.length === 0) { S.error = "Escribe un poco más sobre lo que pasó o adjunta un documento."; return render(); }
+  S.error = ""; const mio = ++TOK; CTRL = new AbortController();
+  const corte = setTimeout(() => CTRL.abort(), 60000);
+  ir("cargando");
+  try {
+    const r = await fetch(CONFIG.apiUrl, { method:"POST", headers:{ "Content-Type":"application/json" }, signal:CTRL.signal,
+      body:JSON.stringify({ relato:texto, archivos:S.archivos.map(f => ({ nombre:f.nombre, tipo:f.tipo, base64:f.base64 })) }) });
+    const j = await r.json().catch(() => ({}));
+    if (mio !== TOK) return;
+    if (!r.ok) throw new Error(j.error || "No pude analizar tu caso.");
+    aplicarAnalisis(j); ir("revisar");
+  } catch (e) {
+    if (mio !== TOK) return;
+    S.error = (e && e.name === "AbortError") ? "Tardó demasiado. Inténtalo de nuevo o continúa sin IA." : (e.message || "No pude analizar tu caso.") + " Puedes reintentar o continuar sin IA.";
+    ir("cuenta");
+  } finally { clearTimeout(corte); }
+}
+
+/* ==================================================================
+   VOZ Y LECTURA EN VOZ ALTA
+   ================================================================== */
+function dictar(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition; if (!SR) return;
+  const btn = document.getElementById("btn-dictar"), ta = document.getElementById("relato-o");
+  if (REC) { REC.stop(); return; }
+  REC = new SR(); REC.lang = "es-CO"; REC.continuous = true; REC.interimResults = false;
+  REC.onresult = e => {
+    let t = ""; for (let i = e.resultIndex; i < e.results.length; i++) if (e.results[i].isFinal) t += e.results[i][0].transcript + " ";
+    if (t && ta) { ta.value += (ta.value && !/\s$/.test(ta.value) ? " " : "") + t.trim(); S.relatoOrig = ta.value; }
+  };
+  REC.onend = () => { REC = null; const b = document.getElementById("btn-dictar"); if (b) b.textContent = "🎤 Hablar en vez de escribir"; };
+  REC.onerror = () => { REC = null; };
+  try { REC.start(); if (btn) btn.textContent = "⏹ Dejar de escuchar"; } catch (e) { REC = null; }
+}
+
+function escuchar(){
+  if (!("speechSynthesis" in window)) return;
+  const t = document.querySelector(".titular"), s = document.getElementById("txt-situacion");
+  const notas = Array.from(document.querySelectorAll(".nota")).map(n => n.textContent).join(" ");
+  const u = new SpeechSynthesisUtterance([t && t.textContent, s && s.textContent, notas].filter(Boolean).join(". "));
+  u.lang = "es-CO"; window.speechSynthesis.cancel(); window.speechSynthesis.speak(u);
+}
+
+/* ==================================================================
+   EVENTOS
+   ================================================================== */
+function responder(qid, v){
+  S.a[qid] = v; delete S.detectado[qid];
+  if (qid === "urgencia" && v !== "no") return ir("aviso");
+  avanzar();
+}
+function avanzar(){
+  if (S.i < PREGUNTAS.length - 1) { S.i++; ir("preg"); } else ir("resultado");
+}
+
+document.addEventListener("click", e => {
+  const el = e.target.closest("[data-act]"); if (!el) return;
+  const act = el.dataset.act, q = PREGUNTAS[S.i];
+
+  if (act === "empezarIA") { S.usaIA = true; ir("cuenta"); }
+  else if (act === "empezarManual") { S.usaIA = false; ir("cuenta"); }
+  else if (act === "irIntro") ir("intro");
+  else if (act === "analizar") analizar();
+  else if (act === "saltar") { S.i = 0; ir("preg"); }
+  else if (act === "cancelar") { TOK++; if (CTRL) CTRL.abort(); ir("cuenta"); }
+  else if (act === "quitar") { S.archivos.splice(Number(el.dataset.i), 1); render(); }
+  else if (act === "dictar") dictar();
+  else if (act === "aPreguntas") { S.i = 0; ir("preg"); }
+  else if (act === "elegir") responder(el.dataset.q, el.dataset.v);
+  else if (act === "toggle") {
+    const v = el.dataset.v; let l = (S.a.especial || []).slice();
+    if (v === "ninguna") l = l.includes("ninguna") ? [] : ["ninguna"];
+    else { l = l.filter(x => x !== "ninguna"); l = l.includes(v) ? l.filter(x => x !== v) : [...l, v]; }
+    S.a.especial = l; delete S.detectado.especial; render();
+    const b = app.querySelector('[data-act="toggle"][data-v="' + v + '"]'); if (b) b.focus();
+  }
+  else if (act === "seguirP") {
+    if (q.multi && !S.a[q.id]) S.a[q.id] = ["ninguna"];
+    if (q.id === "urgencia" && S.a.urgencia !== "no") ir("aviso"); else avanzar();
+  }
+  else if (act === "seguirAviso") avanzar();
+  else if (act === "atras") {
+    if (S.pantalla === "aviso") ir("preg");
+    else if (S.pantalla === "revisar") ir("cuenta");
+    else if (S.i > 0) { S.i--; ir("preg"); }
+    else ir(S.relato ? "revisar" : "cuenta");
+  }
+  else if (act === "reiniciar") { TOK++; if (CTRL) CTRL.abort(); if (REC) REC.stop(); S = nuevoEstado(); ir("intro"); }
+  else if (act === "borrador") { S.tipo = el.dataset.t || "eps"; ir("borrador"); }
+  else if (act === "tipo") { S.tipo = el.dataset.t; render(); }
+  else if (act === "volverRuta") ir("resultado");
+  else if (act === "copiar") copiar();
+  else if (act === "descargar") descargar();
+  else if (act === "imprimirBorrador") imprimir(true);
+  else if (act === "imprimirRuta") imprimir(false);
+  else if (act === "escuchar") escuchar();
+  else if (act === "letraMas") ajustarLetra(1);
+  else if (act === "letraMenos") ajustarLetra(-1);
+});
+
+document.addEventListener("input", e => {
+  const t = e.target;
+  if (t.dataset.rel === "orig") S.relatoOrig = t.value;
+  else if (t.dataset.rel === "corr") S.relato = t.value;
+  else if (t.dataset.campo) { S.d[t.dataset.campo] = t.value; actualizarBorrador(); }
+});
+document.addEventListener("change", e => {
+  const t = e.target;
+  if (t.id === "consent") { S.consentimiento = t.checked; render(); const c = document.getElementById("consent"); if (c) c.focus(); }
+  else if (t.id === "f-arch" || t.id === "f-cam") { if (t.files && t.files.length) agregarArchivos(t.files); }
+});
+
+function setEstado(msg){ const n = document.getElementById("estado-copia"); if (n) { n.textContent = msg; setTimeout(() => { n.textContent = ""; }, 3500); } }
+function copiar(){
+  const t = document.getElementById("borrador"); if (!t) return;
+  const listo = () => setEstado("Texto copiado.");
+  if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(t.value).then(listo, () => { t.select(); document.execCommand("copy"); listo(); });
+  else { t.select(); document.execCommand("copy"); listo(); }
+}
+function descargar(){
+  const t = document.getElementById("borrador"); if (!t) return;
+  const url = URL.createObjectURL(new Blob([t.value], { type:"text/plain;charset=utf-8" }));
+  const a = document.createElement("a"); a.href = url;
+  a.download = { eps:"reclamo-eps.txt", super:"queja-supersalud.txt", tutela:"tutela.txt" }[S.tipo] || "escrito.txt";
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000); setEstado("Archivo descargado.");
+}
+function imprimir(soloBorrador){
+  if (soloBorrador) { const t = document.getElementById("borrador"); document.getElementById("print-area").textContent = t ? t.value : ""; document.body.classList.add("imprimir-borrador"); }
+  else app.querySelectorAll("details.paso").forEach(d => d.setAttribute("open", ""));
+  window.print();
+}
+window.addEventListener("afterprint", () => document.body.classList.remove("imprimir-borrador"));
+
+const ESCALAS = [1, 1.15, 1.3, 1.5]; let escalaI = 0;
+function ajustarLetra(d){
+  escalaI = Math.max(0, Math.min(ESCALAS.length - 1, escalaI + d));
+  document.documentElement.style.setProperty("--escala", ESCALAS[escalaI]);
+  try { localStorage.setItem("rs-escala", String(escalaI)); } catch (e) { /* sin almacenamiento */ }
+}
+
+/* ==================================================================
+   ARRANQUE
+   ================================================================== */
+try { const g = parseInt(localStorage.getItem("rs-escala"), 10); if (g >= 0 && g < ESCALAS.length) { escalaI = g; document.documentElement.style.setProperty("--escala", ESCALAS[g]); } } catch (e) { /* nada */ }
+document.getElementById("nombre-herramienta").textContent = CONFIG.nombre;
+document.getElementById("pie-version").textContent = CONFIG.version + ". Contenido normativo " + (CONFIG.revisionNormas ? "revisado en " + CONFIG.revisionNormas : "en revisión") + ". Confirma siempre las normas en fuentes oficiales.";
+if (CONFIG.encuestaUrl) { const p = document.getElementById("pie-extra"), a = document.createElement("a"); a.href = CONFIG.encuestaUrl; a.target = "_blank"; a.rel = "noopener"; a.textContent = "Responde dos preguntas sobre esta herramienta"; p.appendChild(a); }
+render();
+fetch(CONFIG.apiUrl, { method:"GET" }).then(r => r.json()).then(j => { IA_DISP = !!(j && j.ia); }).catch(() => { IA_DISP = false; })
+  .then(() => { S.ia.disponible = IA_DISP; })
+  .then(() => { if (S.pantalla === "intro") render(); });
+</script>
+</body>
+</html>

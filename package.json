@@ -1,0 +1,11 @@
+{
+  "name": "ruta-salud-ia",
+  "version": "0.2.0",
+  "private": true,
+  "description": "Orientador de mecanismos de protección del derecho a la salud (Colombia) con lectura de archivos y corrección de texto por IA.",
+  "scripts": {
+    "dev": "node server.js",
+    "test": "node test/mock.test.js"
+  },
+  "engines": { "node": ">=18" }
+}

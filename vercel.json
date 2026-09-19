@@ -1,0 +1,3 @@
+{
+  "functions": { "api/analizar.js": { "maxDuration": 60 } }
+}
