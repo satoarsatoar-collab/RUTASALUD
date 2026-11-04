@@ -345,7 +345,7 @@ const CONFIG = {
   aliado: { nombre: "", detalle: "" }, // ej. consultorio jurídico de tu universidad
   politicaUrl: "",                  // (opcional) enlace externo; la política completa ya está en la página
   versionConsentimiento: "v1",      // debe coincidir con CONSENT_VERSION del servidor; súbela si cambias el texto legal
-  responsable: { nombre: "Samuel Tobón Arango (proyecto Ruta Salud)", correo: "rutasalud741@gmail.com", telefono: "", domicilio: "Medellín, Antioquia, Colombia" },
+  responsable: { nombre: "Estudiantes del proyecto Ruta Salud", correo: "rutasalud741@gmail.com", telefono: "", domicilio: "Medellín, Antioquia, Colombia" },
   fechaPolitica: "4 de noviembre de 2026",
   encuestaUrl: "",                  // formulario para la prueba con usuarios
   maxArchivos: 4,
@@ -750,7 +750,7 @@ function cuerpoPolitica(){
       <li><b>Domicilio:</b> ${esc(r.domicilio || "Colombia")}</li>
       <li><b>Correo electrónico:</b> ${r.correo ? `<a href="mailto:${esc(r.correo)}">${esc(r.correo)}</a>` : `<mark class="hueco">[por definir]</mark>`}</li>
       ${r.telefono ? `<li><b>Teléfono:</b> ${esc(r.telefono)}</li>` : ""}
-      <li><b>Área encargada de peticiones, consultas y reclamos:</b> el responsable, a través del correo indicado.</li>
+      <li><b>Persona o área encargada de peticiones, consultas y reclamos:</b> los estudiantes del proyecto, a través del correo indicado.</li>
     </ul>
     <p>Ruta Salud es un proyecto académico y no una entidad prestadora de servicios de salud, aseguradora ni autoridad pública.</p>
 
