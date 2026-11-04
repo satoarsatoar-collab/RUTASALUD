@@ -1,7 +1,7 @@
 'use strict';
 // Servidor local para probar: node server.js  ->  http://localhost:3000
 //  - Ruta Salud:  http://localhost:3000
-//  - Panel admin: http://localhost:3000/admin   (clave: la de ADMIN_KEY en .env)
+//  - Panel admin: http://localhost:3000/admin   (usuario y contraseña: ADMIN_USER y ADMIN_PASS en .env)
 // Sin variables de Redis, los casos se guardan en memoria y se pierden al cerrar.
 const http = require('http');
 const fs = require('fs');
@@ -38,5 +38,5 @@ http.createServer((req, res) => {
   res.writeHead(404); res.end('No encontrado');
 }).listen(PUERTO, () => {
   console.log('Ruta Salud en http://localhost:' + PUERTO + (process.env.ANTHROPIC_API_KEY ? '  (IA activa)' : '  (sin ANTHROPIC_API_KEY: modo manual)'));
-  console.log('Panel admin: ' + ((process.env.ADMIN_KEY || '').length >= 16 ? 'activo en /admin' : 'desactivado (defina ADMIN_KEY de 16+ caracteres)'));
+  console.log('Panel admin: ' + ((process.env.ADMIN_USER && (process.env.ADMIN_PASS || '').length >= 10) ? 'activo en /admin' : 'desactivado (defina ADMIN_USER y ADMIN_PASS de 10+ caracteres)'));
 });

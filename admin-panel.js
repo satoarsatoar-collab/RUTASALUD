@@ -2,7 +2,7 @@
 /* Panel de administración. Todo el contenido de los casos se inserta con textContent
    (nunca innerHTML) para que un relato malicioso no pueda ejecutar código. */
 (function () {
-  var clave = '';          // solo en memoria: se pierde al cerrar o recargar la pestaña
+  var cred = '';           // solo en memoria: se pierde al cerrar o recargar la pestaña
   var casos = [], sel = null;
   var $ = function (id) { return document.getElementById(id); };
   var BARRERA = { cita: 'Cita médica', medicamento: 'Medicamento', autorizacion: 'Autorización', programacion: 'Servicio sin fecha', calidad: 'Trato o información', otro: 'Otro' };
@@ -22,8 +22,8 @@
   function etiqueta(v, mapa) { return mapa[v] || v || '—'; }
 
   async function api(metodo, query) {
-    var r = await fetch('/api/admin' + (query || ''), { method: metodo, headers: { Authorization: 'Bearer ' + clave }, cache: 'no-store' });
-    if (r.status === 401) { var e = new Error('Clave incorrecta.'); e.codigo = 401; throw e; }
+    var r = await fetch('/api/admin' + (query || ''), { method: metodo, headers: { Authorization: 'Basic ' + cred }, cache: 'no-store' });
+    if (r.status === 401) { var e = new Error('Usuario o contraseña incorrectos.'); e.codigo = 401; throw e; }
     if (!r.ok) { var j = await r.json().catch(function () { return {}; }); var er = new Error(j.error || 'Error ' + r.status); er.codigo = r.status; throw er; }
     return r;
   }
@@ -124,14 +124,16 @@
 
   $('f-login').addEventListener('submit', async function (e) {
     e.preventDefault(); $('err').textContent = '';
-    clave = $('clave').value; $('b-entrar').disabled = true;
+    var bytes = new TextEncoder().encode($('usuario').value.trim() + ':' + $('clave').value), bin = '';
+    bytes.forEach(function (b) { bin += String.fromCharCode(b); });
+    cred = btoa(bin); $('b-entrar').disabled = true;
     try { await cargar(); }
-    catch (er) { clave = ''; $('err').textContent = er.message || 'No se pudo entrar.'; }
+    catch (er) { cred = ''; $('err').textContent = er.message || 'No se pudo entrar.'; }
     finally { $('b-entrar').disabled = false; $('clave').value = ''; }
   });
   ['q', 'f-barrera', 'f-urg', 'f-ruta'].forEach(function (id) { $(id).addEventListener('input', pintar); });
   $('b-actualizar').addEventListener('click', function () { cargar().catch(function (e) { alert(e.message); }); });
-  $('b-salir').addEventListener('click', function () { clave = ''; casos = []; sel = null; $('panel').hidden = true; $('acciones').hidden = true; $('login').hidden = false; $('detalle').textContent = ''; });
+  $('b-salir').addEventListener('click', function () { cred = ''; casos = []; sel = null; $('panel').hidden = true; $('acciones').hidden = true; $('login').hidden = false; $('detalle').textContent = ''; });
   $('b-csv').addEventListener('click', async function () {
     try {
       var r = await api('GET', '?accion=exportar'), blob = await r.blob(), url = URL.createObjectURL(blob);

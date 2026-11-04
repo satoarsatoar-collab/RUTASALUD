@@ -281,6 +281,15 @@ noscript p{padding:20px;font-size:1.1rem}
 .guardado p{margin:0 0 .5em}
 .guardado .link{color:var(--rojo)}
 @media print{.no-print-b{display:none!important}}
+.pol-box{height:min(58vh,520px);overflow:auto;border:1.5px solid var(--linea-fuerte);border-radius:var(--r);background:var(--hoja);padding:4px 22px 18px;font-size:.97rem}
+.pol-box:focus-visible{outline:3px solid var(--acento);outline-offset:2px}
+.pol-box .sub{font-size:1.12rem;margin:1.4em 0 .5em}
+.pol-box p,.pol-box ul,.pol-box ol{margin:0 0 .8em}
+.pol-box .lista{padding-left:1.3em}
+.lectura-barra{height:5px;background:var(--linea);border-radius:99px;overflow:hidden;margin:0 0 8px}
+.lectura-barra span{display:block;height:100%;background:var(--acento);transition:width .15s}
+.consent input:disabled{cursor:not-allowed;opacity:.5}
+.consent:has(input:disabled){cursor:not-allowed;color:var(--suave)}
 
 /* Vista de documento */
 [hidden]{display:none!important}
@@ -336,8 +345,8 @@ const CONFIG = {
   aliado: { nombre: "", detalle: "" }, // ej. consultorio jurídico de tu universidad
   politicaUrl: "",                  // (opcional) enlace externo; la política completa ya está en la página
   versionConsentimiento: "v1",      // debe coincidir con CONSENT_VERSION del servidor; súbela si cambias el texto legal
-  responsable: { nombre: "Responsable del proyecto Ruta Salud", correo: "" }, // PON AQUÍ tu nombre y correo de contacto
-  fechaPolitica: "noviembre de 2026",
+  responsable: { nombre: "Samuel Tobón Arango (proyecto Ruta Salud)", correo: "stobona2@eafit.edu.co", telefono: "", domicilio: "Medellín, Antioquia, Colombia" },
+  fechaPolitica: "4 de noviembre de 2026",
   encuestaUrl: "",                  // formulario para la prueba con usuarios
   maxArchivos: 4,
   maxPdfBytes: 2500000,             // 2,5 MB por PDF
@@ -604,6 +613,7 @@ function corregirLocal(t){
    ================================================================== */
 const app = document.getElementById("app");
 let TOK = 0, CTRL = null, REC = null, IA_DISP = null;
+let POL_LEIDA = false;                    // true cuando la persona llegó al final de la política
 let CONSENT = null;                       // { ia:boolean } cuando la persona acepta; null = no puede usar la herramienta
 let GUARDA = { activo:null, dias:365 };   // lo informa el servidor (/api/caso)
 const PUBLICAS = ["intro","consent","rechazo","politica"]; // pantallas permitidas sin autorización
@@ -677,6 +687,7 @@ function postRender(){
   const c = document.getElementById("relato-c"); if (c) c.value = S.relato;
   const og = document.getElementById("orig-texto"); if (og) og.textContent = S.relatoOrig;
   if (S.pantalla === "borrador") mostrarBorrador(false);
+  if (S.pantalla === "consent") { const bx = document.getElementById("pol-box"); if (bx) progresoLectura(bx); }
 }
 
 /* ==================================================================
@@ -714,67 +725,167 @@ function vIntro(){
 /* ---- Autorización de tratamiento de datos (obligatoria) ---- */
 function contactoResp(){
   const r = CONFIG.responsable || {};
-  return esc(r.nombre || "El responsable del proyecto") + (r.correo ? ` (${esc(r.correo)})` : ` <mark class="hueco">[correo de contacto por definir]</mark>`);
+  return esc(r.nombre || "El responsable del proyecto") + (r.correo ? ` (<a href="mailto:${esc(r.correo)}">${esc(r.correo)}</a>)` : ` <mark class="hueco">[correo de contacto por definir]</mark>`);
 }
 function textoNormas(){
   return `<ul>
-    <li><b>Constitución Política, art. 15:</b> derecho a la intimidad y a conocer, actualizar y rectificar la información que se recoja sobre ti (habeas data).</li>
-    <li><b>Ley Estatutaria 1581 de 2012</b> (régimen general de protección de datos personales): art. 4 (principios de finalidad, libertad, transparencia y seguridad), arts. 5 y 6 (datos sensibles, como los de salud), art. 8 (derechos del titular), art. 9 (autorización previa, expresa e informada), art. 12 (deber de informar al titular) y art. 26 (transferencia internacional de datos).</li>
-    <li><b>Decreto 1074 de 2015</b>, Libro 2, Parte 2, Título 2, Capítulo 25 (compila el Decreto 1377 de 2013): reglas sobre la autorización y las políticas de tratamiento.<span class="verif">Confirmar en fuente oficial</span></li>
-    <li><b>Sentencia C-748 de 2011</b> de la Corte Constitucional: control de constitucionalidad del proyecto que dio origen a la Ley 1581.</li>
+    <li><b>Constitución Política, art. 15:</b> derecho a la intimidad y a conocer, actualizar y rectificar la información recogida sobre las personas (habeas data).</li>
+    <li><b>Ley Estatutaria 1581 de 2012</b>, por la cual se dictan disposiciones generales para la protección de datos personales: art. 4 (principios), arts. 5 y 6 (datos sensibles), art. 7 (niños, niñas y adolescentes), art. 8 (derechos del titular), art. 9 (autorización), arts. 14 y 15 (consultas y reclamos), art. 17 (deberes del responsable), art. 18 (deberes del encargado) y art. 26 (transferencia internacional).</li>
+    <li><b>Decreto 1074 de 2015</b>, Libro 2, Parte 2, Título 2, Capítulo 25 (compila el Decreto 1377 de 2013): autorización (art. 2.2.2.25.2.2), datos sensibles (2.2.2.25.2.3), prueba y revocatoria (2.2.2.25.2.5 y 2.2.2.25.2.6), datos de niños, niñas y adolescentes (2.2.2.25.2.9), políticas de tratamiento (2.2.2.25.3.1), medidas de seguridad (2.2.2.25.3.7) y transmisión internacional (2.2.2.25.5.1).</li>
+    <li><b>Sentencia C-748 de 2011</b> de la Corte Constitucional: control de constitucionalidad de la Ley 1581 de 2012.</li>
   </ul>`;
 }
+
+/* Texto completo de la política (se usa en la pantalla de autorización y en «Privacidad») */
+function cuerpoPolitica(){
+  const g = GUARDA.activo === true, d = GUARDA.dias, r = CONFIG.responsable || {};
+  const fin = (n, t) => `<li>${t}</li>`;
+  return `
+    <h3 class="sub">1. Objeto y alcance</h3>
+    <p>Esta política explica cómo <b>Ruta Salud</b> recoge, usa, almacena, transmite y elimina los datos personales de quienes la utilizan, y cómo pueden ejercer sus derechos. Aplica a todos los datos que las personas escriben, dictan o adjuntan en la herramienta, y se adopta en cumplimiento de la Ley 1581 de 2012, el Decreto 1074 de 2015 y el artículo 15 de la Constitución Política.</p>
+
+    <h3 class="sub">2. Identificación del responsable del tratamiento</h3>
+    <ul class="lista">
+      <li><b>Responsable:</b> ${esc(r.nombre || "")}</li>
+      <li><b>Domicilio:</b> ${esc(r.domicilio || "Colombia")}</li>
+      <li><b>Correo electrónico:</b> ${r.correo ? `<a href="mailto:${esc(r.correo)}">${esc(r.correo)}</a>` : `<mark class="hueco">[por definir]</mark>`}</li>
+      ${r.telefono ? `<li><b>Teléfono:</b> ${esc(r.telefono)}</li>` : ""}
+      <li><b>Área encargada de peticiones, consultas y reclamos:</b> el responsable, a través del correo indicado.</li>
+    </ul>
+    <p>Ruta Salud es un proyecto académico y no una entidad prestadora de servicios de salud, aseguradora ni autoridad pública.</p>
+
+    <h3 class="sub">3. Marco normativo</h3>
+    ${textoNormas()}
+
+    <h3 class="sub">4. Definiciones</h3>
+    <ul class="lista">
+      <li><b>Dato personal:</b> información vinculada o que pueda asociarse a una persona natural determinada o determinable.</li>
+      <li><b>Dato sensible:</b> el que afecta la intimidad del titular o cuyo uso indebido puede generar discriminación. Los datos relativos a la salud son datos sensibles (Ley 1581 de 2012, art. 5).</li>
+      <li><b>Titular:</b> la persona natural cuyos datos se tratan.</li>
+      <li><b>Responsable:</b> quien decide sobre la base de datos y el tratamiento. <b>Encargado:</b> quien trata los datos por cuenta del responsable.</li>
+      <li><b>Autorización:</b> consentimiento previo, expreso e informado del titular para el tratamiento de sus datos.</li>
+      <li><b>Tratamiento:</b> cualquier operación sobre los datos: recolección, almacenamiento, uso, circulación o supresión.</li>
+    </ul>
+
+    <h3 class="sub">5. Principios que se aplican</h3>
+    <p>Legalidad, finalidad, libertad, veracidad o calidad, transparencia, acceso y circulación restringida, seguridad y confidencialidad (Ley 1581 de 2012, art. 4). En particular: los datos solo se usan para las finalidades informadas, solo se recogen con autorización y solo acceden a ellos las personas autorizadas del proyecto.</p>
+
+    <h3 class="sub">6. Datos que se tratan</h3>
+    <ul class="lista">
+      <li><b>Datos del relato:</b> lo que la persona escribe o dicta sobre su situación. Puede incluir datos sensibles de salud (síntomas, diagnósticos, tratamientos, medicamentos, citas, órdenes médicas) y datos de terceros, como un familiar afectado.</li>
+      <li><b>Respuestas de orientación:</b> urgencia, tipo de barrera, tiempo transcurrido, reclamos previos, existencia de orden médica, nivel de afectación, condiciones de protección especial (menor de edad, adulto mayor, discapacidad, embarazo, enfermedad grave) y quién reclama.</li>
+      <li><b>Datos del caso:</b> nombre de la EPS o IPS, servicio requerido y fecha aproximada de inicio.</li>
+      <li><b>Archivos adjuntos (fotos o PDF):</b> solo si la persona elige la ayuda de IA, se leen en el momento para extraer datos. <b>No se almacenan.</b> En el modo sin IA no se leen ni se envían.</li>
+      <li><b>Datos técnicos:</b> la herramienta no almacena la dirección IP ni datos del dispositivo. El servidor puede conservar temporalmente la IP, solo en memoria y sin guardarla, para limitar el abuso del servicio.</li>
+    </ul>
+    <p><b>No se solicitan</b> nombre completo, número de documento, dirección ni teléfono de la persona afectada: esos datos se completan en la copia de los borradores, fuera de la herramienta. Se pide no escribirlos en el relato.</p>
+    <p><b>Datos sensibles.</b> Por tratarse de datos sensibles, la persona <b>no está obligada a autorizar su tratamiento</b> ni a suministrarlos (Ley 1581 de 2012, arts. 5 y 6; Decreto 1074 de 2015, art. 2.2.2.25.2.3). Puede contar su caso con el menor detalle de salud posible; la ruta se calcula principalmente con las respuestas a las preguntas.</p>
+
+    <h3 class="sub">7. Finalidades del tratamiento</h3>
+    <ol class="lista">
+      <li><b>Orientación informativa:</b> ordenar y corregir el relato, indicar el mecanismo que podría convenir (reclamo escrito a la EPS o IPS, queja ante la Superintendencia Nacional de Salud o acción de tutela) y generar borradores de escritos para que la persona los revise.</li>
+      ${g ? `<li><b>Conservación y revisión del caso:</b> permitir que el equipo autorizado del proyecto consulte los casos, verifique el funcionamiento de la herramienta y la mejore.</li>
+      <li><b>Investigación académica:</b> elaborar estadísticas y análisis sobre las barreras de acceso a la salud y el conocimiento de los mecanismos de protección. Los resultados que se publiquen se presentarán de forma agregada y sin identificar a las personas.</li>` : ""}
+      <li><b>Soporte legal:</b> acreditar que la persona otorgó su autorización (versión del texto, fecha y hora) y atender sus solicitudes, consultas y reclamos como titular de los datos.</li>
+    </ol>
+    <p>Los datos no se venden, no se ceden, no se usan para publicidad o perfilamiento comercial, no se comparten con las EPS, IPS ni aseguradoras, y no se usan para decidir sobre la afiliación o la atención de nadie. Cualquier finalidad nueva requerirá una nueva autorización.</p>
+
+    <h3 class="sub">8. Encargados, proveedores y transmisión internacional</h3>
+    <p>Para operar, el proyecto usa proveedores tecnológicos que tratan datos por su cuenta y bajo sus instrucciones (encargados):</p>
+    <ul class="lista">
+      <li><b>Vercel Inc.:</b> alojamiento de la página y de las funciones del servidor.</li>
+      ${g ? `<li><b>Upstash, Inc.:</b> base de datos donde se guardan los casos.</li>` : ""}
+      <li><b>Anthropic, PBC:</b> servicio de inteligencia artificial, <b>solo si la persona lo autoriza por separado</b>, para leer el relato y los archivos y devolver datos ordenados.</li>
+    </ul>
+    <p>Estos proveedores pueden tener servidores fuera de Colombia, lo que implica una transmisión internacional de datos (Ley 1581 de 2012, art. 26; Decreto 1074 de 2015, art. 2.2.2.25.5.1). La persona puede usar la herramienta sin IA y, en ese caso, sus archivos no salen de su dispositivo. El dictado por voz, si se usa, lo procesa el servicio de voz del propio navegador.</p>
+
+    <h3 class="sub">9. Autorización, prueba y revocatoria</h3>
+    <p>El tratamiento se hace con la autorización previa, expresa e informada de la persona, que se otorga marcando la casilla correspondiente <b>después de leer completa esta política</b>. ${g ? `Con cada caso guardado se registra la versión del texto aceptado, la fecha y hora, si leyó la política completa y si autorizó la IA, como prueba de la autorización (Decreto 1074 de 2015, art. 2.2.2.25.2.5). ` : ""}La persona puede <b>revocar la autorización y pedir la supresión</b> de sus datos en cualquier momento, salvo que exista un deber legal o contractual de conservarlos (Decreto 1074 de 2015, art. 2.2.2.25.2.6).</p>
+    <p>Si la persona no autoriza el tratamiento, no podrá usar la herramienta, porque su funcionamiento depende de procesar el relato y las respuestas que ella aporta. En ese caso no se recoge ni guarda ningún dato y puede acudir directamente a su EPS, a la Superintendencia Nacional de Salud, a la Defensoría del Pueblo o a un consultorio jurídico.</p>
+
+    <h3 class="sub">10. Derechos del titular</h3>
+    <p>Como titular de los datos, la persona tiene derecho a (Ley 1581 de 2012, art. 8):</p>
+    <ul class="lista">
+      <li>Conocer, actualizar y rectificar sus datos.</li>
+      <li>Solicitar prueba de la autorización otorgada.</li>
+      <li>Ser informada, previa solicitud, del uso que se ha dado a sus datos.</li>
+      <li>Presentar quejas ante la Superintendencia de Industria y Comercio por infracciones a la ley.</li>
+      <li>Revocar la autorización y/o solicitar la supresión de sus datos cuando no se respeten los principios, derechos y garantías.</li>
+      <li>Acceder de forma gratuita a sus datos personales.</li>
+    </ul>
+    <p>Pueden ejercer estos derechos el titular, sus causahabientes, su representante o apoderado, o quien actúe por estipulación a favor de otro, acreditando su calidad.</p>
+
+    <h3 class="sub">11. Cómo ejercer los derechos: consultas y reclamos</h3>
+    <ul class="lista">
+      <li><b>Canal:</b> correo electrónico ${r.correo ? `<a href="mailto:${esc(r.correo)}">${esc(r.correo)}</a>` : "del responsable"}${g ? `. Además, desde la pantalla de resultados la persona puede <b>borrar su caso en el acto</b> con el código y la clave que recibe al terminar` : ""}.</li>
+      <li><b>Qué debe incluir:</b> nombre de quien solicita, descripción de lo que pide y, si se trata de un caso guardado, el código del caso. No es necesario enviar documentos de salud.</li>
+      <li><b>Consultas</b> (conocer o acceder a los datos): se responden en máximo <b>10 días hábiles</b>; si no es posible, se informa el motivo y la nueva fecha, que no superará <b>5 días hábiles</b> adicionales (Ley 1581 de 2012, art. 14).</li>
+      <li><b>Reclamos</b> (actualizar, rectificar, suprimir, revocar o por presunto incumplimiento): se responden en máximo <b>15 días hábiles</b>, prorrogables por <b>8 días hábiles</b> más con aviso del motivo. Si el reclamo está incompleto, se pedirá corregirlo en 5 días; pasados 2 meses sin respuesta se entiende desistido (art. 15).</li>
+      <li><b>Autoridad de control:</b> solo después de agotar este trámite, la persona puede presentar queja ante la Superintendencia de Industria y Comercio (art. 16).</li>
+    </ul>
+
+    <h3 class="sub">12. Deberes del responsable</h3>
+    <p>El responsable se compromete a (Ley 1581 de 2012, art. 17): garantizar el pleno ejercicio del habeas data; conservar la prueba de la autorización; informar claramente las finalidades y los derechos; conservar la información con seguridad; garantizar que los datos sean veraces y estén actualizados; tramitar las consultas y reclamos en los plazos de ley; informar al encargado cualquier novedad; y avisar a la Superintendencia de Industria y Comercio si se presentan violaciones a los códigos de seguridad o riesgos en la administración de la información.</p>
+
+    <h3 class="sub">13. Medidas de seguridad</h3>
+    <ul class="lista">
+      <li>Toda la comunicación viaja cifrada (HTTPS).</li>
+      <li>Minimización: no se piden datos de identificación ni se almacenan los archivos adjuntos.</li>
+      ${g ? `<li>Los casos se guardan en una base de datos con acceso por credenciales privadas; el panel de consulta exige usuario y contraseña, limita los intentos fallidos y muestra los textos de forma segura, sin ejecutar su contenido.</li>
+      <li>Acceso restringido a las personas autorizadas del proyecto, que se obligan a guardar confidencialidad.</li>
+      <li>Cada caso se elimina automáticamente a los ${d} días.</li>` : `<li>En esta versión no se guardan los casos en servidores del proyecto.</li>`}
+      <li>Las claves de acceso se guardan en variables de entorno del servidor, nunca en el código de la página.</li>
+    </ul>
+    <p>Ningún sistema es infalible. Si ocurre un incidente de seguridad que afecte los datos, se informará a los titulares y a la Superintendencia de Industria y Comercio conforme a la ley.</p>
+
+    <h3 class="sub">14. Conservación y supresión</h3>
+    ${g ? `<p>El relato, las respuestas y los datos del caso se conservan hasta por <b>${d} días</b> desde su creación y luego se eliminan automáticamente, o antes si la persona o el titular de los datos lo solicita. Los datos que se usen en estadísticas de investigación se publicarán únicamente de forma agregada, sin identificar a las personas. La base de datos tiene vigencia mientras dure el proyecto de investigación.</p>`
+          : `<p>En esta versión el caso no se guarda en servidores del proyecto: permanece en el navegador de la persona hasta que cierra la página o inicia un nuevo caso.</p>`}
+    <p>La página guarda en el navegador únicamente la preferencia de tamaño de letra. No usa cookies de publicidad ni de seguimiento.</p>
+
+    <h3 class="sub">15. Niños, niñas y adolescentes</h3>
+    <p>La herramienta está dirigida a personas adultas. Si el caso se refiere a un menor de edad, debe contarlo su madre, padre, representante legal o un adulto que actúe por él, y se tratarán sus datos respetando el interés superior del menor y sus derechos fundamentales (Ley 1581 de 2012, art. 7; Decreto 1074 de 2015, art. 2.2.2.25.2.9). Se pide no incluir su nombre ni su documento.</p>
+
+    <h3 class="sub">16. Naturaleza de la herramienta</h3>
+    <p><strong>Herramienta informativa. No es asesoría jurídica ni médica y no reemplaza a un abogado o a un profesional de la salud. Los borradores deben revisarse antes de usarse.</strong> Ante una emergencia, llama al 123 o acude a urgencias.</p>
+
+    <h3 class="sub">17. Vigencia y cambios</h3>
+    <p>Esta política está vigente desde el ${esc(CONFIG.fechaPolitica)} (versión ${esc(CONFIG.versionConsentimiento)}). Si se modifica de forma sustancial, se publicará la nueva versión en la herramienta y se pedirá de nuevo la autorización antes de seguir usándola.</p>`;
+}
+
 function vConsent(){
   const guarda = GUARDA.activo === true, listo = GUARDA.activo !== null;
   const iaOk = S.ia.disponible !== false;
+  const puede = S.chkDatos && listo && POL_LEIDA;
   return `
     <h1>Antes de empezar: tu autorización</h1>
-    <p class="bajada" style="font-size:1.1rem">Para usar Ruta Salud necesitamos tu autorización para tratar tus datos personales. <strong>Si no la das, no podrás usar la herramienta.</strong></p>
+    <p class="bajada" style="font-size:1.1rem">Para usar Ruta Salud necesitamos tu autorización para tratar tus datos personales. <strong>Debes leer la política completa para poder aceptar.</strong> Si no la aceptas, no podrás usar la herramienta.</p>
     <div class="resumen-legal">
       <strong>En resumen</strong>
       <ul>
         <li>Lo que cuentes puede incluir <b>datos de salud, que son datos sensibles</b>. No estás obligado(a) a darlos ni a autorizar su tratamiento.</li>
-        <li>Los usamos para orientarte (tu ruta y tus borradores)${guarda ? ", para que el equipo del proyecto pueda revisar los casos, mejorar la herramienta y elaborar estadísticas para una investigación académica sobre el acceso a los mecanismos de protección del derecho a la salud" : ""}.</li>
-        ${guarda ? `<li>Guardamos tu relato y tus respuestas durante <b>${GUARDA.dias} días</b>. <b>No guardamos tus archivos adjuntos.</b> Puedes borrar tu caso cuando quieras.</li>`
-                 : `<li>En esta versión <b>no se guarda tu caso en nuestros servidores</b>: se queda en tu navegador.</li>`}
-        <li>No vendemos tus datos, no los usamos para publicidad y no los enviamos a tu EPS.</li>
-        <li>No escribas tu cédula, dirección ni teléfono: no son necesarios. Esos datos se completan después, en tu copia.</li>
+        <li>Los usamos para orientarte${guarda ? " y, con tu autorización, para que el equipo del proyecto revise los casos y haga estadísticas de una investigación académica" : ""}.</li>
+        ${guarda ? `<li>Guardamos tu relato y tus respuestas durante <b>${GUARDA.dias} días</b>. <b>No guardamos tus archivos.</b> Puedes borrar tu caso cuando quieras.</li>` : `<li>En esta versión <b>no se guarda tu caso en nuestros servidores</b>.</li>`}
+        <li>No vendemos tus datos ni los compartimos con tu EPS.</li>
+        <li>No escribas tu cédula, dirección ni teléfono: no son necesarios.</li>
       </ul>
     </div>
 
-    <div class="legal">
-      <details><summary>Quién es el responsable</summary><div class="txt"><p>${contactoResp()}. Es quien decide sobre el tratamiento de tus datos y quien atiende tus consultas y reclamos.</p></div></details>
-      <details><summary>Qué datos tratamos y para qué</summary><div class="txt">
-        <p><b>Datos:</b> el relato que escribas o dictes, tus respuestas a las preguntas, y los datos que completes (entidad, servicio, fecha). Si eliges la ayuda de IA, también el contenido de las fotos o PDF que adjuntes, que se leen en el momento y <b>no se guardan</b>.</p>
-        <p><b>Finalidades:</b></p>
-        <ul>
-          <li>Orientación informativa: ordenar tu relato, indicarte el mecanismo que podría convenirte y generar borradores de escritos.</li>
-          ${guarda ? `<li>Conservar tu caso para que el equipo del proyecto lo consulte, mejore la herramienta y haga estadísticas para una investigación académica.</li>` : ""}
-          <li>Acreditar que diste tu autorización y atender tus solicitudes, consultas y reclamos como titular de los datos.</li>
-        </ul>
-        <p>No usamos tus datos para fines distintos a estos. Cualquier cambio de finalidad requerirá una nueva autorización.</p></div></details>
-      <details><summary>Cuánto tiempo y dónde se guardan</summary><div class="txt">
-        ${guarda ? `<p>Tu caso se guarda en una base de datos con acceso restringido y se elimina automáticamente a los <b>${GUARDA.dias} días</b>. Solo el equipo autorizado del proyecto puede consultarlo. Al terminar tu ruta verás un <b>código y una clave</b> para pedir que se borre tu caso en cualquier momento.</p>`
-                 : `<p>En esta versión no se guarda tu caso en nuestros servidores. Lo que escribes permanece en tu navegador mientras usas la página.</p>`}
-      </div></details>
-      <details><summary>Ayuda de IA y envío al exterior (opcional)</summary><div class="txt">
-        <p>Si eliges la ayuda de IA, tu relato y tus archivos se transmiten por internet a un servicio de inteligencia artificial (Anthropic, con servidores fuera de Colombia) únicamente para leerlos y ordenarlos. Es una transmisión internacional de datos (Ley 1581 de 2012, art. 26) y por eso la pedimos aparte. Puedes usar la herramienta sin IA.</p></div></details>
-      <details><summary>Tus derechos como titular</summary><div class="txt">
-        <p>Según el art. 8 de la Ley 1581 de 2012 puedes: conocer, actualizar y rectificar tus datos; pedir prueba de esta autorización; ser informado(a) del uso que se les ha dado; <b>revocar la autorización y pedir la supresión de tus datos</b>; acceder gratis a ellos; y presentar quejas ante la Superintendencia de Industria y Comercio.</p>
-        <p>Para ejercerlos escribe a ${contactoResp()}, o borra tu caso directamente con el código y la clave que recibirás.</p></div></details>
-      <details><summary>Base normativa</summary><div class="txt">${textoNormas()}</div></details>
-    </div>
-    <p><button type="button" class="link" data-act="verPolitica" data-desde="consent">Leer la política completa de tratamiento de datos</button></p>
+    <h2 style="font-size:1.35rem;margin-top:1.4em">Política de tratamiento de datos personales</h2>
+    <p class="ayuda" style="margin:0 0 6px">Versión ${esc(CONFIG.versionConsentimiento)} · ${esc(CONFIG.fechaPolitica)}. Desplázate dentro del recuadro hasta el final.</p>
+    <div class="lectura-barra" aria-hidden="true"><span id="pol-barra" style="width:${POL_LEIDA ? 100 : 0}%"></span></div>
+    <div id="pol-box" class="pol-box" tabindex="0" role="region" aria-label="Política de tratamiento de datos personales. Léela completa para poder aceptar.">${cuerpoPolitica()}</div>
+    <p id="pol-estado" class="ayuda" role="status" style="margin:.5em 0 1.2em">${POL_LEIDA ? "✓ Leíste la política completa." : "Aún no llegas al final de la política."}</p>
 
-    <label class="consent obl"><input type="checkbox" id="chk-datos" ${S.chkDatos ? "checked" : ""}>
-      <span>He leído y <strong>autorizo</strong> el tratamiento de mis datos personales, incluidos los datos sensibles de salud que yo escriba, para las finalidades descritas. Entiendo que no estoy obligado(a) a autorizar datos sensibles.</span></label>
-    ${iaOk ? `<label class="consent opc"><input type="checkbox" id="chk-ia" ${S.chkIA ? "checked" : ""}>
-      <span>Además, autorizo el envío de mi relato y de mis archivos al servicio de IA para que los lea y los ordene. <span class="etq-op">Opcional</span></span></label>` : ""}
+    <label class="consent obl"><input type="checkbox" id="chk-datos" ${S.chkDatos ? "checked" : ""} ${POL_LEIDA ? "" : "disabled"}>
+      <span>He leído la política completa y <strong>autorizo</strong> el tratamiento de mis datos personales, incluidos los datos sensibles de salud que yo escriba, para las finalidades descritas. Entiendo que no estoy obligado(a) a autorizar datos sensibles.</span></label>
+    ${iaOk ? `<label class="consent opc"><input type="checkbox" id="chk-ia" ${S.chkIA ? "checked" : ""} ${POL_LEIDA ? "" : "disabled"}>
+      <span>Además, autorizo el envío de mi relato y de mis archivos al servicio de IA (Anthropic, fuera de Colombia) para que los lea y los ordene. <span class="etq-op">Opcional</span></span></label>` : ""}
     <div class="acciones" style="margin-top:.6em">
-      <button class="btn" type="button" data-act="aceptar" ${S.chkDatos && listo ? "" : "disabled"}>Acepto y continúo</button>
+      <button class="btn" type="button" id="btn-aceptar" data-act="aceptar" ${puede ? "" : "disabled"}>Acepto y continúo</button>
       <button class="btn sec" type="button" data-act="noAcepto">No acepto</button>
     </div>
-    ${!S.chkDatos ? `<p class="ayuda" style="margin-top:.8em">Marca la casilla de autorización para continuar.</p>` : ""}`;
+    <p id="pol-ayuda" class="ayuda" style="margin-top:.8em">${!POL_LEIDA ? "Lee la política hasta el final para habilitar las casillas." : !S.chkDatos ? "Marca la casilla de autorización para continuar." : ""}</p>`;
 }
 
 function vRechazo(){
@@ -819,32 +930,10 @@ function vModo(){
 }
 
 function vPolitica(){
-  const guarda = GUARDA.activo === true;
   return `
     <h1>Política de tratamiento de datos personales</h1>
-    <p class="ayuda">Versión ${esc(CONFIG.versionConsentimiento)} · ${esc(CONFIG.fechaPolitica)}</p>
-    <h3 class="sub">1. Responsable</h3>
-    <p>${contactoResp()}.</p>
-    <h3 class="sub">2. Datos que se tratan</h3>
-    <p>Relato escrito o dictado por la persona; respuestas a las preguntas de orientación (urgencia, tipo de barrera, tiempo, reclamos previos, orden médica, afectación, protección especial, quién reclama); datos de entidad, servicio y fecha; y, si la persona elige la ayuda de IA, el contenido de los archivos que adjunte. La información sobre salud es un <b>dato sensible</b> (Ley 1581 de 2012, art. 5). La persona no está obligada a autorizar su tratamiento. No se solicitan nombres completos, cédula, dirección ni teléfono: esos datos se completan en la copia de la persona, y se le pide no escribirlos en el relato.</p>
-    <h3 class="sub">3. Finalidades</h3>
-    <ul class="lista">
-      <li>Orientación informativa: ordenar el relato, indicar el mecanismo posible (reclamo a la EPS, queja a la Superintendencia Nacional de Salud o acción de tutela) y generar borradores.</li>
-      ${guarda ? `<li>Conservación del caso para consulta del equipo del proyecto, mejora de la herramienta y elaboración de estadísticas para una investigación académica.</li>` : ""}
-      <li>Acreditar la autorización otorgada y atender solicitudes, consultas y reclamos del titular.</li>
-    </ul>
-    <p>No se venden ni se ceden los datos, no se usan con fines publicitarios y no se comparten con las EPS ni con terceros, salvo el proveedor de IA (si la persona lo autoriza) y los proveedores de infraestructura que actúan como encargados.</p>
-    <h3 class="sub">4. Conservación y seguridad</h3>
-    ${guarda ? `<p>Los casos se almacenan en una base de datos de acceso restringido y se eliminan automáticamente a los ${GUARDA.dias} días. Los archivos adjuntos no se almacenan. El acceso del equipo se protege con una clave privada. Cada persona recibe un código y una clave para eliminar su caso.</p>`
-             : `<p>En esta versión no se almacenan los casos en servidores del proyecto. Los archivos adjuntos tampoco se almacenan.</p>`}
-    <h3 class="sub">5. Transmisión a la IA (opcional)</h3>
-    <p>Solo si la persona lo autoriza de forma separada, el relato y los archivos se transmiten a Anthropic (Estados Unidos) para su lectura y ordenamiento, sin que el proveedor decida sobre las finalidades. Es una transmisión internacional (Ley 1581 de 2012, art. 26). La herramienta puede usarse sin IA.</p>
-    <h3 class="sub">6. Derechos del titular</h3>
-    <p>Conocer, actualizar y rectificar los datos; solicitar prueba de la autorización; ser informado del uso dado a los datos; revocar la autorización y solicitar la supresión; acceder gratuitamente a los datos; y presentar quejas ante la Superintendencia de Industria y Comercio (Ley 1581 de 2012, art. 8). Para ejercerlos: ${contactoResp()}.</p>
-    <h3 class="sub">7. Base normativa</h3>
-    ${textoNormas()}
-    <h3 class="sub">8. Naturaleza de la herramienta</h3>
-    <p><strong>Herramienta informativa. No es asesoría jurídica ni médica y no reemplaza a un abogado o a un profesional de la salud. Los borradores deben revisarse antes de usarse.</strong></p>
+    <p class="ayuda">Versión ${esc(CONFIG.versionConsentimiento)} · vigente desde el ${esc(CONFIG.fechaPolitica)}</p>
+    ${cuerpoPolitica()}
     <div class="acciones"><button class="btn" type="button" data-act="cerrarPolitica">Volver</button></div>`;
 }
 
@@ -1362,7 +1451,7 @@ async function guardarCaso(){
   const r = calcularRuta(S.a);
   const info = (S.analisis && S.analisis.datos_archivos) || [];
   const cuerpo = {
-    consentimiento:{ acepta:true, version:CONFIG.versionConsentimiento, ia:!!CONSENT.ia },
+    consentimiento:{ acepta:true, version:CONFIG.versionConsentimiento, ia:!!CONSENT.ia, lectura_completa:true },
     id: S.cod ? S.cod.id : undefined, clave: S.cod ? S.cod.clave : undefined,
     relato_original:S.relatoOrig, relato_corregido:S.relato, usa_ia:!!S.usaIA,
     respuestas:S.a, datos:{ entidad:S.d.entidad, servicio:S.d.servicio, desde:S.d.desde },
@@ -1431,8 +1520,8 @@ document.addEventListener("click", e => {
   const act = el.dataset.act, q = PREGUNTAS[S.i];
 
   if (act === "empezar") ir(CONSENT ? "modo" : "consent");
-  else if (act === "aceptar") { if (S.chkDatos && GUARDA.activo !== null) { CONSENT = { ia: !!S.chkIA }; ir("modo"); } }
-  else if (act === "noAcepto") { CONSENT = null; S.chkDatos = false; S.chkIA = false; ir("rechazo"); }
+  else if (act === "aceptar") { if (S.chkDatos && POL_LEIDA && GUARDA.activo !== null) { CONSENT = { ia: !!S.chkIA }; ir("modo"); } }
+  else if (act === "noAcepto") { CONSENT = null; S.chkDatos = false; S.chkIA = false; POL_LEIDA = false; ir("rechazo"); }
   else if (act === "irConsent") ir("consent");
   else if (act === "irModo") ir("modo");
   else if (act === "verPolitica") { if (S.pantalla !== "politica") S.desdePol = S.pantalla; ir("politica"); }
@@ -1490,11 +1579,31 @@ document.addEventListener("input", e => {
 });
 document.addEventListener("change", e => {
   const t = e.target;
-  if (t.id === "chk-datos") { S.chkDatos = t.checked; render(); const c = document.getElementById("chk-datos"); if (c) c.focus(); }
-  else if (t.id === "chk-ia") { S.chkIA = t.checked; render(); const c = document.getElementById("chk-ia"); if (c) c.focus(); }
+  if (t.id === "chk-datos") { S.chkDatos = t.checked && POL_LEIDA; actualizarConsent(); }
+  else if (t.id === "chk-ia") { S.chkIA = t.checked && POL_LEIDA; }
   else if (t.dataset && t.dataset.tipoI !== undefined) { const f = S.archivos[Number(t.dataset.tipoI)]; if (f) f.tipoDoc = t.value; }
   else if (t.id === "f-arch" || t.id === "f-cam") { if (t.files && t.files.length) agregarArchivos(t.files); }
 });
+
+/* Lectura obligatoria: las casillas se habilitan solo al llegar al final de la política */
+function actualizarConsent(){
+  const b = document.getElementById("btn-aceptar"); if (!b) return;
+  b.disabled = !(S.chkDatos && GUARDA.activo !== null && POL_LEIDA);
+  const ay = document.getElementById("pol-ayuda"); if (ay) ay.textContent = !POL_LEIDA ? "Lee la política hasta el final para habilitar las casillas." : !S.chkDatos ? "Marca la casilla de autorización para continuar." : "";
+}
+function progresoLectura(box){
+  const max = box.scrollHeight - box.clientHeight;
+  const pct = max <= 0 ? 100 : Math.min(100, Math.round((box.scrollTop / max) * 100));
+  const barra = document.getElementById("pol-barra"); if (barra && !POL_LEIDA) barra.style.width = pct + "%";
+  if (!POL_LEIDA && (max <= 0 || box.scrollTop >= max - 6)) {
+    POL_LEIDA = true;
+    if (barra) barra.style.width = "100%";
+    const e = document.getElementById("pol-estado"); if (e) e.textContent = "✓ Leíste la política completa.";
+    ["chk-datos","chk-ia"].forEach(id => { const c = document.getElementById(id); if (c) c.disabled = false; });
+    actualizarConsent();
+  }
+}
+document.addEventListener("scroll", e => { if (e.target && e.target.id === "pol-box") progresoLectura(e.target); }, true);
 
 function setEstado(msg){ const n = document.getElementById("estado-copia"); if (n) { n.textContent = msg; setTimeout(() => { n.textContent = ""; }, 3500); } }
 function copiar(){

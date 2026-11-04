@@ -75,11 +75,11 @@ module.exports = async function handler(req, res) {
 
     if (limitadoCrear(ip)) return json(res, 429, { error: 'Demasiados intentos. Espera un rato.' });
     const c = body.consentimiento;
-    if (!c || c.acepta !== true || c.version !== VERSION_CONSENTIMIENTO) return json(res, 403, { error: 'Falta la autorización para tratar los datos.' });
+    if (!c || c.acepta !== true || c.lectura_completa !== true || c.version !== VERSION_CONSENTIMIENTO) return json(res, 403, { error: 'Falta la autorización para tratar los datos.' });
 
     const ahora = Date.now();
     const caso = limpiarCaso(body);
-    const consentimiento = { version: VERSION_CONSENTIMIENTO, fecha: new Date(ahora).toISOString(), ia: c.ia === true };
+    const consentimiento = { version: VERSION_CONSENTIMIENTO, fecha: new Date(ahora).toISOString(), ia: c.ia === true, lectura_completa: true };
 
     const idPrevio = T(body.id, 40), clavePrevia = T(body.clave, 80);
     if (idPrevio) { // actualización: solo con la clave del caso

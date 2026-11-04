@@ -1,8 +1,9 @@
 'use strict';
 /**
- * API del administrador. Se protege con la variable ADMIN_KEY (mínimo 16 caracteres).
- * Sin ADMIN_KEY o con una clave corta, el panel queda DESACTIVADO (falla cerrado).
- * La clave viaja en el encabezado Authorization: Bearer <clave>; nunca en la URL.
+ * API del administrador. Se protege con usuario y contraseña definidos en las variables
+ * de entorno ADMIN_USER y ADMIN_PASS (contraseña de mínimo 10 caracteres).
+ * Sin ellas, el panel queda DESACTIVADO (falla cerrado). Las credenciales nunca van en el código.
+ * Viajan en el encabezado Authorization: Basic <base64(usuario:contraseña)>; nunca en la URL.
  *
  *   GET    ?accion=listar            -> { casos: [...] }   (sin clave_hash)
  *   GET    ?accion=exportar          -> CSV
@@ -30,16 +31,19 @@ function aCSV(casos) {
 
 module.exports = async function handler(req, res) {
   res.setHeader('X-Robots-Tag', 'noindex, nofollow');
-  const clave = process.env.ADMIN_KEY || '';
-  if (clave.length < 16) return json(res, 503, { error: 'El panel está desactivado: defina ADMIN_KEY (mínimo 16 caracteres).' });
+  const usuario = process.env.ADMIN_USER || '', clave = process.env.ADMIN_PASS || '';
+  if (!usuario || clave.length < 10) return json(res, 503, { error: 'El panel está desactivado: defina ADMIN_USER y ADMIN_PASS (contraseña de mínimo 10 caracteres).' });
   if (req.method !== 'GET' && req.method !== 'DELETE') return json(res, 405, { error: 'Método no permitido.' });
 
   const ip = ipDe(req);
-  const m = /^Bearer (.+)$/.exec(String(req.headers.authorization || ''));
-  if (!m || !igualesSeguro(m[1], clave)) {
+  const m = /^Basic (.+)$/.exec(String(req.headers.authorization || ''));
+  let u = '', c = '';
+  if (m) { const t = Buffer.from(m[1], 'base64').toString('utf8'), i = t.indexOf(':'); if (i >= 0) { u = t.slice(0, i); c = t.slice(i + 1); } }
+  const okU = igualesSeguro(u, usuario), okC = igualesSeguro(c, clave); // se evalúan ambos siempre
+  if (!m || !(okU && okC)) {
     if (fallos(ip)) return json(res, 429, { error: 'Demasiados intentos. Espera 15 minutos.' });
     await espera(600);
-    return json(res, 401, { error: 'Clave incorrecta.' });
+    return json(res, 401, { error: 'Usuario o contraseña incorrectos.' });
   }
   const base = db();
   if (!base) return json(res, 503, { error: 'No hay base de datos configurada (UPSTASH_REDIS_REST_URL / UPSTASH_REDIS_REST_TOKEN).' });

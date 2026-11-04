@@ -71,9 +71,11 @@ tr.fila.sel{background:var(--tinte);box-shadow:inset 3px 0 0 var(--acento)}
 <main>
   <section id="login" class="login">
     <h1 style="font-size:1.6rem">Acceso del equipo</h1>
-    <p style="color:var(--suave);margin:0 0 .6em">Ingresa la clave de administración. Los casos contienen datos de salud: no compartas la clave ni dejes la sesión abierta.</p>
+    <p style="color:var(--suave);margin:0 0 .6em">Ingresa tu usuario y contraseña. Los casos contienen datos de salud: no compartas el acceso ni dejes la sesión abierta.</p>
     <form id="f-login" autocomplete="off">
-      <label for="clave">Clave</label>
+      <label for="usuario">Usuario</label>
+      <input id="usuario" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" required>
+      <label for="clave">Contraseña</label>
       <input id="clave" type="password" autocomplete="off" required>
       <p class="err" id="err" role="alert"></p>
       <button class="btn" type="submit" id="b-entrar">Entrar</button>

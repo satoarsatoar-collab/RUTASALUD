@@ -17,7 +17,7 @@ Orientador para personas que enfrentan una barrera de acceso a la salud en Colom
 | `index.html` | Toda la interfaz. Sin dependencias. Las tipografías (Public Sans y Newsreader, licencia SIL OFL) van incrustadas, así que no se contacta a ningún tercero al cargar la página. Configuración al inicio (`CONFIG`), normas (`NORMAS`), preguntas y reglas. |
 | `api/analizar.js` | Función de servidor que llama a Claude. Aquí vive la clave de la API. No guarda nada. |
 | `api/caso.js` | Guarda el caso (solo con autorización) y deja que la persona lo borre con su código y clave. |
-| `api/admin.js`, `admin.html`, `admin-panel.js` | Panel del equipo en `/admin`: lista, filtros, detalle, borrado y exportación CSV. Protegido por `ADMIN_KEY`. |
+| `api/admin.js`, `admin.html`, `admin-panel.js` | Panel del equipo en `/admin`: lista, filtros, detalle, borrado y exportación CSV. Protegido por usuario y contraseña (`ADMIN_USER`, `ADMIN_PASS`). |
 | `api/_util.js` | Utilidades y acceso a la base de datos (Redis REST). |
 | `server.js` | Servidor local para probar. |
 | `test/mock.test.js` | Prueba del backend con una IA simulada (`npm test`). |
@@ -46,12 +46,13 @@ Vercel limita el cuerpo de las solicitudes a 4,5 MB. Por eso la página reduce l
 - Al terminar la ruta se guarda el caso (relato, respuestas, ruta sugerida y resumen de los documentos). **No se guardan los archivos ni la IP.** El caso se borra solo a los `CASE_TTL_DAYS` días (365 por defecto) y la persona recibe un código y una clave para borrarlo cuando quiera.
 - Para activar el guardado y el panel en Vercel:
   1. Storage > Marketplace > **Upstash for Redis** (plan gratis) y conéctalo al proyecto. Eso crea `UPSTASH_REDIS_REST_URL` y `UPSTASH_REDIS_REST_TOKEN` (o `KV_REST_API_URL` y `KV_REST_API_TOKEN`; ambos funcionan).
-  2. Settings > Environment Variables: agrega `ADMIN_KEY` con una clave larga (16+ caracteres).
+  2. Settings > Environment Variables: agrega `ADMIN_USER` y `ADMIN_PASS` (mínimo 10 caracteres). Usa una contraseña larga y única: protege datos de salud.
   3. Vuelve a desplegar (Deployments > Redeploy).
   4. Entra a `tu-dominio/admin`.
-- Sin base de datos configurada no se guarda nada y la pantalla de autorización lo dice. Sin `ADMIN_KEY` el panel queda desactivado.
+- Sin base de datos configurada no se guarda nada y la pantalla de autorización lo dice. Sin `ADMIN_USER` y `ADMIN_PASS` el panel queda desactivado.
 - Si cambias el texto legal, sube la versión en `CONFIG.versionConsentimiento` (index.html) y en `CONSENT_VERSION` (servidor): así cada caso queda ligado al texto que la persona aceptó.
-- Completa `CONFIG.responsable` (nombre y correo) en `index.html`: es el contacto para ejercer los derechos de los titulares.
+- `CONFIG.responsable` (index.html) tiene el nombre, correo y domicilio del responsable; agrega `telefono` si quieres mostrarlo.
+- La política completa está en `cuerpoPolitica()` (index.html). La persona debe desplazarse hasta el final del recuadro para poder marcar las casillas de autorización.
 
 ## Antes de mostrarlo a usuarios reales
 
