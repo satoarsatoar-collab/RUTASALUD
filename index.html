@@ -223,7 +223,8 @@ noscript p{padding:20px;font-size:1.1rem}
   .solo-mov dd{margin:0 0 8px;color:var(--tinta)}
   .cab-in{padding:10px 16px;gap:10px}
   .marca{font-size:1.2rem}
-  .herr{gap:6px}
+  .cab-in{flex-wrap:wrap;row-gap:8px}
+  .herr{gap:6px;margin-left:0;width:100%;justify-content:flex-start}
   .herr button{padding:6px 10px;font-size:.88rem}
 }
 @media print{
@@ -232,8 +233,67 @@ noscript p{padding:20px;font-size:1.1rem}
   .marco{display:block;padding:0}
   details.paso{border:0}
   body.imprimir-borrador>*:not(#print-area){display:none!important}
-  body.imprimir-borrador #print-area{display:block;white-space:pre-wrap;font:12pt/1.5 Georgia,serif}
+  body.imprimir-borrador #print-area{display:block;border:0;padding:0;font:12pt/1.55 "Times New Roman",Times,serif}
+  mark.hueco{background:none;border-bottom:1px solid #444}
 }
+
+
+/* Aviso legal permanente */
+.aviso-legal{background:var(--ambar-tinte);border-bottom:1px solid var(--ambar-linea);color:#4A3200;font-size:.9rem;line-height:1.45}
+.aviso-legal p{max-width:1120px;margin:0 auto;padding:8px 24px}
+.aviso-legal strong{font-weight:700}
+@media (max-width:920px){.aviso-legal p{padding:8px 16px;font-size:.86rem}}
+
+/* Pantallas centradas: autorización, modo, política, rechazo */
+.centro{max-width:760px;margin:0 auto;padding:40px 24px 64px}
+.centro h1{font-size:clamp(1.8rem,4.4vw,2.5rem)}
+.legal{border:1px solid var(--linea-fuerte);border-radius:var(--r);background:var(--hoja);margin:0 0 1.4em}
+.legal details{border-bottom:1px solid var(--linea)}
+.legal details:last-child{border-bottom:0}
+.legal summary{cursor:pointer;padding:14px 18px;font-weight:700;color:var(--tinta);list-style:none;display:flex;justify-content:space-between;gap:12px}
+.legal summary::-webkit-details-marker{display:none}
+.legal summary::after{content:"+";color:var(--acento);font-size:1.3rem;line-height:1}
+.legal details[open] summary::after{content:"−"}
+.legal .txt{padding:0 18px 14px;font-size:.98rem}
+.legal .txt p{margin:0 0 .7em}
+.legal .txt ul{margin:0 0 .7em;padding-left:1.2em}
+.legal .txt li{margin:0 0 .35em}
+.resumen-legal{background:var(--tinte);border:1px solid #C5D6DA;border-radius:var(--r);padding:16px 20px;margin:0 0 1.2em}
+.resumen-legal ul{margin:.4em 0 0;padding-left:1.2em}
+.resumen-legal li{margin:0 0 .3em}
+.consent.opc{margin-top:-.2em}
+.consent.obl{font-weight:600;color:var(--tinta)}
+.etq-op{font-size:.8rem;font-weight:700;color:var(--suave);border:1px solid var(--linea-fuerte);border-radius:3px;padding:0 7px;margin-left:6px;white-space:nowrap}
+.modo-btn{display:block;width:100%;text-align:left;background:var(--hoja);border:1.5px solid var(--linea-fuerte);border-radius:var(--r);padding:18px 20px;margin:0 0 14px;font:inherit;color:inherit;cursor:pointer}
+.modo-btn:hover:not(:disabled){border-color:var(--acento);background:var(--tinte)}
+.modo-btn:disabled{cursor:not-allowed;opacity:.62}
+.modo-btn strong{display:block;font:600 1.25rem var(--serif);color:var(--tinta);margin:0 0 4px}
+.modo-btn span{display:block;color:var(--suave);font-size:.97rem}
+.modo-btn .rec{display:inline-block;font:700 .78rem var(--sans);color:#fff;background:var(--acento);border-radius:3px;padding:1px 8px;margin-left:8px;vertical-align:middle}
+.pasos-intro{list-style:none;margin:1.2em 0 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.pasos-intro li{border-top:3px solid var(--acento);padding-top:10px;font-size:.96rem;color:var(--suave)}
+.pasos-intro strong{display:block;color:var(--tinta);font-size:1rem}
+@media (max-width:700px){.pasos-intro{grid-template-columns:1fr;gap:12px}}
+.btn.grande{padding:15px 30px;font-size:1.1rem;min-height:56px}
+.aviso-doc{background:var(--ambar-tinte);border:1px solid var(--ambar-linea);border-radius:var(--r);padding:12px 16px;margin:0 0 1.1em;font-size:.95rem;color:#4A3200}
+.guardado{border:1px solid var(--linea-fuerte);border-radius:var(--r);padding:14px 18px;margin:2em 0 0;font-size:.95rem;background:var(--hoja)}
+.guardado code{background:var(--tinte);padding:1px 6px;border-radius:3px;font-size:.95em}
+.guardado p{margin:0 0 .5em}
+.guardado .link{color:var(--rojo)}
+@media print{.no-print-b{display:none!important}}
+
+/* Vista de documento */
+[hidden]{display:none!important}
+.hoja-doc{background:#fff;border:1px solid var(--linea-fuerte);border-radius:var(--r);padding:48px 56px;font:1.02rem/1.65 "Times New Roman",Times,"Liberation Serif",serif;color:#111;max-width:100%;overflow-wrap:anywhere}
+.hoja-doc p{margin:0 0 .85em;text-align:justify}
+.hoja-doc p.d-ref{text-align:left;margin:0 0 .25em}
+.hoja-doc p.d-blk{text-align:left}
+.hoja-doc .d-tit{text-align:center;font:700 1rem/1.3 "Times New Roman",Times,serif;letter-spacing:.03em;margin:1.7em 0 .7em;text-transform:none}
+.hoja-doc .d-ord strong,.hoja-doc .d-num strong,.hoja-doc p strong{font-weight:700}
+.hoja-doc .d-num{padding-left:1.4em;text-indent:-1.4em}
+mark.hueco{background:#FFF1BF;color:inherit;padding:0 3px;border-radius:2px}
+.vistas{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:0 0 .9em}
+@media (max-width:920px){.hoja-doc{padding:26px 20px}}
 </style>
 </head>
 <body>
@@ -246,20 +306,23 @@ noscript p{padding:20px;font-size:1.1rem}
   <div class="herr no-print">
     <button type="button" data-act="letraMenos" aria-label="Letra más pequeña">A−</button>
     <button type="button" data-act="letraMas" aria-label="Letra más grande">A+</button>
+    <button type="button" data-act="verPolitica">Privacidad</button>
     <button type="button" data-act="reiniciar">Nuevo caso</button>
   </div>
 </div></header>
+<div class="aviso-legal" role="note"><p><strong>Herramienta informativa.</strong> No es asesoría jurídica ni médica y no reemplaza a un abogado o a un profesional de la salud. Los borradores deben revisarse antes de usarse.</p></div>
 
 <noscript><p>Esta herramienta necesita JavaScript. Actívalo en tu navegador y recarga la página.</p></noscript>
 <main id="app"></main>
 
 <footer class="pie"><div class="pie-in">
   <p><strong>Emergencia:</strong> llama al 123 o ve al servicio de urgencias más cercano.</p>
-  <p>Herramienta informativa. No es asesoría jurídica ni médica y no reemplaza a un abogado o a un profesional de la salud. Los borradores deben revisarse antes de usarse.</p>
+  <p><strong>Herramienta informativa. No es asesoría jurídica ni médica y no reemplaza a un abogado o a un profesional de la salud. Los borradores deben revisarse antes de usarse.</strong></p>
   <p id="pie-version"></p>
+  <p><button type="button" class="link" data-act="verPolitica" style="padding:0">Política de tratamiento de datos personales</button></p>
   <p id="pie-extra"></p>
 </div></footer>
-<pre id="print-area" aria-hidden="true"></pre>
+<div id="print-area" class="hoja-doc" aria-hidden="true"></div>
 
 <script>
 /* ==================================================================
@@ -271,7 +334,10 @@ const CONFIG = {
   revisionNormas: "",               // ej. "septiembre de 2026"; vacío = "en revisión"
   apiUrl: "/api/analizar",          // función de servidor (ver README)
   aliado: { nombre: "", detalle: "" }, // ej. consultorio jurídico de tu universidad
-  politicaUrl: "",                  // enlace a tu política de tratamiento de datos
+  politicaUrl: "",                  // (opcional) enlace externo; la política completa ya está en la página
+  versionConsentimiento: "v1",      // debe coincidir con CONSENT_VERSION del servidor; súbela si cambias el texto legal
+  responsable: { nombre: "Responsable del proyecto Ruta Salud", correo: "" }, // PON AQUÍ tu nombre y correo de contacto
+  fechaPolitica: "noviembre de 2026",
   encuestaUrl: "",                  // formulario para la prueba con usuarios
   maxArchivos: 4,
   maxPdfBytes: 2500000,             // 2,5 MB por PDF
@@ -293,6 +359,7 @@ const NORMAS = {
   ley1751:{ nombre:"Ley Estatutaria 1751 de 2015", que:"Reconoce la salud como derecho fundamental autónomo (art. 2) y fija sus elementos y principios (art. 6): accesibilidad, oportunidad, continuidad, entre otros." },
   ley1755:{ nombre:"Ley 1755 de 2015", que:"Regula el derecho de petición. Regla general: respuesta en 15 días hábiles (art. 14)." },
   dec2591:{ nombre:"Decreto 2591 de 1991", que:"Reglamenta la tutela: se puede presentar sin abogado (art. 10), permite pedir medida provisional (art. 7) y el juez debe decidir en un plazo máximo de 10 días." },
+  dec2591_42:{ nombre:"Decreto 2591 de 1991, art. 42, num. 2", que:"La tutela procede contra particulares encargados de la prestación del servicio público de salud.", verificar:true },
   ley100: { nombre:"Ley 100 de 1993, art. 168", que:"La atención inicial de urgencias es obligatoria para todas las entidades de salud, sin importar la capacidad de pago." },
   ley1122:{ nombre:"Ley 1122 de 2007, art. 41 (modificado por la Ley 1949 de 2019)", que:"En ciertos casos la Superintendencia Nacional de Salud puede resolver como juez conflictos entre usuarios y EPS.", verificar:true },
   res1552:{ nombre:"Resolución 1552 de 2013 del Ministerio de Salud (y normas que la modifican)", que:"Fija plazos máximos para asignar ciertas citas. Los plazos han cambiado: consulta el vigente.", verificar:true },
@@ -537,12 +604,15 @@ function corregirLocal(t){
    ================================================================== */
 const app = document.getElementById("app");
 let TOK = 0, CTRL = null, REC = null, IA_DISP = null;
+let CONSENT = null;                       // { ia:boolean } cuando la persona acepta; null = no puede usar la herramienta
+let GUARDA = { activo:null, dias:365 };   // lo informa el servidor (/api/caso)
+const PUBLICAS = ["intro","consent","rechazo","politica"]; // pantallas permitidas sin autorización
 let S = nuevoEstado();
 
 function nuevoEstado(){
   return { pantalla:"intro", i:0, a:{}, detectado:{}, relatoOrig:"", relato:"", archivos:[], analisis:null,
-           ia:{ disponible:IA_DISP }, usaIA:false, consentimiento:false, error:"", tipo:null,
-           d:{ entidad:"", servicio:"", desde:"", fechaPeticion:"" } };
+           ia:{ disponible:IA_DISP }, usaIA:false, consentimiento:false, chkDatos:false, chkIA:false, desdePol:"intro", cod:null, error:"", tipo:null,
+           d:{ entidad:"", servicio:"", desde:"", fechaPeticion:"" }, vista:"doc", textoBorr:"", editado:false };
 }
 
 const ICON = {
@@ -585,15 +655,20 @@ function esc(s){ return String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&
 function fecha(iso){ const p = iso.split("-").map(Number); return new Date(p[0], p[1]-1, p[2]).toLocaleDateString("es-CO", { day:"numeric", month:"long", year:"numeric" }); }
 
 function ir(p){
+  if (!CONSENT && !PUBLICAS.includes(p)) p = "consent"; // sin autorización no se puede usar la herramienta
   S.pantalla = p; render(); window.scrollTo(0, 0);
+  if (p === "resultado") guardarCaso();
   const h = app.querySelector("h1,h2");
   if (h) { h.setAttribute("tabindex", "-1"); h.focus({ preventScroll:true }); }
 }
 
 function render(){
-  const v = { intro:vIntro, cuenta:vCuenta, cargando:vCargando, revisar:vRevisar, preg:vPregunta, aviso:vAviso, resultado:vResultado, borrador:vBorrador }[S.pantalla];
+  const v = { intro:vIntro, consent:vConsent, rechazo:vRechazo, modo:vModo, politica:vPolitica, cuenta:vCuenta, cargando:vCargando, revisar:vRevisar, preg:vPregunta, aviso:vAviso, resultado:vResultado, borrador:vBorrador }[S.pantalla];
   const cuerpo = v();
-  app.innerHTML = S.pantalla === "intro" ? cuerpo : `<div class="marco">${vLateral()}<div class="principal">${cuerpo}</div></div>`;
+  const solas = ["intro"], centradas = ["consent","rechazo","modo","politica"];
+  app.innerHTML = solas.includes(S.pantalla) ? cuerpo
+    : centradas.includes(S.pantalla) ? `<div class="centro">${cuerpo}</div>`
+    : `<div class="marco">${vLateral()}<div class="principal">${cuerpo}</div></div>`;
   postRender();
 }
 
@@ -601,19 +676,25 @@ function postRender(){
   const o = document.getElementById("relato-o"); if (o) o.value = S.relatoOrig;
   const c = document.getElementById("relato-c"); if (c) c.value = S.relato;
   const og = document.getElementById("orig-texto"); if (og) og.textContent = S.relatoOrig;
-  if (S.pantalla === "borrador") actualizarBorrador();
+  if (S.pantalla === "borrador") mostrarBorrador(false);
 }
 
 /* ==================================================================
    PANTALLAS
    ================================================================== */
 function vIntro(){
-  const disp = S.ia.disponible;
   return `
     <section class="hero">
       <div>
         <h1>Cuando tu EPS no responde, hay tres caminos. Te ayudamos a elegir el correcto.</h1>
         <p class="bajada">Cuenta lo que pasó, adjunta tus documentos y recibe una ruta con plazos, normas y el escrito listo para revisar.</p>
+        <div class="acciones" style="margin:0 0 1em"><button class="btn grande" type="button" data-act="empezar">Empezar</button></div>
+        <p class="ayuda" style="margin:0">Dura unos 5 minutos. Antes de empezar te pediremos tu autorización para tratar tus datos.</p>
+        <ol class="pasos-intro">
+          <li><strong>1. Cuenta qué pasó</strong>Escribiendo o hablando.</li>
+          <li><strong>2. Responde unas preguntas</strong>Para saber qué camino te conviene.</li>
+          <li><strong>3. Recibe tu ruta</strong>Con los escritos para revisar.</li>
+        </ol>
       </div>
       <div class="hero-ruta">
         <p class="rot">Los tres mecanismos</p>
@@ -625,20 +706,146 @@ function vIntro(){
         <p class="mini-nota">El orden puede cambiar según la urgencia y la situación de la persona afectada.</p>
       </div>
     </section>
-    <section class="acceso">
-      <div class="modos">
-        <div><h3>Con ayuda de IA</h3><p>Tu relato y tus archivos se envían por internet a un servicio de inteligencia artificial para leerlos y ordenarlos. Este sitio no los guarda. Adjunta solo lo que necesites: las órdenes médicas contienen datos de salud, que son datos sensibles.${CONFIG.politicaUrl ? ` <a href="${esc(CONFIG.politicaUrl)}" target="_blank" rel="noopener">Política de datos</a>.` : ""}</p></div>
-        <div><h3>Sin IA</h3><p>Usas las preguntas, el corrector básico y puedes adjuntar tus documentos como anexos. Todo se queda en tu navegador y los archivos no se leen ni se envían.</p></div>
-      </div>
-      <label class="consent"><input type="checkbox" id="consent" ${S.consentimiento ? "checked" : ""}>
-        <span>Autorizo el envío de mi relato y de mis archivos al servicio de IA para que los procese, solo para este análisis.</span></label>
-      <div class="acciones" style="margin-top:0">
-        <button class="btn" type="button" data-act="empezarIA" ${S.consentimiento && disp ? "" : "disabled"}>Empezar con ayuda de IA</button>
-        <button class="btn sec" type="button" data-act="empezarManual">Empezar sin IA</button>
-      </div>
-      ${disp === false ? `<p class="ayuda" style="margin-top:1em">La ayuda de IA no está disponible en este momento. Puedes usar el modo sin IA.</p>` : disp === null ? `<p class="ayuda" style="margin-top:1em">Comprobando si la ayuda de IA está disponible…</p>` : ""}
+    <section class="acceso" style="padding-top:0">
       <p class="emerg"><strong>Si es una emergencia,</strong> llama al 123 o ve ahora al servicio de urgencias más cercano.</p>
     </section>`;
+}
+
+/* ---- Autorización de tratamiento de datos (obligatoria) ---- */
+function contactoResp(){
+  const r = CONFIG.responsable || {};
+  return esc(r.nombre || "El responsable del proyecto") + (r.correo ? ` (${esc(r.correo)})` : ` <mark class="hueco">[correo de contacto por definir]</mark>`);
+}
+function textoNormas(){
+  return `<ul>
+    <li><b>Constitución Política, art. 15:</b> derecho a la intimidad y a conocer, actualizar y rectificar la información que se recoja sobre ti (habeas data).</li>
+    <li><b>Ley Estatutaria 1581 de 2012</b> (régimen general de protección de datos personales): art. 4 (principios de finalidad, libertad, transparencia y seguridad), arts. 5 y 6 (datos sensibles, como los de salud), art. 8 (derechos del titular), art. 9 (autorización previa, expresa e informada), art. 12 (deber de informar al titular) y art. 26 (transferencia internacional de datos).</li>
+    <li><b>Decreto 1074 de 2015</b>, Libro 2, Parte 2, Título 2, Capítulo 25 (compila el Decreto 1377 de 2013): reglas sobre la autorización y las políticas de tratamiento.<span class="verif">Confirmar en fuente oficial</span></li>
+    <li><b>Sentencia C-748 de 2011</b> de la Corte Constitucional: control de constitucionalidad del proyecto que dio origen a la Ley 1581.</li>
+  </ul>`;
+}
+function vConsent(){
+  const guarda = GUARDA.activo === true, listo = GUARDA.activo !== null;
+  const iaOk = S.ia.disponible !== false;
+  return `
+    <h1>Antes de empezar: tu autorización</h1>
+    <p class="bajada" style="font-size:1.1rem">Para usar Ruta Salud necesitamos tu autorización para tratar tus datos personales. <strong>Si no la das, no podrás usar la herramienta.</strong></p>
+    <div class="resumen-legal">
+      <strong>En resumen</strong>
+      <ul>
+        <li>Lo que cuentes puede incluir <b>datos de salud, que son datos sensibles</b>. No estás obligado(a) a darlos ni a autorizar su tratamiento.</li>
+        <li>Los usamos para orientarte (tu ruta y tus borradores)${guarda ? ", para que el equipo del proyecto pueda revisar los casos, mejorar la herramienta y elaborar estadísticas para una investigación académica sobre el acceso a los mecanismos de protección del derecho a la salud" : ""}.</li>
+        ${guarda ? `<li>Guardamos tu relato y tus respuestas durante <b>${GUARDA.dias} días</b>. <b>No guardamos tus archivos adjuntos.</b> Puedes borrar tu caso cuando quieras.</li>`
+                 : `<li>En esta versión <b>no se guarda tu caso en nuestros servidores</b>: se queda en tu navegador.</li>`}
+        <li>No vendemos tus datos, no los usamos para publicidad y no los enviamos a tu EPS.</li>
+        <li>No escribas tu cédula, dirección ni teléfono: no son necesarios. Esos datos se completan después, en tu copia.</li>
+      </ul>
+    </div>
+
+    <div class="legal">
+      <details><summary>Quién es el responsable</summary><div class="txt"><p>${contactoResp()}. Es quien decide sobre el tratamiento de tus datos y quien atiende tus consultas y reclamos.</p></div></details>
+      <details><summary>Qué datos tratamos y para qué</summary><div class="txt">
+        <p><b>Datos:</b> el relato que escribas o dictes, tus respuestas a las preguntas, y los datos que completes (entidad, servicio, fecha). Si eliges la ayuda de IA, también el contenido de las fotos o PDF que adjuntes, que se leen en el momento y <b>no se guardan</b>.</p>
+        <p><b>Finalidades:</b></p>
+        <ul>
+          <li>Orientación informativa: ordenar tu relato, indicarte el mecanismo que podría convenirte y generar borradores de escritos.</li>
+          ${guarda ? `<li>Conservar tu caso para que el equipo del proyecto lo consulte, mejore la herramienta y haga estadísticas para una investigación académica.</li>` : ""}
+          <li>Acreditar que diste tu autorización y atender tus solicitudes, consultas y reclamos como titular de los datos.</li>
+        </ul>
+        <p>No usamos tus datos para fines distintos a estos. Cualquier cambio de finalidad requerirá una nueva autorización.</p></div></details>
+      <details><summary>Cuánto tiempo y dónde se guardan</summary><div class="txt">
+        ${guarda ? `<p>Tu caso se guarda en una base de datos con acceso restringido y se elimina automáticamente a los <b>${GUARDA.dias} días</b>. Solo el equipo autorizado del proyecto puede consultarlo. Al terminar tu ruta verás un <b>código y una clave</b> para pedir que se borre tu caso en cualquier momento.</p>`
+                 : `<p>En esta versión no se guarda tu caso en nuestros servidores. Lo que escribes permanece en tu navegador mientras usas la página.</p>`}
+      </div></details>
+      <details><summary>Ayuda de IA y envío al exterior (opcional)</summary><div class="txt">
+        <p>Si eliges la ayuda de IA, tu relato y tus archivos se transmiten por internet a un servicio de inteligencia artificial (Anthropic, con servidores fuera de Colombia) únicamente para leerlos y ordenarlos. Es una transmisión internacional de datos (Ley 1581 de 2012, art. 26) y por eso la pedimos aparte. Puedes usar la herramienta sin IA.</p></div></details>
+      <details><summary>Tus derechos como titular</summary><div class="txt">
+        <p>Según el art. 8 de la Ley 1581 de 2012 puedes: conocer, actualizar y rectificar tus datos; pedir prueba de esta autorización; ser informado(a) del uso que se les ha dado; <b>revocar la autorización y pedir la supresión de tus datos</b>; acceder gratis a ellos; y presentar quejas ante la Superintendencia de Industria y Comercio.</p>
+        <p>Para ejercerlos escribe a ${contactoResp()}, o borra tu caso directamente con el código y la clave que recibirás.</p></div></details>
+      <details><summary>Base normativa</summary><div class="txt">${textoNormas()}</div></details>
+    </div>
+    <p><button type="button" class="link" data-act="verPolitica" data-desde="consent">Leer la política completa de tratamiento de datos</button></p>
+
+    <label class="consent obl"><input type="checkbox" id="chk-datos" ${S.chkDatos ? "checked" : ""}>
+      <span>He leído y <strong>autorizo</strong> el tratamiento de mis datos personales, incluidos los datos sensibles de salud que yo escriba, para las finalidades descritas. Entiendo que no estoy obligado(a) a autorizar datos sensibles.</span></label>
+    ${iaOk ? `<label class="consent opc"><input type="checkbox" id="chk-ia" ${S.chkIA ? "checked" : ""}>
+      <span>Además, autorizo el envío de mi relato y de mis archivos al servicio de IA para que los lea y los ordene. <span class="etq-op">Opcional</span></span></label>` : ""}
+    <div class="acciones" style="margin-top:.6em">
+      <button class="btn" type="button" data-act="aceptar" ${S.chkDatos && listo ? "" : "disabled"}>Acepto y continúo</button>
+      <button class="btn sec" type="button" data-act="noAcepto">No acepto</button>
+    </div>
+    ${!S.chkDatos ? `<p class="ayuda" style="margin-top:.8em">Marca la casilla de autorización para continuar.</p>` : ""}`;
+}
+
+function vRechazo(){
+  return `
+    <h1>Entendido: sin tu autorización no podemos continuar</h1>
+    <p>Respetamos tu decisión. No hemos recogido ni guardado nada de lo que viste aquí. Sin la autorización para tratar tus datos, <strong>esta herramienta no se puede usar</strong>.</p>
+    <div class="nota">
+      <p><strong>Mientras tanto, puedes acudir directamente a:</strong></p>
+      <ul class="lista" style="margin:.3em 0 0">
+        <li>La línea o la oficina de atención al usuario de tu EPS, para presentar un reclamo escrito.</li>
+        <li>La Superintendencia Nacional de Salud (supersalud.gov.co), para presentar una queja.</li>
+        <li>La Defensoría del Pueblo, tu personería municipal o el consultorio jurídico de una universidad, para recibir orientación gratuita.</li>
+      </ul>
+    </div>
+    <p class="emerg" style="margin-top:0"><strong>Si es una emergencia,</strong> llama al 123 o ve ahora al servicio de urgencias más cercano.</p>
+    <div class="acciones">
+      <button class="btn" type="button" data-act="irConsent">Volver a leer la autorización</button>
+      <button class="btn sec" type="button" data-act="irIntro">Ir al inicio</button>
+    </div>`;
+}
+
+function vModo(){
+  const iaOk = S.ia.disponible === true && CONSENT && CONSENT.ia;
+  let motivo = "";
+  if (!(CONSENT && CONSENT.ia)) motivo = "No autorizaste el envío a la IA.";
+  else if (S.ia.disponible === false) motivo = "La ayuda de IA no está disponible en este momento.";
+  else if (S.ia.disponible === null) motivo = "Comprobando si está disponible…";
+  return `
+    <h1>¿Cómo prefieres contar tu caso?</h1>
+    <p class="ayuda">Las dos formas llegan a la misma ruta. Puedes cambiar de idea con «Nuevo caso».</p>
+    <button type="button" class="modo-btn" data-act="empezarIA" ${iaOk ? "" : "disabled"}>
+      <strong>Con ayuda de IA <span class="rec">Si tienes documentos</span></strong>
+      <span>Lee tus fotos o PDF, corrige y ordena tu relato y detecta datos por ti. Puede equivocarse: tú lo revisas.</span>
+      ${motivo ? `<span style="margin-top:6px;color:var(--ambar);font-weight:600">${motivo}</span>` : ""}
+    </button>
+    <button type="button" class="modo-btn" data-act="empezarManual">
+      <strong>Sin IA</strong>
+      <span>Escribes tu relato, usamos un corrector básico y respondes las preguntas. Tus archivos no se leen ni se envían: solo se listan como anexos.</span>
+    </button>
+    ${CONSENT && !CONSENT.ia && S.ia.disponible !== false ? `<p><button type="button" class="link" data-act="irConsent">Cambiar mi autorización de IA</button></p>` : ""}
+    <p class="emerg"><strong>Si es una emergencia,</strong> llama al 123 o ve ahora al servicio de urgencias más cercano.</p>`;
+}
+
+function vPolitica(){
+  const guarda = GUARDA.activo === true;
+  return `
+    <h1>Política de tratamiento de datos personales</h1>
+    <p class="ayuda">Versión ${esc(CONFIG.versionConsentimiento)} · ${esc(CONFIG.fechaPolitica)}</p>
+    <h3 class="sub">1. Responsable</h3>
+    <p>${contactoResp()}.</p>
+    <h3 class="sub">2. Datos que se tratan</h3>
+    <p>Relato escrito o dictado por la persona; respuestas a las preguntas de orientación (urgencia, tipo de barrera, tiempo, reclamos previos, orden médica, afectación, protección especial, quién reclama); datos de entidad, servicio y fecha; y, si la persona elige la ayuda de IA, el contenido de los archivos que adjunte. La información sobre salud es un <b>dato sensible</b> (Ley 1581 de 2012, art. 5). La persona no está obligada a autorizar su tratamiento. No se solicitan nombres completos, cédula, dirección ni teléfono: esos datos se completan en la copia de la persona, y se le pide no escribirlos en el relato.</p>
+    <h3 class="sub">3. Finalidades</h3>
+    <ul class="lista">
+      <li>Orientación informativa: ordenar el relato, indicar el mecanismo posible (reclamo a la EPS, queja a la Superintendencia Nacional de Salud o acción de tutela) y generar borradores.</li>
+      ${guarda ? `<li>Conservación del caso para consulta del equipo del proyecto, mejora de la herramienta y elaboración de estadísticas para una investigación académica.</li>` : ""}
+      <li>Acreditar la autorización otorgada y atender solicitudes, consultas y reclamos del titular.</li>
+    </ul>
+    <p>No se venden ni se ceden los datos, no se usan con fines publicitarios y no se comparten con las EPS ni con terceros, salvo el proveedor de IA (si la persona lo autoriza) y los proveedores de infraestructura que actúan como encargados.</p>
+    <h3 class="sub">4. Conservación y seguridad</h3>
+    ${guarda ? `<p>Los casos se almacenan en una base de datos de acceso restringido y se eliminan automáticamente a los ${GUARDA.dias} días. Los archivos adjuntos no se almacenan. El acceso del equipo se protege con una clave privada. Cada persona recibe un código y una clave para eliminar su caso.</p>`
+             : `<p>En esta versión no se almacenan los casos en servidores del proyecto. Los archivos adjuntos tampoco se almacenan.</p>`}
+    <h3 class="sub">5. Transmisión a la IA (opcional)</h3>
+    <p>Solo si la persona lo autoriza de forma separada, el relato y los archivos se transmiten a Anthropic (Estados Unidos) para su lectura y ordenamiento, sin que el proveedor decida sobre las finalidades. Es una transmisión internacional (Ley 1581 de 2012, art. 26). La herramienta puede usarse sin IA.</p>
+    <h3 class="sub">6. Derechos del titular</h3>
+    <p>Conocer, actualizar y rectificar los datos; solicitar prueba de la autorización; ser informado del uso dado a los datos; revocar la autorización y solicitar la supresión; acceder gratuitamente a los datos; y presentar quejas ante la Superintendencia de Industria y Comercio (Ley 1581 de 2012, art. 8). Para ejercerlos: ${contactoResp()}.</p>
+    <h3 class="sub">7. Base normativa</h3>
+    ${textoNormas()}
+    <h3 class="sub">8. Naturaleza de la herramienta</h3>
+    <p><strong>Herramienta informativa. No es asesoría jurídica ni médica y no reemplaza a un abogado o a un profesional de la salud. Los borradores deben revisarse antes de usarse.</strong></p>
+    <div class="acciones"><button class="btn" type="button" data-act="cerrarPolitica">Volver</button></div>`;
 }
 
 function vCuenta(){
@@ -674,7 +881,7 @@ function vCuenta(){
       <button type="button" class="btn" data-act="analizar">${S.usaIA ? "Analizar mi caso" : "Corregir mi texto"}</button>
       <button type="button" class="btn sec" data-act="saltar">Prefiero solo responder preguntas</button>
     </div>
-    <p><button type="button" class="link" data-act="irIntro">Volver</button></p>`;
+    <p><button type="button" class="link" data-act="irModo">Volver</button></p>`;
 }
 
 function vCargando(){
@@ -744,7 +951,7 @@ function vAviso(){
 
 function normasDeCaso(b){
   const esp = especialesDe(S.a);
-  const lista = [...b.normas, ["cp49",""], ["ley1755",""], ["cp23",""], ["ley1122",""], ["cp86",""], ["dec2591",""]];
+  const lista = [...b.normas, ["cp49",""], ["ley1755",""], ["cp23",""], ["ley1122",""], ["cp86",""], ["dec2591",""], ["dec2591_42",""]];
   esp.forEach(k => lista.push([ESPECIAL_NORMA[k], ""]));
   if (esp.length) lista.push(["juris", ""]);
   if (S.a.urgencia === "si") lista.unshift(["ley100", ""]);
@@ -770,6 +977,7 @@ function vResultado(){
   return `
     ${a.urgencia === "si" ? `<div class="urg" role="alert"><p style="margin:0"><strong>Si estás en riesgo ahora, llama al 123 o ve a urgencias antes de seguir leyendo.</strong></p></div>` : ""}
     <h2>Tu ruta</h2>
+    <p class="aviso-doc"><strong>Herramienta informativa.</strong> No es asesoría jurídica ni médica y no reemplaza a un abogado o a un profesional de la salud. Los borradores deben revisarse antes de usarse.</p>
     <p class="titular">${r.titular}</p>
     <div class="fila no-print" style="margin:-.2em 0 1.2em"><button type="button" class="btn sec" data-act="escuchar">${ICON.vol}Escuchar mi ruta</button></div>
     ${r.notas.length ? `<div class="nota">${r.notas.map(n => `<p>${n}</p>`).join("")}</div>` : ""}
@@ -795,7 +1003,19 @@ function vResultado(){
       ${otros.filter(t => !(t === "tutela" && r.p3 === "noaplica")).map(t => `<button type="button" class="btn sec" data-act="borrador" data-t="${t}">Redactar ${nombresDoc[t]}</button>`).join("")}
       <button type="button" class="btn sec" data-act="imprimirRuta">Imprimir o guardar como PDF</button>
       <button type="button" class="btn sec" data-act="reiniciar">Empezar de nuevo</button>
-    </div>`;
+    </div>
+    ${bloqueGuardado()}`;
+}
+
+function bloqueGuardado(){
+  if (GUARDA.activo !== true) return "";
+  if (S.cod) return `<div class="guardado no-print-b no-print" role="status"><p><strong>Tu caso quedó guardado</strong> (con tu autorización) durante ${GUARDA.dias} días.</p>
+    <p>Código: <code>${esc(S.cod.id)}</code> · Clave: <code>${esc(S.cod.clave)}</code></p>
+    <p class="ayuda" style="margin:0">Anótalos: con ellos puedes pedir que se borre tu caso. No los podremos recuperar.</p>
+    <p style="margin:.4em 0 0"><button type="button" class="link" data-act="borrarCaso">Borrar mi caso ahora</button></p></div>`;
+  if (S.guardado === "borrado") return `<div class="guardado no-print" role="status"><p style="margin:0">Tu caso fue borrado. Lo que ves en pantalla sigue en tu navegador hasta que cierres la página.</p></div>`;
+  if (S.guardado === "error") return `<div class="guardado no-print" role="status"><p style="margin:0">No pudimos guardar tu caso. Puedes seguir usando la herramienta sin problema.</p></div>`;
+  return `<div class="guardado no-print" role="status"><p style="margin:0">Guardando tu caso…</p></div>`;
 }
 
 function vBorrador(){
@@ -805,7 +1025,8 @@ function vBorrador(){
   const tutelaOk = r.p3 !== "noaplica";
   return `
     <h2>Borrador de tu escrito</h2>
-    <p>Completa lo que sepas. Los datos personales (nombre, cédula, dirección) no se piden aquí: aparecen entre corchetes para que los escribas tú, después de copiar el texto.</p>
+    <p class="aviso-doc"><strong>Borrador para revisar.</strong> Herramienta informativa: no es asesoría jurídica ni médica y no reemplaza a un abogado o a un profesional de la salud. Los borradores deben revisarse antes de usarse.</p>
+    <p>Completa lo que sepas. Los datos personales (nombre, cédula, dirección) no se piden aquí: aparecen resaltados entre corchetes para que los escribas tú, en tu copia.</p>
     ${S.tipo === "tutela" ? `<div class="duda"><strong>Antes de presentar una tutela</strong>, pide que la revise un consultorio jurídico, la Defensoría del Pueblo o tu personería municipal. Este borrador es un punto de partida, no un escrito definitivo.</div>` : ""}
     <div class="tabs" role="group" aria-label="Tipo de escrito">
       <button type="button" data-act="tipo" data-t="eps" aria-pressed="${S.tipo === "eps"}">Reclamo a la EPS</button>
@@ -822,16 +1043,24 @@ function vBorrador(){
       ${necesitaFP ? `<div class="campo"><label for="c-fp">Fecha en que radicaste el reclamo a la EPS</label>
         <input id="c-fp" type="date" data-campo="fechaPeticion" value="${esc(d.fechaPeticion)}"></div>` : ""}
     </div>
-    <label for="borrador" style="font-weight:600;color:var(--tinta)">Texto del escrito</label>
-    <p class="ayuda" style="margin:.2em 0 .6em">Los hechos salen de tu relato corregido. Completa primero los campos de arriba y luego edita el texto a tu gusto. Si vuelves a cambiar un campo, el texto se regenera.</p>
-    <textarea id="borrador" class="borr" spellcheck="true"></textarea>
+    <div class="vistas">
+      <div class="tabs" style="margin:0" role="group" aria-label="Modo de vista">
+        <button type="button" data-act="vista" data-v="doc" aria-pressed="${S.vista === "doc"}">Ver documento</button>
+        <button type="button" data-act="vista" data-v="texto" aria-pressed="${S.vista === "texto"}">Editar texto</button>
+      </div>
+    </div>
+    <p class="ayuda" style="margin:0 0 .7em">Los hechos salen de tu relato corregido. Lo resaltado en amarillo es lo que debes completar. Si cambias un campo de arriba, el texto se regenera.</p>
+    <div id="doc-vista" class="hoja-doc" ${S.vista === "doc" ? "" : "hidden"} role="document" aria-label="Vista del escrito"></div>
+    <label for="borrador" class="ayuda" style="display:${S.vista === "texto" ? "block" : "none"}">Texto del escrito (editable)</label>
+    <textarea id="borrador" class="borr" spellcheck="true" ${S.vista === "texto" ? "" : "hidden"}></textarea>
     <p class="ok" id="estado-copia" role="status"></p>
     <div class="acciones no-print">
       <button type="button" class="btn" data-act="copiar">Copiar texto</button>
-      <button type="button" class="btn sec" data-act="descargar">Descargar (.txt)</button>
-      <button type="button" class="btn sec" data-act="imprimirBorrador">Imprimir</button>
+      <button type="button" class="btn sec" data-act="descargarWord">Descargar para Word</button>
+      <button type="button" class="btn sec" data-act="imprimirBorrador">Imprimir o guardar como PDF</button>
       <button type="button" class="btn sec" data-act="volverRuta">Volver a mi ruta</button>
-    </div>`;
+    </div>
+    <p><button type="button" class="link" data-act="descargar">Descargar solo el texto (.txt)</button></p>`;
 }
 
 /* ==================================================================
@@ -864,12 +1093,56 @@ const FIRMA = ["Atentamente,", "", "[FIRMA]", "[NOMBRE COMPLETO]", "C.C. [NÚMER
 const NOTIF = ["NOTIFICACIONES", "Dirección: [DIRECCIÓN]", "Correo electrónico: [CORREO]", "Teléfono: [TELÉFONO]", ""];
 const num = l => l.map((t, i) => `${i + 1}. ${t}`);
 
+const ORD_M = ["PRIMERO","SEGUNDO","TERCERO","CUARTO","QUINTO","SEXTO","SÉPTIMO","OCTAVO","NOVENO","DÉCIMO","UNDÉCIMO","DUODÉCIMO","DÉCIMO TERCERO","DÉCIMO CUARTO","DÉCIMO QUINTO","DÉCIMO SEXTO","DÉCIMO SÉPTIMO","DÉCIMO OCTAVO","DÉCIMO NOVENO","VIGÉSIMO"];
+const ORD_F = ["PRIMERA","SEGUNDA","TERCERA","CUARTA","QUINTA","SEXTA","SÉPTIMA","OCTAVA","NOVENA","DÉCIMA"];
+const ordM = i => ORD_M[i] || (i + 1) + "°";
+const ordF = i => ORD_F[i] || (i + 1) + "ª";
+const VIOLACION = {
+  cita:(e,s)=>`${e} vulnera el principio de oportunidad al no asignar ${s} dentro de un plazo razonable, según la necesidad clínica de la persona afectada.`,
+  medicamento:(e,s)=>`${e} vulnera la accesibilidad y la continuidad del tratamiento al no entregar ${s} de forma completa y oportuna.`,
+  autorizacion:(e,s)=>`${e} vulnera la accesibilidad al negar o demorar la autorización de ${s}, servicio ordenado por el médico tratante. Los trámites y las barreras administrativas de la EPS no pueden trasladarse al usuario ni retrasar su atención.`,
+  programacion:(e,s)=>`${e} vulnera la oportunidad de la atención al no programar ${s}, a pesar de que ya fue autorizado.`,
+  calidad:(e,s)=>`${e} vulnera la calidad de la atención y el derecho a recibir información clara y suficiente (Ley 1751 de 2015, arts. 6 y 10) en relación con ${s}.`,
+  otro:(e,s)=>`${e} vulnera el derecho a la salud al no garantizar de manera efectiva ${s}.`
+};
+const DER_ESP = {
+  menor_edad:"los derechos fundamentales de los niños (Constitución Política, art. 44)",
+  adulto_mayor:"la protección especial de las personas de la tercera edad (art. 46)",
+  discapacidad:"la protección de las personas con discapacidad (art. 47)",
+  embarazo:"la protección especial de la mujer embarazada (art. 43)",
+  enfermedad_grave:"la protección reforzada de quienes están en debilidad manifiesta por una enfermedad grave (art. 13)"
+};
+
+/* Formateador: convierte el texto del escrito en un documento con títulos, ordinales y huecos resaltados */
+const TITULOS_DOC = ["HECHOS","PROCEDENCIA DE LA ACCIÓN","CONCEPTO DE VIOLACIÓN","PRETENSIÓN","MEDIDA PROVISIONAL","PETICIONES","FUNDAMENTOS","PRUEBAS","ANEXOS","JURAMENTO","NOTIFICACIONES"];
+const RE_ORD = /^((?:PRIMER|SEGUND|TERCER|CUART|QUINT|SEXT|SÉPTIM|OCTAV|NOVEN|DÉCIM|UNDÉCIM|DUODÉCIM|VIGÉSIM)[OA](?: (?:PRIMER|SEGUND|TERCER|CUART|QUINT|SEXT|SÉPTIM|OCTAV|NOVEN)[OA])?)\.\s+(.*)$/;
+const RE_ETQ = /^(REFERENCIA|ACCIONANTE|ACCIONADO|Asunto|Legitimidad por activa|Legitimidad por pasiva|Subsidiariedad|Inmediatez|Derecho a la salud|Protección reforzada|Vida digna|Aplicación al caso|Nombre|Firma|Cédula de Ciudadanía|Dirección|Correo electrónico|Teléfono):\s*(.*)$/;
+const RE_NUM = /^(\d+)\.\s+(.*)$/;
+function huecos(s){ return esc(s).replace(/\[[^\]]*\]/g, m => '<mark class="hueco">' + m + '</mark>'); }
+function formatoDoc(texto){
+  const out = []; let buf = [];
+  const vaciar = () => { if (buf.length) { out.push('<p class="d-blk">' + buf.join("<br>") + "</p>"); buf = []; } };
+  String(texto || "").replace(/\r/g, "").split("\n").forEach(raw => {
+    const l = raw.trim();
+    if (!l) { vaciar(); return; }
+    let m;
+    if (TITULOS_DOC.includes(l)) { vaciar(); out.push('<h4 class="d-tit">' + esc(l) + "</h4>"); }
+    else if ((m = l.match(RE_ORD))) { vaciar(); out.push('<p class="d-ord"><strong>' + esc(m[1]) + ".</strong> " + huecos(m[2]) + "</p>"); }
+    else if ((m = l.match(RE_ETQ))) { vaciar(); out.push('<p class="d-ref"><strong>' + esc(m[1]) + ":</strong> " + huecos(m[2]) + "</p>"); }
+    else if ((m = l.match(RE_NUM))) { vaciar(); out.push('<p class="d-num"><strong>' + m[1] + ".</strong> " + huecos(m[2]) + "</p>"); }
+    else buf.push(huecos(l));
+  });
+  vaciar();
+  return out.join("");
+}
+
 function generarBorrador(){
   const a = S.a, b = BARRERAS[a.barrera], d = S.d;
   const ent = d.entidad.trim() || "[NOMBRE DE LA EPS]";
   const svc = d.servicio.trim() || b.placeholder;
   const desde = d.desde ? fecha(d.desde) : "[FECHA APROXIMADA DE INICIO]";
   const hechos = listaHechos(b, ent, svc, desde);
+  const relatoYaCuentaReclamo = /petici[oó]n|reclamo|queja|radic/i.test(S.relato || "");
   const fp = d.fechaPeticion ? fecha(d.fechaPeticion) : "[FECHA DE RADICACIÓN]";
   const grave = ["dolor","funcion"].includes(a.afectacion) || a.urgencia === "si";
   const esp = especialesDe(a);
@@ -898,7 +1171,7 @@ function generarBorrador(){
       "[CIUDAD], [FECHA]", "", "Señores", "Superintendencia Nacional de Salud", "",
       `Asunto: Queja contra ${ent} por barrera de acceso: ${b.asunto(svc)}`, "",
       `${identificacion(ent)}, presento queja por la presunta vulneración del derecho fundamental a la salud (Ley 1751 de 2015), con base en los siguientes hechos.`, "",
-      "HECHOS", ...num([...hechos, previa]), "",
+      "HECHOS", ...num([...hechos, ...(relatoYaCuentaReclamo ? [] : [previa])]), "",
       "PETICIONES",
       `1. Que se requiera a ${ent} para que garantice de manera efectiva ${b.asunto(svc)}.`,
       "2. Que se adelanten las actuaciones de inspección, vigilancia y control que correspondan.",
@@ -908,43 +1181,90 @@ function generarBorrador(){
     ].join("\n");
   }
 
-  // Tutela
-  const derechos = ["salud", "vida digna", ...(esp.includes("menor_edad") ? ["los derechos fundamentales de los niños"] : []),
-    ...(esp.includes("adulto_mayor") ? ["la protección de las personas de la tercera edad"] : []),
-    ...(esp.includes("discapacidad") ? ["la protección de las personas con discapacidad"] : []),
-    ...(esp.includes("embarazo") ? ["la protección especial de la mujer embarazada"] : [])];
-  const fund = ["Constitución Política, art. 49 (la atención de la salud es un servicio público a cargo del Estado) y art. 86 (acción de tutela).",
-    "Ley Estatutaria 1751 de 2015, arts. 2 y 6: la salud es un derecho fundamental autónomo y su garantía comprende la accesibilidad, la oportunidad y la continuidad.",
-    ...esp.map(k => `${NORMAS[ESPECIAL_NORMA[k]].nombre}: ${NORMAS[ESPECIAL_NORMA[k]].que}`),
-    ...(esp.length ? ["La persona afectada es un sujeto de especial protección constitucional, lo que exige una atención reforzada y una valoración flexible de los requisitos de la tutela."] : [])];
-  const pret = [
-    `Tutelar los derechos fundamentales invocados: ${derechos.join(", ")}.`,
-    `Ordenar a ${ent} que, en un plazo máximo de cuarenta y ocho (48) horas, ${b.accion(svc)}.`,
-    `Ordenar a ${ent} la atención integral en relación con la condición de salud de [PACIENTE], incluyendo lo que ordene el médico tratante [DIAGNÓSTICO, si lo tienes].`
+  // Tutela: sigue la estructura del formato (hechos, procedencia, concepto de violación, pretensión, pruebas, juramento, notificaciones)
+  const propio = a.quien !== "otro", menor = esp.includes("menor_edad");
+  const favor = propio ? "a mi favor" : "a favor de [NOMBRE DEL PACIENTE]";
+  const nombreAcc = "[NOMBRE COMPLETO]" + (propio ? "" : ", actuando en nombre de [NOMBRE DEL PACIENTE]");
+  const actuando = propio ? "actuando en nombre propio"
+    : (menor ? "actuando como representante legal del menor [NOMBRE DEL PACIENTE]" : "actuando en nombre y representación de [NOMBRE DEL PACIENTE]");
+
+  const legActiva = propio
+    ? `El accionante es afiliado(a) a ${ent} y titular del derecho fundamental a la salud cuya protección solicita, por lo que está legitimado(a) para actuar en nombre propio (Constitución Política, art. 86; Decreto 2591 de 1991, art. 10).`
+    : (menor
+      ? `El accionante actúa como representante legal del menor [NOMBRE DEL PACIENTE], afiliado a ${ent} y titular del derecho fundamental a la salud cuya protección se solicita (Decreto 2591 de 1991, art. 10).`
+      : `El accionante actúa en nombre de [NOMBRE DEL PACIENTE], afiliado(a) a ${ent}. [Explica por qué el(la) paciente no puede presentar la tutela por sí mismo(a); si tiene poder o autorización escrita, indícalo y anéxalo.] (Decreto 2591 de 1991, art. 10).`);
+  const legPasiva = `${ent} es la entidad encargada de garantizar la prestación de los servicios de salud a sus afiliados y a la que se atribuye la vulneración. La tutela procede contra particulares encargados de la prestación del servicio público de salud (Decreto 2591 de 1991, art. 42, numeral 2).`;
+
+  const sub = [];
+  if (a.previa === "sinrespuesta") sub.push(`Antes de acudir a la tutela se agotaron los medios al alcance del accionante: el ${fp} se presentó un reclamo ante ${ent} (radicado [NÚMERO DE RADICADO]), que no ha sido respondido dentro del plazo legal.`);
+  else if (a.previa === "negativa") sub.push(`Antes de acudir a la tutela se agotaron los medios al alcance del accionante: el ${fp} se presentó un reclamo ante ${ent} (radicado [NÚMERO DE RADICADO]), que fue respondido de forma negativa (se anexa la respuesta).`);
+  else sub.push(`[Aún no se ha presentado reclamo escrito ante ${ent}. Explica por qué la tutela procede de todas formas.]`);
+  if (grave || esp.length) {
+    const razones = [];
+    if (grave) razones.push("la demora agrava el estado de salud y existe riesgo de un perjuicio irremediable");
+    if (esp.length) razones.push("la persona afectada es un sujeto de especial protección constitucional");
+    sub.push(`Además, los demás mecanismos no son idóneos ni oportunos para esta situación: ${razones.join(" y ")}. Por eso la tutela procede como mecanismo de protección (Constitución Política, art. 86; Decreto 2591 de 1991, art. 6).`);
+  } else sub.push("Los mecanismos administrativos existentes no han resuelto la situación de manera efectiva ni oportuna (Decreto 2591 de 1991, art. 6).");
+  const inmediatez = `La vulneración comenzó el ${desde} y continúa hasta hoy. La tutela se presenta en un plazo razonable, mientras la afectación de los derechos es actual y permanente.`;
+
+  const violacion = [
+    "Derecho a la salud: la Constitución (art. 49) establece que la atención de la salud es un servicio público a cargo del Estado, y la Ley Estatutaria 1751 de 2015 la reconoce como derecho fundamental autónomo (art. 2). Su garantía comprende, entre otros elementos y principios, la accesibilidad, la oportunidad y la continuidad de la atención (art. 6)."
   ];
-  if (grave) pret.push(`Como medida provisional (Decreto 2591 de 1991, art. 7), ordenar de inmediato a ${ent} garantizar ${svc} mientras se decide la tutela, por el riesgo para la salud descrito en los hechos.`);
+  if (esp.length) violacion.push("Protección reforzada: la persona afectada es un sujeto de especial protección constitucional. " + esp.map(k => NORMAS[ESPECIAL_NORMA[k]].que).join(" ") + " Esto exige una atención prioritaria y una valoración flexible de los requisitos de la tutela.");
+  if (grave) violacion.push("Vida digna: la falta de atención oportuna pone en riesgo la vida y la dignidad de la persona afectada (Constitución Política, arts. 1 y 11).");
+  violacion.push("Aplicación al caso: " + VIOLACION[a.barrera](ent, svc));
+
+  const pret = [
+    `En un plazo máximo de cuarenta y ocho (48) horas, ${b.accion(svc)}.`,
+    `Garantice la atención integral en salud que requiera [PACIENTE] en relación con su condición [DIAGNÓSTICO, si lo tienes], incluyendo lo que ordene el médico tratante.`
+  ];
+  const dersMostrar = "a la salud y a la vida digna" + (esp.length ? ", así como " + esp.map(k => DER_ESP[k]).join("; ") : "");
+  const pruebas = anexosLista().map((t, k) => `${k + 1}. ${t}`);
+
   return [
-    "[CIUDAD], [FECHA]", "", "Señor(a)", "JUEZ DE LA REPÚBLICA (REPARTO)", "E. S. D.", "",
-    "Referencia: ACCIÓN DE TUTELA",
-    `Accionante: ${S.a.quien === "otro" ? "[NOMBRE COMPLETO], en nombre de [NOMBRE DEL PACIENTE]" : "[NOMBRE COMPLETO]"}`,
-    `Accionada: ${ent}`,
-    `Derechos invocados: ${derechos.join(", ")}`, "",
-    `${identificacion(ent)}, interpongo acción de tutela (Constitución Política, art. 86, y Decreto 2591 de 1991) contra ${ent}, por la vulneración de los derechos fundamentales mencionados, con base en los siguientes hechos.`,
-    ...(S.a.quien === "otro" ? ["[Si el(la) paciente es adulto(a), explica aquí por qué no puede presentar la tutela por sí mismo(a). Si es menor de edad, indica que actúas como su representante.]"] : []), "",
-    "HECHOS", ...num([...hechos, previa]), "",
-    "FUNDAMENTOS", ...fund.map(t => `- ${t}`), "",
-    "PRETENSIONES", ...num(pret), "",
+    "Señor(a)", "JUEZ (REPARTO)", "Ciudad", "",
+    "REFERENCIA: ACCIÓN DE TUTELA",
+    `ACCIONANTE: ${nombreAcc}`,
+    `ACCIONADO: ${ent}`, "",
+    `[NOMBRE COMPLETO], mayor de edad, residente en [CIUDAD], identificado(a) con la cédula de ciudadanía cuyo número aparece al pie de mi firma, ${actuando}, acudo respetuosamente ante su Despacho para promover ACCIÓN DE TUTELA, de conformidad con el artículo 86 de la Constitución Política y el Decreto 2591 de 1991, para que judicialmente se conceda la protección de los derechos constitucionales fundamentales que considero vulnerados por las acciones y omisiones de ${ent}. Fundamento la petición en los siguientes:`, "",
+    "HECHOS", ...[...hechos, ...(relatoYaCuentaReclamo ? [] : [previa])].map((t, k) => `${ordM(k)}. ${t}`), "",
+    "PROCEDENCIA DE LA ACCIÓN",
+    `Legitimidad por activa: ${legActiva}`,
+    `Legitimidad por pasiva: ${legPasiva}`,
+    `Subsidiariedad: ${sub.join(" ")}`,
+    `Inmediatez: ${inmediatez}`, "",
+    "CONCEPTO DE VIOLACIÓN", ...violacion.map(t => t + "\n"),
+    "PRETENSIÓN",
+    `Con fundamento en los hechos narrados y en las consideraciones expuestas, respetuosamente solicito al señor Juez TUTELAR ${favor} los derechos constitucionales fundamentales invocados (${dersMostrar}), ORDENÁNDOLE al accionado que:`,
+    ...pret.map((t, k) => `${ordF(k)}. ${t}`), "",
+    ...(grave ? ["MEDIDA PROVISIONAL", `Solicito, además, como medida provisional (Decreto 2591 de 1991, art. 7), que mientras se decide la tutela se ordene a ${ent} garantizar ${svc}, por el riesgo para la salud descrito en los hechos.`, ""] : []),
+    "PRUEBAS", ...pruebas, "",
     "JURAMENTO",
-    "Bajo la gravedad de juramento manifiesto que no he presentado otra acción de tutela por los mismos hechos y derechos (Decreto 2591 de 1991, art. 37).", "",
-    "PRUEBAS", ...anexosLista(), "",
+    "Bajo la gravedad del juramento manifiesto que, por los mismos hechos y derechos, no he presentado petición similar ante ninguna autoridad judicial (Decreto 2591 de 1991, art. 37).", "",
     "NOTIFICACIONES",
-    `Accionada: [DIRECCIÓN Y CORREO DE NOTIFICACIONES JUDICIALES DE ${ent}]`,
-    "Accionante: Dirección: [DIRECCIÓN]  Correo electrónico: [CORREO]  Teléfono: [TELÉFONO]", "",
-    ...FIRMA
+    `Las mías las recibiré en el teléfono [TELÉFONO] y el correo electrónico [CORREO]. El accionado en la dirección de su sede administrativa [DIRECCIÓN Y CORREO DE NOTIFICACIONES JUDICIALES DE ${ent}].`, "",
+    "Ruego, señor Juez, ordenar el trámite de ley para esta petición.", "",
+    "Del señor Juez, atentamente:", "",
+    "Nombre: [NOMBRE COMPLETO]",
+    "Firma: ______________________________",
+    "Cédula de Ciudadanía: [NÚMERO]"
   ].join("\n");
 }
 
-function actualizarBorrador(){ const t = document.getElementById("borrador"); if (t) t.value = generarBorrador(); }
+function mostrarBorrador(regenerar){
+  const t = document.getElementById("borrador"); if (!t) return;
+  if (regenerar || !S.editado || !S.textoBorr) { S.textoBorr = generarBorrador(); S.editado = false; }
+  t.value = S.textoBorr; renderVista();
+}
+function renderVista(){ const v = document.getElementById("doc-vista"); if (v) v.innerHTML = formatoDoc(S.textoBorr); }
+function descargarWord(){
+  const t = document.getElementById("borrador"); if (!t) return;
+  const html = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="utf-8"><title>Escrito</title><style>body{font-family:"Times New Roman",serif;font-size:12pt;line-height:1.5} p{margin:0 0 8pt;text-align:justify} h4{text-align:center;margin:16pt 0 6pt;font-size:12pt} mark{background:#FFF1BF}</style></head><body>' + formatoDoc(t.value) + "</body></html>";
+  const url = URL.createObjectURL(new Blob(["\ufeff", html], { type:"application/msword" }));
+  const a = document.createElement("a"); a.href = url;
+  a.download = { eps:"reclamo-eps.doc", super:"queja-supersalud.doc", tutela:"tutela.doc" }[S.tipo] || "escrito.doc";
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000); setEstado("Archivo descargado.");
+}
 
 /* ==================================================================
    ANÁLISIS CON IA
@@ -1034,6 +1354,42 @@ async function analizar(){
 }
 
 /* ==================================================================
+   GUARDADO DEL CASO (solo con autorización; ver api/caso.js)
+   ================================================================== */
+async function guardarCaso(){
+  if (!CONSENT || GUARDA.activo !== true || S.guardado === "borrado") return;
+  const yo = S;
+  const r = calcularRuta(S.a);
+  const info = (S.analisis && S.analisis.datos_archivos) || [];
+  const cuerpo = {
+    consentimiento:{ acepta:true, version:CONFIG.versionConsentimiento, ia:!!CONSENT.ia },
+    id: S.cod ? S.cod.id : undefined, clave: S.cod ? S.cod.clave : undefined,
+    relato_original:S.relatoOrig, relato_corregido:S.relato, usa_ia:!!S.usaIA,
+    respuestas:S.a, datos:{ entidad:S.d.entidad, servicio:S.d.servicio, desde:S.d.desde },
+    ruta:{ principal:DOC_DE_PASO[r.principal], titular:r.titular },
+    archivos: S.archivos.map((f, i) => { const x = info.find(y => y.indice === i); return { tipo: x ? x.tipo : (f.tipoDoc || "otro"), resumen: x ? x.resumen : "" }; }),
+    resumen_ia: S.analisis ? S.analisis.resumen_simple : ""
+  };
+  try {
+    const resp = await fetch("/api/caso", { method:"POST", headers:{ "Content-Type":"application/json" }, body:JSON.stringify(cuerpo) });
+    const j = await resp.json().catch(() => ({}));
+    if (yo !== S) return;
+    if (!resp.ok) throw new Error("x");
+    S.cod = { id:j.id, clave:j.clave }; S.guardado = "ok";
+  } catch (e) { if (yo !== S) return; S.guardado = "error"; }
+  if (S.pantalla === "resultado") render();
+}
+async function borrarCaso(){
+  if (!S.cod || !confirm("¿Borrar tu caso guardado? Esta acción no se puede deshacer.")) return;
+  try {
+    const resp = await fetch("/api/caso", { method:"DELETE", headers:{ "Content-Type":"application/json" }, body:JSON.stringify(S.cod) });
+    if (!resp.ok) throw new Error("x");
+    S.cod = null; S.guardado = "borrado";
+  } catch (e) { alert("No pude borrar el caso ahora. Inténtalo de nuevo o escribe al responsable."); }
+  if (S.pantalla === "resultado") render();
+}
+
+/* ==================================================================
    VOZ Y LECTURA EN VOZ ALTA
    ================================================================== */
 function dictar(){
@@ -1074,7 +1430,15 @@ document.addEventListener("click", e => {
   const el = e.target.closest("[data-act]"); if (!el) return;
   const act = el.dataset.act, q = PREGUNTAS[S.i];
 
-  if (act === "empezarIA") { S.usaIA = true; ir("cuenta"); }
+  if (act === "empezar") ir(CONSENT ? "modo" : "consent");
+  else if (act === "aceptar") { if (S.chkDatos && GUARDA.activo !== null) { CONSENT = { ia: !!S.chkIA }; ir("modo"); } }
+  else if (act === "noAcepto") { CONSENT = null; S.chkDatos = false; S.chkIA = false; ir("rechazo"); }
+  else if (act === "irConsent") ir("consent");
+  else if (act === "irModo") ir("modo");
+  else if (act === "verPolitica") { if (S.pantalla !== "politica") S.desdePol = S.pantalla; ir("politica"); }
+  else if (act === "cerrarPolitica") ir(S.desdePol && S.desdePol !== "politica" ? S.desdePol : "intro");
+  else if (act === "borrarCaso") borrarCaso();
+  else if (act === "empezarIA") { if (!(CONSENT && CONSENT.ia)) return ir("consent"); S.usaIA = true; ir("cuenta"); }
   else if (act === "empezarManual") { S.usaIA = false; ir("cuenta"); }
   else if (act === "irIntro") ir("intro");
   else if (act === "analizar") analizar();
@@ -1102,9 +1466,11 @@ document.addEventListener("click", e => {
     else if (S.i > 0) { S.i--; ir("preg"); }
     else ir(S.relato ? "revisar" : "cuenta");
   }
-  else if (act === "reiniciar") { TOK++; if (CTRL) CTRL.abort(); if (REC) REC.stop(); S = nuevoEstado(); ir("intro"); }
-  else if (act === "borrador") { S.tipo = el.dataset.t || "eps"; ir("borrador"); }
-  else if (act === "tipo") { S.tipo = el.dataset.t; render(); }
+  else if (act === "reiniciar") { TOK++; if (CTRL) CTRL.abort(); if (REC) REC.stop(); S = nuevoEstado(); ir(CONSENT ? "modo" : "intro"); }
+  else if (act === "borrador") { S.tipo = el.dataset.t || "eps"; S.editado = false; S.vista = "doc"; ir("borrador"); }
+  else if (act === "tipo") { S.tipo = el.dataset.t; S.editado = false; render(); }
+  else if (act === "vista") { S.vista = el.dataset.v; render(); }
+  else if (act === "descargarWord") descargarWord();
   else if (act === "volverRuta") ir("resultado");
   else if (act === "copiar") copiar();
   else if (act === "descargar") descargar();
@@ -1119,11 +1485,13 @@ document.addEventListener("input", e => {
   const t = e.target;
   if (t.dataset.rel === "orig") S.relatoOrig = t.value;
   else if (t.dataset.rel === "corr") S.relato = t.value;
-  else if (t.dataset.campo) { S.d[t.dataset.campo] = t.value; actualizarBorrador(); }
+  else if (t.dataset.campo) { S.d[t.dataset.campo] = t.value; S.editado = false; mostrarBorrador(true); }
+  else if (t.id === "borrador") { S.textoBorr = t.value; S.editado = true; renderVista(); }
 });
 document.addEventListener("change", e => {
   const t = e.target;
-  if (t.id === "consent") { S.consentimiento = t.checked; render(); const c = document.getElementById("consent"); if (c) c.focus(); }
+  if (t.id === "chk-datos") { S.chkDatos = t.checked; render(); const c = document.getElementById("chk-datos"); if (c) c.focus(); }
+  else if (t.id === "chk-ia") { S.chkIA = t.checked; render(); const c = document.getElementById("chk-ia"); if (c) c.focus(); }
   else if (t.dataset && t.dataset.tipoI !== undefined) { const f = S.archivos[Number(t.dataset.tipoI)]; if (f) f.tipoDoc = t.value; }
   else if (t.id === "f-arch" || t.id === "f-cam") { if (t.files && t.files.length) agregarArchivos(t.files); }
 });
@@ -1143,7 +1511,7 @@ function descargar(){
   document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000); setEstado("Archivo descargado.");
 }
 function imprimir(soloBorrador){
-  if (soloBorrador) { const t = document.getElementById("borrador"); document.getElementById("print-area").textContent = t ? t.value : ""; document.body.classList.add("imprimir-borrador"); }
+  if (soloBorrador) { const t = document.getElementById("borrador"); document.getElementById("print-area").innerHTML = formatoDoc(t ? t.value : ""); document.body.classList.add("imprimir-borrador"); }
   else app.querySelectorAll("details.paso").forEach(d => d.setAttribute("open", ""));
   window.print();
 }
@@ -1166,7 +1534,9 @@ if (CONFIG.encuestaUrl) { const p = document.getElementById("pie-extra"), a = do
 render();
 fetch(CONFIG.apiUrl, { method:"GET" }).then(r => r.json()).then(j => { IA_DISP = !!(j && j.ia); }).catch(() => { IA_DISP = false; })
   .then(() => { S.ia.disponible = IA_DISP; })
-  .then(() => { if (S.pantalla === "intro") render(); });
+  .then(() => { if (["intro","modo"].includes(S.pantalla)) render(); });
+fetch("/api/caso", { method:"GET" }).then(r => r.json()).then(j => { GUARDA = { activo:!!(j && j.activo), dias:(j && j.dias) || 365 }; }).catch(() => { GUARDA = { activo:false, dias:365 }; })
+  .then(() => { if (["consent","politica"].includes(S.pantalla)) render(); });
 </script>
 </body>
 </html>

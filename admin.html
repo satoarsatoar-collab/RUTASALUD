@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'unsafe-inline'; connect-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'; frame-ancestors 'none'">
+<title>Ruta Salud · Administración</title>
+<style>
+:root{--tinta:#14202B;--texto:#25323E;--suave:#5A6672;--linea:#D8DDE2;--linea-f:#B4BDC6;--lienzo:#F4F5F4;--hoja:#fff;--acento:#0E4A5A;--acento-o:#093845;--tinte:#E7EFF1;--rojo:#A3262A;--rojo-t:#FBEDED;--ambar:#7A5000;--ambar-t:#FBF3E0;--r:4px;
+--serif:Newsreader,"Iowan Old Style","Palatino Linotype",Georgia,serif;--sans:"Public Sans",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--lienzo);color:var(--texto);font:1rem/1.5 var(--sans)}
+h1,h2{font-family:var(--serif);font-weight:600;color:var(--tinta);margin:0 0 .4em}
+.cab{background:var(--hoja);border-bottom:1px solid var(--linea)}
+.cab-in{max-width:1240px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.cab strong{font:600 1.3rem var(--serif);color:var(--tinta)}
+.cab .etq{font-size:.8rem;font-weight:700;color:var(--acento);border:1px solid var(--acento);border-radius:3px;padding:0 8px}
+.cab .der{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+main{max-width:1240px;margin:0 auto;padding:24px}
+button{font:inherit;cursor:pointer}
+.btn{background:var(--acento);color:#fff;border:1.5px solid var(--acento);border-radius:var(--r);padding:9px 16px;font-weight:700;min-height:42px}
+.btn:hover{background:var(--acento-o)}
+.btn.sec{background:var(--hoja);color:var(--acento)}
+.btn.sec:hover{background:var(--tinte)}
+.btn.rojo{background:var(--rojo);border-color:var(--rojo)}
+.login{max-width:420px;margin:12vh auto;background:var(--hoja);border:1px solid var(--linea-f);border-radius:var(--r);padding:28px}
+.login input{width:100%;font:inherit;padding:11px 12px;border:1px solid var(--linea-f);border-radius:var(--r);margin:6px 0 14px;min-height:46px}
+.err{color:var(--rojo);min-height:1.4em;margin:0 0 10px;font-size:.95rem}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:0 0 20px}
+.kpi{background:var(--hoja);border:1px solid var(--linea);border-radius:var(--r);padding:12px 16px}
+.kpi b{display:block;font:600 1.8rem var(--serif);color:var(--tinta)}
+.kpi span{color:var(--suave);font-size:.88rem}
+.filtros{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 14px}
+.filtros input,.filtros select{font:inherit;padding:8px 10px;border:1px solid var(--linea-f);border-radius:var(--r);background:var(--hoja);min-height:42px}
+.filtros input{flex:1 1 240px}
+.grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:980px){.grid{grid-template-columns:1fr}}
+.tabla{background:var(--hoja);border:1px solid var(--linea);border-radius:var(--r);overflow:auto;max-height:72vh}
+table{border-collapse:collapse;width:100%;font-size:.93rem}
+th{position:sticky;top:0;background:#EEF1F2;text-align:left;font-weight:700;color:var(--tinta);padding:9px 10px;border-bottom:1px solid var(--linea-f);white-space:nowrap}
+td{padding:9px 10px;border-bottom:1px solid var(--linea);vertical-align:top}
+tr.fila{cursor:pointer}
+tr.fila:hover{background:var(--tinte)}
+tr.fila.sel{background:var(--tinte);box-shadow:inset 3px 0 0 var(--acento)}
+.tag{display:inline-block;font-size:.78rem;font-weight:700;border:1px solid var(--linea-f);border-radius:3px;padding:0 7px;white-space:nowrap}
+.tag.urg{color:var(--rojo);border-color:var(--rojo);background:var(--rojo-t)}
+.tag.duda{color:var(--ambar);border-color:#D9B25A;background:var(--ambar-t)}
+.det{background:var(--hoja);border:1px solid var(--linea-f);border-radius:var(--r);padding:18px 20px;position:sticky;top:12px;max-height:80vh;overflow:auto}
+.det h2{font-size:1.3rem}
+.det dl{margin:0 0 12px;display:grid;grid-template-columns:130px 1fr;gap:4px 12px;font-size:.93rem}
+.det dt{color:var(--suave)}
+.det dd{margin:0;overflow-wrap:anywhere}
+.det .txt{white-space:pre-wrap;background:#F8F9F9;border:1px solid var(--linea);border-radius:var(--r);padding:10px 12px;font-size:.95rem;margin:4px 0 14px;overflow-wrap:anywhere}
+.det h3{font-size:.95rem;margin:14px 0 2px;color:var(--tinta)}
+.vacio{padding:28px;color:var(--suave);text-align:center}
+.nota{font-size:.88rem;color:var(--suave);margin:10px 0 0}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<header class="cab"><div class="cab-in">
+  <strong>Ruta Salud</strong><span class="etq">Administración</span>
+  <div class="der" id="acciones" hidden>
+    <button class="btn sec" id="b-actualizar" type="button">Actualizar</button>
+    <button class="btn sec" id="b-csv" type="button">Exportar CSV</button>
+    <button class="btn sec" id="b-salir" type="button">Cerrar sesión</button>
+  </div>
+</div></header>
+
+<main>
+  <section id="login" class="login">
+    <h1 style="font-size:1.6rem">Acceso del equipo</h1>
+    <p style="color:var(--suave);margin:0 0 .6em">Ingresa la clave de administración. Los casos contienen datos de salud: no compartas la clave ni dejes la sesión abierta.</p>
+    <form id="f-login" autocomplete="off">
+      <label for="clave">Clave</label>
+      <input id="clave" type="password" autocomplete="off" required>
+      <p class="err" id="err" role="alert"></p>
+      <button class="btn" type="submit" id="b-entrar">Entrar</button>
+    </form>
+  </section>
+
+  <section id="panel" hidden>
+    <div class="kpis" id="kpis"></div>
+    <div class="filtros">
+      <input id="q" type="search" placeholder="Buscar en el relato, entidad o servicio…" aria-label="Buscar">
+      <select id="f-barrera" aria-label="Filtrar por barrera"><option value="">Todas las barreras</option></select>
+      <select id="f-urg" aria-label="Filtrar por urgencia"><option value="">Toda urgencia</option><option value="si">Urgencia: sí</option><option value="duda">Urgencia: duda</option><option value="no">Urgencia: no</option></select>
+      <select id="f-ruta" aria-label="Filtrar por ruta"><option value="">Toda ruta</option><option value="eps">Reclamo a la EPS</option><option value="super">Queja a Supersalud</option><option value="tutela">Tutela</option></select>
+    </div>
+    <div class="grid">
+      <div>
+        <div class="tabla" id="tabla-wrap"></div>
+        <p class="nota" id="conteo"></p>
+      </div>
+      <aside class="det" id="detalle" aria-live="polite"><div class="vacio">Selecciona un caso para ver el detalle.</div></aside>
+    </div>
+  </section>
+</main>
+<script src="/admin-panel.js"></script>
+</body>
+</html>

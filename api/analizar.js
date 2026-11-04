@@ -4,8 +4,9 @@
  * se los pasa a Claude y devuelve datos ESTRUCTURADOS. La IA solo extrae y
  * ordena: la recomendación del mecanismo la calculan reglas en el navegador.
  *
- * Privacidad: no escribe en disco ni en base de datos y no registra el contenido
- * de las solicitudes (solo códigos de estado).
+ * Privacidad: esta función no escribe en disco ni en base de datos y no registra el
+ * contenido de las solicitudes (solo códigos de estado). El guardado del caso, solo con
+ * autorización expresa de la persona, está en api/caso.js. Los archivos nunca se guardan.
  */
 
 const MODEL = process.env.CLAUDE_MODEL || 'claude-sonnet-5';

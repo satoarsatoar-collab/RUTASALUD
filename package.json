@@ -5,7 +5,7 @@
   "description": "Orientador de mecanismos de protección del derecho a la salud (Colombia) con lectura de archivos y corrección de texto por IA.",
   "scripts": {
     "dev": "node server.js",
-    "test": "node test/mock.test.js"
+    "test": "node test/mock.test.js && node test/caso.test.js && node test/redis.test.js"
   },
   "engines": { "node": ">=18" }
 }
